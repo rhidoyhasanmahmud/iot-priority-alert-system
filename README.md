@@ -4,6 +4,20 @@ A reproducible framework for exploring how scheduling decisions affect urgent Io
 
 The project combines a local MQTT demonstration with a deterministic experiment runner. Its research direction is to study deadline performance and waiting-time tradeoffs using strong baselines and controlled workloads.
 
+## High-level architecture
+
+![High-level architecture showing the separate live MQTT demo and reproducible simulation paths, with planned research extensions](docs/images/high-level-architecture.png)
+
+The live demo and simulator are separate execution paths. The simulator does not send traffic through the broker. Gray boxes show planned extensions.
+
+## Alert processing flow
+
+![Current MQTT alert flow from payload validation through bounded queue admission, FIFO or priority selection, processing and result output](docs/images/alert-processing-flow.png)
+
+This flow describes the current live demo. Fixed aging is available in the simulation pilot; deduplication and deadline metadata remain planned for the live path.
+
+Editable [architecture SVG](docs/images/high-level-architecture.svg) and [flow SVG](docs/images/alert-processing-flow.svg) are included. Regenerate both formats with `python tools/render_diagrams.py` after installing Pillow.
+
 ## Research proposal
 
 Read the [research proposal](docx/IoT_Alert_Processing_Research_Proposal.docx) for the problem, research questions, candidate policy, experiment design and delivery plan. The proposal describes planned work; it does not report measured improvements or establish algorithmic novelty.
