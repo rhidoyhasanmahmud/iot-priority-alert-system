@@ -21,6 +21,28 @@ class SchedulingTests(unittest.TestCase):
                 self.assertGreaterEqual(row['wait_s'], 0)
                 self.assertAlmostEqual(row['finish_s']-row['start_s'], .01)
 
+    def test_aging_promotes_old_low_priority(self):
+        events = [Alert(0, 0, 2), Alert(1, .01, 2), Alert(2, .9, 0)]
+        self.assertEqual([r['id'] for r in simulate(events, 'priority', 1)], [0, 2, 1])
+        self.assertEqual([r['id'] for r in simulate(events, 'aging', 1, .1)], [0, 1, 2])
+
+    def test_large_aging_interval_matches_strict_priority(self):
+        events = workload(500, 120, 42)
+        a = simulate(events, 'aging', .01, 1000)
+        b = simulate(events, 'priority', .01)
+        self.assertEqual([{k:v for k,v in r.items() if k != 'policy'} for r in a],
+                         [{k:v for k,v in r.items() if k != 'policy'} for r in b])
+        for policy in ('fifo', 'priority', 'aging'):
+            rows = simulate(events, policy, .01)
+            self.assertEqual(len(rows), 500)
+            self.assertEqual(len({r['id'] for r in rows}), 500)
+            self.assertTrue(all(r['start_s'] >= r['arrival_s'] for r in rows))
+
+    def test_invalid_aging_interval(self):
+        for value in (0, -1, float('nan')):
+            with self.assertRaises(ValueError):
+                simulate([], 'aging', 1, value)
+
     def test_idle_and_empty(self):
         self.assertEqual(simulate([], 'fifo', 1), [])
         rows = simulate([Alert(0, 3, 2), Alert(1, 10, 0)], 'priority', 1)

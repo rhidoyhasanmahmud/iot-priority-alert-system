@@ -27,3 +27,8 @@ The demo reports receiver-local time from enqueue to completion, excluding senso
 
 ## Initial development milestones
 Weeks 1–2: problem and proposal. Weeks 3–4: MQTT and message flow. Weeks 5–6: scheduler and tests. Weeks 7–9: experiment matrix. Weeks 10–12: analysis, limitations and report. The expanded research direction is described in [the proposal](../docx/IoT_Alert_Processing_Research_Proposal.docx).
+
+
+## Evidence update
+
+The simulator also supports fixed aging through its Python API and the pilot runner. See [pilot evidence](../evidence/pilot/README.md), [application scenario](application-scenario.md) and [related-work comparison](related-work.md). The original two-policy CLI and MQTT demo retain their existing scope.

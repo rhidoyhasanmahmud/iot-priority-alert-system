@@ -8,6 +8,14 @@ The project combines a local MQTT demonstration with a deterministic experiment 
 
 Read the [research proposal](docx/IoT_Alert_Processing_Research_Proposal.docx) for the problem, research questions, candidate policy, experiment design and delivery plan. The proposal describes planned work; it does not report measured improvements or establish algorithmic novelty.
 
+## Research evidence
+
+- [Related-work comparison and complete verified citations](docs/related-work.md)
+- [Application scenario and measurement boundary](docs/application-scenario.md)
+- [Baseline pilot with paired uncertainty and reproduction instructions](evidence/pilot/README.md)
+
+The pilot demonstrates a tradeoff under synthetic traffic. It does not establish candidate-policy improvements or novelty.
+
 ## Implementation status
 
 | Component | Status |
@@ -16,7 +24,8 @@ Read the [research proposal](docx/IoT_Alert_Processing_Research_Proposal.docx) f
 | Seeded arrivals and per-event CSV output | Implemented in the simulator |
 | Local MQTT publisher and receiver | Implemented; live integration validation pending |
 | Automated scheduling tests | Implemented |
-| Fixed aging and earliest deadline first | Planned |
+| Fixed aging | Implemented in the simulator and baseline pilot |
+| Earliest deadline first | Planned |
 | Congestion-aware aging candidate | Proposed for investigation |
 | Deadlines, bounded simulation queues and loss accounting | Planned |
 | Repeated experiment matrix, ablations and confidence intervals | Planned |
@@ -66,7 +75,7 @@ On Windows activate the virtual environment using `.venv\Scripts\activate` inste
 
 ## Roadmap
 
-1. Verify related work and refine the contribution.
+1. Complete full-text appraisal of the closest related work and refine the contribution.
 2. Add deadlines, bounded queues, complete event accounting and stronger baselines.
 3. Evaluate the candidate policy against fixed aging and earliest deadline first.
 4. Validate selected scenarios in a controlled MQTT testbed.

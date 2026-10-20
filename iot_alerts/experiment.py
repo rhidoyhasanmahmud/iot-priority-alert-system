@@ -25,9 +25,11 @@ def workload(count, rate, seed):
     return events
 
 
-def simulate(events, policy, service_time):
-    if policy not in ('fifo', 'priority') or service_time <= 0:
+def simulate(events, policy, service_time, aging_interval=.1):
+    if policy not in ('fifo', 'priority', 'aging') or not math.isfinite(service_time) or service_time <= 0:
         raise ValueError('Invalid policy or service time')
+    if not math.isfinite(aging_interval) or aging_interval <= 0:
+        raise ValueError('Aging interval must be positive and finite')
     events = sorted(events, key=lambda e: (e.arrival, e.id))
     pending, rows = [], []
     clock, index, order = 0.0, 0, 0
@@ -39,7 +41,15 @@ def simulate(events, policy, service_time):
             key = event.priority if policy == 'priority' else 0
             heapq.heappush(pending, (key, index, event))
             index += 1
-        _, _, event = heapq.heappop(pending)
+        if policy == 'aging':
+            # Recompute at dispatch; cached heap priorities would become stale.
+            selected = min(range(len(pending)), key=lambda i: (
+                max(0, pending[i][2].priority - math.floor((clock-pending[i][2].arrival)/aging_interval)),
+                pending[i][1]))
+            _, _, event = pending.pop(selected)
+            heapq.heapify(pending)
+        else:
+            _, _, event = heapq.heappop(pending)
         start = clock
         clock += service_time
         rows.append(dict(policy=policy, id=event.id, priority=event.priority,
@@ -56,7 +66,7 @@ def percentile(values, fraction):
 
 def write_csv(path, rows):
     with path.open('w', newline='') as stream:
-        writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
+        writer = csv.DictWriter(stream, fieldnames=list(rows[0]), lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 
