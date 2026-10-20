@@ -5,9 +5,9 @@ Explore the tradeoff between urgent alert latency and routine event waiting usin
 - **Policies:** FIFO, strict priority, fixed aging, EDF and experimental guarded adaptive aging.
 - **Simulator:** bounded or unbounded queues, per-event service times and deadline metadata.
 - **Experiments:** seeded normal/burst traffic, variable processing costs, trace replay and deadline/loss summaries.
-- **MQTT demo:** simulated publishers, Mosquitto and a single processing worker.
+- **MQTT demo:** eight shared scheduler policies, bounded deduplication and a draining worker.
 
-Research prototype. Fixed aging runs in the simulator; the live demo supports FIFO and strict priority.
+Research prototype. Simulation and live MQTT share scheduler selection; controlled live performance evaluation remains pending.
 
 ## Architecture
 

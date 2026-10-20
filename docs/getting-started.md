@@ -41,9 +41,9 @@ On Windows, activate with `.venv\Scripts\activate`. After the receiver prints `R
 python -m iot_alerts.mqtt_demo publish --count 500
 ```
 
-The receiver prints each processed event and receiver-local latency. Run one receiver at a time. Restart it with `--policy fifo` to try FIFO. Fixed aging is available in the simulation, not the live receiver.
+The receiver prints completions and writes receipts, completion CSV, configuration and a shutdown summary to `results/live`. Use a fresh `--output` directory for each run. All eight scheduler policies are available; see [live scheduling and deduplication](live-mqtt.md) for deadlines, cache limits and exact timing semantics. Run one receiver at a time.
 
-Stop the receiver with Ctrl+C and remove the broker with `docker compose down`. The broker permits anonymous access and publishes only on localhost for laboratory use. Live integration validation remains pending.
+Stop the receiver with Ctrl+C and remove the broker with `docker compose down`. The broker permits anonymous access and publishes only on localhost for laboratory use. Functional broker smoke checks are available; controlled live performance validation remains pending.
 
 ## Diagram sources
 
@@ -61,6 +61,6 @@ The renderer expects DejaVu Sans fonts in the paths defined in the script.
 
 The simulator models one worker with complete drain. The original experiment CLI and pilot use an unbounded queue; the [foundation runner](simulator-foundation.md) also supports bounded queues and per-event metadata. The live demo uses a bounded queue and synthetic processing. Their latency measurements have different boundaries; neither establishes real hardware end-to-end performance.
 
-Bounded simulation queues and [deadline/loss summaries](deadline-and-loss-metrics.md) are available through the foundation runner. [EDF and four-policy comparison](edf-baseline.md), [normal/burst workloads, variable service costs and exact trace replay](workload-generator.md) are also available. Planned work includes the candidate congestion-aware aging policy, broader repeated experiments and controlled MQTT validation. See the [proposal](../docx/IoT_Alert_Processing_Research_Proposal.docx) and [design](design-and-evaluation.md).
+Bounded simulation queues and [deadline/loss summaries](deadline-and-loss-metrics.md) are available through the foundation runner. [EDF and four-policy comparison](edf-baseline.md), [normal/burst workloads, variable service costs and exact trace replay](workload-generator.md) are also available. The candidate scheduler, staged experiments, statistical analysis and sensitivity/ablation tools are implemented. Full repeated experiments and controlled MQTT validation remain pending. See the [proposal](../docx/IoT_Alert_Processing_Research_Proposal.docx) and [design](design-and-evaluation.md).
 
 A reusable open-source release is planned. Select a license and add contribution guidance before that release.
