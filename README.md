@@ -41,7 +41,7 @@ Results are saved as CSV files in `results/run/`.
 - [EDF and baseline comparison](docs/edf-baseline.md)
 - [Workload generation and replay](docs/workload-generator.md)
 - [Deadline and loss metrics](docs/deadline-and-loss-metrics.md)
-- [Statistical analysis and plots](docs/research/statistical-analysis.md)
+- [Statistical analysis and plots](docs/research/statistical-analysis.md) · [Sensitivity and ablation](docs/research/robustness.md)
 - [Staged experiment runner](docs/research/experiment-runner.md)
 - [Candidate scheduler usage](docs/research/candidate-implementation.md)
 - [Research design review and candidate specification](docs/research/design-review.md)

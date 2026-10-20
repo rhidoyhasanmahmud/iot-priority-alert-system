@@ -28,3 +28,7 @@ jobs:
       - run: python -m iot_alerts.study evaluate --output results/study-smoke
       - run: python -m iot_alerts.study verify --output results/study-smoke
       - run: python -m iot_alerts.analysis --study results/study-smoke --output results/study-analysis-smoke --plots
+      - run: python -m iot_alerts.robustness ablation --input results/study-smoke --output results/ablation-smoke --plots
+      - run: python -m iot_alerts.robustness plan --input results/study-smoke --output results/sensitivity-smoke
+      - run: python -m iot_alerts.robustness run --output results/sensitivity-smoke
+      - run: python -m iot_alerts.robustness sensitivity --input results/sensitivity-smoke --output results/sensitivity-analysis-smoke --plots

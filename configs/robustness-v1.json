@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "scope": "secondary exploratory sensitivity; no retuning or primary claims",
+  "registered_local_date": "2026-10-21",
+  "interval_factors": [0.5, 1.0, 2.0],
+  "estimate_factors": [0.5, 1.0, 2.0],
+  "primary_seeds": [5001, 5002, 5003, 5004, 5005, 5006, 5007, 5008, 5009, 5010, 5011, 5012, 5013, 5014, 5015, 5016, 5017, 5018, 5019, 5020, 5021, 5022, 5023, 5024, 5025, 5026, 5027, 5028, 5029, 5030],
+  "smoke_seeds": [5101, 5102],
+  "design": "one factor at a time; scale both aging bounds together or service estimate alone; deduplicate baseline",
+  "intervals": "95% seed-paired percentile bootstrap; exploratory, no multiplicity adjustment"
+}
