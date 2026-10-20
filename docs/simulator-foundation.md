@@ -8,7 +8,7 @@ The shared engine runs one worker and one waiting queue. FIFO, strict priority a
 python -m iot_alerts.foundation --policy aging --queue-capacity 10 --service-ms 10 --deadline-ms 100 --output results/foundation
 ```
 
-The command writes `events.csv` with one outcome for every generated event and `config.json` with settings and basic counts. Completed events have start, finish, waiting and response times. Rejected events have a rejection timestamp and the reason `queue_full`; they have no invented latency.
+The command writes `events.csv` with every generated outcome, `config.json` with settings and basic counts, and CSV/JSON summaries. See [deadline and loss metrics](deadline-and-loss-metrics.md) for definitions. Completed events have start, finish, waiting and response times. Rejected events have a rejection timestamp and the reason `queue_full`; they have no invented latency.
 
 - Omit `--queue-capacity` for an unbounded waiting queue.
 - Use `--queue-capacity 0` for a worker without a waiting buffer.
@@ -39,7 +39,7 @@ result = run_simulation(events, 'priority', queue_capacity=5)
 print(result.completed, result.dropped)
 ```
 
-Deadlines are metadata in this task. They do not expire events or affect scheduling. EDF and aggregate deadline metrics belong to later tasks. Service is non-preemptive: a new urgent arrival cannot interrupt the worker.
+Deadlines do not expire events or affect scheduling. Deadline and loss summaries are available; EDF remains a later task. Service is non-preemptive: a new urgent arrival cannot interrupt the worker.
 
 ## Exact event ordering
 
@@ -66,4 +66,4 @@ The engine drains all admitted events after arrivals end. Therefore:
 
 `run_simulation` returns immutable completion and rejection records. `experiment.simulate` remains an unbounded compatibility adapter with the original per-event CSV schema. The checked-in pilot files are historical evidence and are not rewritten. Re-running the original pilot produces identical run metrics; a new run manifest includes the shared engine source hash.
 
-The model has no broker or network simulation, deadline expiry, processing failures or early observation cutoff. Task 2 will add complete aggregate deadline and loss metrics. The live MQTT path is unchanged.
+The model has no broker or network simulation, deadline expiry, processing failures or early observation cutoff. The [metrics guide](deadline-and-loss-metrics.md) explains aggregate deadline and loss reporting. The live MQTT path is unchanged.

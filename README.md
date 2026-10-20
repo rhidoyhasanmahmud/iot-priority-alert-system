@@ -4,7 +4,7 @@ Explore the tradeoff between urgent alert latency and routine event waiting usin
 
 - **Policies:** FIFO, strict priority and fixed aging.
 - **Simulator:** bounded or unbounded queues, per-event service times and deadline metadata.
-- **Experiments:** seeded workloads, per-event CSV results and paired baseline analysis.
+- **Experiments:** seeded workloads, deadline/loss summaries and paired baseline analysis.
 - **MQTT demo:** simulated publishers, Mosquitto and a single processing worker.
 
 Research prototype. Fixed aging runs in the simulator; the live demo supports FIFO and strict priority.
@@ -38,6 +38,7 @@ Results are saved as CSV files in `results/run/`.
 
 - [Research proposal](docx/IoT_Alert_Processing_Research_Proposal.docx)
 - [Simulator foundation](docs/simulator-foundation.md)
+- [Deadline and loss metrics](docs/deadline-and-loss-metrics.md)
 - [Design and evaluation](docs/design-and-evaluation.md)
 - [Related work](docs/related-work.md)
 - [Application scenario](docs/application-scenario.md)
