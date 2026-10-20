@@ -1,12 +1,12 @@
 """Run scheduling baselines and export loss-aware metrics."""
 import argparse
-import hashlib
 import json
-from dataclasses import asdict, replace
+from dataclasses import asdict
 from pathlib import Path
-from .experiment import workload, write_csv
+from .experiment import write_csv
 from .simulator import positive, run_simulation
 from .metrics import deadline_status, summarize
+from .workloads import GENERATOR_VERSION, generate_workload, load_trace, save_trace, trace_fingerprint
 
 POLICIES = ('fifo', 'priority', 'aging', 'edf')
 
@@ -57,6 +57,14 @@ def main():
     deadlines.add_argument('--deadline-ms', type=float, default=None, help='Relative deadline shared by all events')
     deadlines.add_argument('--deadlines-ms', type=float, nargs=3, metavar=('HIGH', 'MEDIUM', 'LOW'), help='Relative deadlines for each priority class')
     parser.add_argument('--aging-ms', type=float, default=100)
+    parser.add_argument('--traffic', choices=('poisson', 'burst'), default='poisson')
+    parser.add_argument('--priority-weights', type=float, nargs=3, default=(1, 2, 7), metavar=('HIGH', 'MEDIUM', 'LOW'))
+    parser.add_argument('--service-distribution', choices=('constant', 'uniform', 'exponential'), default='constant')
+    parser.add_argument('--uniform-spread', type=float, default=.5)
+    parser.add_argument('--burst-start', type=float, default=.4)
+    parser.add_argument('--burst-end', type=float, default=.6)
+    parser.add_argument('--burst-multiplier', type=float, default=5)
+    parser.add_argument('--trace-input', type=Path, help='Replay saved workload CSV; generation settings are ignored')
     parser.add_argument('--output', type=Path, default=Path('results/foundation'))
     args = parser.parse_args()
     try:
@@ -72,27 +80,37 @@ def main():
                 positive(value, 'deadlines-ms')
         if args.queue_capacity is not None and args.queue_capacity < 0:
             raise ValueError('queue-capacity must be nonnegative')
-        events = [replace(e, service_time_s=args.service_ms/1000,
-                          deadline_s=(args.deadlines_ms[e.priority]/1000 if args.deadlines_ms is not None
-                                      else None if args.deadline_ms is None else args.deadline_ms/1000))
-                  for e in workload(args.count, args.rate, args.seed)]
+        if args.trace_input is not None:
+            events = load_trace(args.trace_input)
+        else:
+            budgets = (tuple(v/1000 for v in args.deadlines_ms) if args.deadlines_ms is not None
+                       else (None if args.deadline_ms is None else args.deadline_ms/1000,)*3)
+            events = generate_workload(args.count, args.rate, args.seed, traffic=args.traffic,
+                priority_weights=args.priority_weights, service_time=args.service_ms/1000,
+                service_distribution=args.service_distribution, uniform_spread=args.uniform_spread,
+                deadlines=budgets, burst_start=args.burst_start, burst_end=args.burst_end,
+                burst_multiplier=args.burst_multiplier)
         policies = POLICIES if args.policy == 'all' else (args.policy,)
         results = [run_simulation(events, policy, args.service_ms/1000,
                                  queue_capacity=args.queue_capacity, aging_interval=args.aging_ms/1000)
                    for policy in policies]
-    except ValueError as error:
+    except (ValueError, OSError) as error:
         parser.error(str(error))
-    trace = [asdict(e) for e in events]
-    fingerprint = hashlib.sha256(json.dumps(trace, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
-    config = vars(args) | dict(output=str(args.output), workload_sha256=fingerprint,
-                              edf_rule='earliest absolute deadline, missing deadline last, arrival order breaks ties')
+    config = vars(args) | dict(output=str(args.output),
+        trace_input=None if args.trace_input is None else str(args.trace_input),
+        input_mode='replay' if args.trace_input is not None else 'generated',
+        generator_version=None if args.trace_input is not None else GENERATOR_VERSION,
+        generation_settings_applied=args.trace_input is None,
+        input_event_count=len(events), workload_sha256=trace_fingerprint(events),
+        edf_rule='earliest absolute deadline, missing deadline last, arrival order breaks ties')
+    args.output.mkdir(parents=True, exist_ok=True)
+    save_trace(args.output/'workload.csv', events)
     summaries = []
     for result in results:
         output = args.output/result.policy if args.policy == 'all' else args.output
         summaries.extend(export_run(result, output, config))
         print(f'{result.policy}: completed {result.completed}; dropped {result.dropped}; output: {output}')
     if args.policy == 'all':
-        write_csv(args.output/'workload.csv', trace)
         write_csv(args.output/'summary.csv', summaries)
         (args.output/'summary.json').write_text(json.dumps(summaries, indent=2, allow_nan=False)+'\n')
         (args.output/'config.json').write_text(json.dumps(config | dict(policies=list(policies)), indent=2)+'\n')

@@ -37,3 +37,8 @@ The simulator also supports fixed aging through its Python API and the pilot run
 ## Simulator foundation update
 
 FIFO, strict priority and fixed aging now share an event engine with optional bounded admission, per-event service times and relative deadline metadata. See [simulator foundation](simulator-foundation.md) for exact timestamp ordering and API usage. The original pilot remains unbounded, and its recorded evidence is unchanged. Aggregate deadline/loss summaries are now available; see [metrics definitions](deadline-and-loss-metrics.md). EDF and four-policy trace replay are available; see [baseline comparison](edf-baseline.md).
+
+
+## Configurable workloads
+
+The foundation runner supports seeded Poisson traffic, a controlled event-index burst, configurable priority weights, constant/uniform/exponential service times and exact CSV replay. See [workload generator](workload-generator.md) for assumptions and limitations. The original pilot retains its historical generator and results.

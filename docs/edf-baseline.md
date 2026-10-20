@@ -33,6 +33,6 @@ The output root contains `workload.csv`, combined `summary.csv`, combined `summa
 
 Fixed aging is configurable with `--aging-ms`; this setting is recorded even in a comparison run. The existing default of 100 ms is preserved. Use separate output directories for different scenarios so old run files are not mistaken for new evidence.
 
-No deadlines are supplied by default. Set an explicit common or per-priority budget when studying EDF; otherwise its FIFO-like behavior is expected. These CLI budgets remain illustrative and require application justification. Variable workload generation and batch experiment matrices are later tasks.
+No deadlines are supplied by default. Set an explicit common or per-priority budget when studying EDF; otherwise its FIFO-like behavior is expected. These CLI budgets remain illustrative and require application justification. Normal/burst traffic and variable service costs are now available; see [workload generation and replay](workload-generator.md). Batch experiment matrices remain a later task.
 
 The original experiment CLI and historical pilot stay compatible. EDF is available in the shared simulator and foundation CLI, not the live MQTT demo. See [metric definitions](deadline-and-loss-metrics.md) when interpreting drops and deadlines.

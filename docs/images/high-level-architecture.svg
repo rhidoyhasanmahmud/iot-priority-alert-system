@@ -28,7 +28,7 @@
 <text x="60" y="457.0" font-family="DejaVu Sans, sans-serif" font-size="20" font-weight="700" fill="#087F8C" text-anchor="start">REPRODUCIBLE EXPERIMENT</text>
 <rect x="60" y="490" width="285" height="145" rx="14" fill="#ECFDF5" stroke="#087F8C" stroke-width="2"/>
 <text x="202.5" y="528.7" font-family="DejaVu Sans, sans-serif" font-size="22" font-weight="700" fill="#087F8C" text-anchor="middle">Seeded workload</text>
-<text x="202.5" y="560.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Poisson arrivals</text>
+<text x="202.5" y="560.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Normal / burst + replay</text>
 <text x="202.5" y="588.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Same trace per policy</text>
 <rect x="405" y="490" width="285" height="145" rx="14" fill="#ECFDF5" stroke="#087F8C" stroke-width="2"/>
 <text x="547.5" y="528.7" font-family="DejaVu Sans, sans-serif" font-size="22" font-weight="700" fill="#087F8C" text-anchor="middle">Simulation runner</text>
@@ -51,7 +51,7 @@
 <text x="60" y="676.15" font-family="DejaVu Sans, sans-serif" font-size="19" font-weight="400" fill="#526580" text-anchor="start">Simulation: modeled time, one worker; optional bounded queue; no broker dependency.</text>
 <rect x="60" y="735" width="1320" height="130" rx="14" fill="#F1F5F9" stroke="#718096" stroke-width="2" stroke-dasharray="8 5"/>
 <text x="720.0" y="773.7" font-family="DejaVu Sans, sans-serif" font-size="22" font-weight="700" fill="#718096" text-anchor="middle">Planned research extensions</text>
-<text x="720.0" y="805.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Broader workload scenarios  |  Sensitivity and ablation</text>
+<text x="720.0" y="805.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Batch experiment runner  |  Sensitivity and ablation</text>
 <text x="720.0" y="833.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Congestion-aware aging candidate  |  Controlled MQTT evaluation</text>
 <text x="60" y="917.0" font-family="DejaVu Sans, sans-serif" font-size="20" font-weight="400" fill="#526580" text-anchor="start">Blue / green: implemented components. Gray: planned work.</text>
 <text x="60" y="951.15" font-family="DejaVu Sans, sans-serif" font-size="19" font-weight="400" fill="#526580" text-anchor="start">The application queue is after MQTT delivery; this design makes no network timing guarantee.</text>
