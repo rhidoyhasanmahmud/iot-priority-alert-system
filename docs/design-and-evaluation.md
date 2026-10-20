@@ -25,5 +25,5 @@ Strict priority can delay or starve low-priority work under sustained high-prior
 
 The demo reports receiver-local time from enqueue to completion, excluding sensor/network latency. It trusts publisher priorities, has no authentication, deduplication or restart recovery, and is bound to localhost for laboratory use. Do not interpret it as a secure production system. Priority spoofing, aging, TLS, access control, real hardware and burst workloads are future extensions.
 
-## Suggested semester milestones
-Weeks 1–2: problem and proposal. Weeks 3–4: MQTT and message flow. Weeks 5–6: scheduler and tests. Weeks 7–9: experiment matrix. Weeks 10–12: analysis, limitations and report. Verify requirements with the university supervisor.
+## Initial development milestones
+Weeks 1–2: problem and proposal. Weeks 3–4: MQTT and message flow. Weeks 5–6: scheduler and tests. Weeks 7–9: experiment matrix. Weeks 10–12: analysis, limitations and report. The expanded research direction is described in [the proposal](../docx/IoT_Alert_Processing_Research_Proposal.docx).

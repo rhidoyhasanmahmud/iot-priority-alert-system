@@ -1,6 +1,27 @@
 # IoT Priority Alert System
 
-Bachelor-level experimental prototype for comparing FIFO and non-preemptive strict priority scheduling of IoT alerts. Python 3.11+; no hardware required.
+A reproducible framework for exploring how scheduling decisions affect urgent IoT alerts and routine event processing under congestion.
+
+The project combines a local MQTT demonstration with a deterministic experiment runner. Its research direction is to study deadline performance and waiting-time tradeoffs using strong baselines and controlled workloads.
+
+## Research proposal
+
+Read the [research proposal](docx/IoT_Alert_Processing_Research_Proposal.docx) for the problem, research questions, candidate policy, experiment design and delivery plan. The proposal describes planned work; it does not report measured improvements or establish algorithmic novelty.
+
+## Implementation status
+
+| Component | Status |
+| --- | --- |
+| FIFO and non-preemptive strict priority | Implemented in the simulator and MQTT demo |
+| Seeded arrivals and per-event CSV output | Implemented in the simulator |
+| Local MQTT publisher and receiver | Implemented; live integration validation pending |
+| Automated scheduling tests | Implemented |
+| Fixed aging and earliest deadline first | Planned |
+| Congestion-aware aging candidate | Proposed for investigation |
+| Deadlines, bounded simulation queues and loss accounting | Planned |
+| Repeated experiment matrix, ablations and confidence intervals | Planned |
+
+Python 3.11+; no hardware required for the initial prototype.
 
 ## Reproducible experiment
 
@@ -41,3 +62,14 @@ On Windows activate the virtual environment using `.venv\Scripts\activate` inste
 - The simulation measures modeled response latency; the demo measures receiver-local latency. Neither establishes real hardware end-to-end performance.
 - Priority may help urgent events while increasing low-priority waiting. It does not increase server capacity or detect cyberattacks.
 - See [design and evaluation](docs/design-and-evaluation.md) for the research question, experiment protocol, limitations and semester milestones.
+
+
+## Roadmap
+
+1. Verify related work and refine the contribution.
+2. Add deadlines, bounded queues, complete event accounting and stronger baselines.
+3. Evaluate the candidate policy against fixed aging and earliest deadline first.
+4. Validate selected scenarios in a controlled MQTT testbed.
+5. Publish reproducible findings and prepare the repository for an open-source release.
+
+A reusable open-source release is planned. A license and contribution guidelines will be added before that release; no license is granted by this roadmap.
