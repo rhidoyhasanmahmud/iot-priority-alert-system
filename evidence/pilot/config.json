@@ -1,0 +1,47 @@
+{
+  "count": 1000,
+  "rates": [
+    50,
+    90,
+    120
+  ],
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "policies": [
+    "fifo",
+    "priority",
+    "aging"
+  ],
+  "service_ms": 10,
+  "aging_interval_ms": 100,
+  "priority_weights": [
+    1,
+    2,
+    7
+  ],
+  "illustrative_deadlines_ms": [
+    100,
+    500,
+    2000
+  ],
+  "queue": "unbounded",
+  "termination": "drain every event",
+  "python": "3.12.14",
+  "base_commit": "da6556de032a6ebf3934b0227a81ca433882b1dd",
+  "percentile": "nearest rank",
+  "note": "Source SHA256 manifest identifies uncommitted experiment code",
+  "source_sha256": {
+    "iot_alerts/experiment.py": "38e11e745dbd5050b77dd684118ec727e4fd6666e1ca8e88a266949108c7d2fe",
+    "iot_alerts/pilot.py": "c5b56ecd2346a40332144ea23f74d6b9f5fe7aed79fb2d7c2721c929d2d5fddf"
+  }
+}
