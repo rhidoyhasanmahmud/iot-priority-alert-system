@@ -31,10 +31,14 @@ class Canvas:
   tri=[(x,y),(x-12*math.cos(angle-.45),y-12*math.sin(angle-.45)),(x-12*math.cos(angle+.45),y-12*math.sin(angle+.45))]
   self.d.polygon(tri,fill=color);self.svg.append('<polygon points="'+' '.join(f'{a},{b}' for a,b in tri)+f'" fill="{color}"/>')
  def save(self,name):
-  self.im.save(OUT/(name+'.png'));(OUT/(name+'.svg')).write_text('\n'.join(self.svg+['</svg>'])+'\n')
+  # README headings supply the titles; trim the unused top margin in both formats.
+  width,height=self.im.size
+  self.im.crop((0,60,width,height)).save(OUT/(name+'.png'))
+  self.svg[1]=f'<rect x="0" y="60" width="{width}" height="{height-60}" fill="white"/>'
+  self.svg[0]=f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height-60}" viewBox="0 60 {width} {height-60}">'
+  (OUT/(name+'.svg')).write_text('\n'.join(self.svg+['</svg>'])+'\n')
 
 c=Canvas(1440,1010)
-c.text(60,35,'IoT alert processing architecture',36,bold=True)
 c.text(60,91,'Two execution paths: live demonstration and reproducible simulation',22,MUTED)
 c.text(60,160,'LIVE MQTT DEMO',20,BLUE,True)
 xs=[60,405,750,1095];w=285
@@ -57,7 +61,6 @@ c.text(60,935,'The application queue is after MQTT delivery; this design makes n
 c.save('high-level-architecture')
 
 c=Canvas(1200,1300)
-c.text(60,35,'Alert processing flow',36,bold=True)
 c.text(60,90,'Current live MQTT demo; non-preemptive processing',22,MUTED)
 x=310;w=560
 c.box(x,150,w,100,'Receive message',['Callback receives payload from lab/alerts'])
