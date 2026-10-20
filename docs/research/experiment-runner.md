@@ -1,6 +1,6 @@
 # Staged experiment runner
 
-Task 7 implements the [version 1 plan](../../configs/research-v1.json). It separates registration, tuning and held-out evaluation. It does not yet provide the comparative statistical analysis and plots planned for Task 8.
+Task 7 implements the [version 1 plan](../../configs/research-v1.json). It separates registration, tuning and held-out evaluation. The [Task 8 analysis tool](statistical-analysis.md) analyzes completed studies without changing their inputs.
 
 ## Check the workflow quickly
 
@@ -78,4 +78,4 @@ Run configuration includes the canonical workload fingerprint, exact CSV checksu
 
 Output directories are exclusive: registration and phase commands refuse to overwrite existing results. There is no resume support in this version. An interrupted phase has no `complete.json`, cannot authorize evaluation, and must be retained as incomplete; restart under a new study directory. Finishing a phase is not evidence that its hypotheses succeeded. Checksums detect file changes; preserve the entire study directory alongside the reviewed code commit.
 
-Task 8 will analyze paired held-out results, uncertainty, deadline/loss tradeoffs and scenario-specific failures. [Research review and claim boundaries](design-review.md) still apply.
+Task 8 provides paired held-out analysis, uncertainty, deadline/loss tradeoffs and scenario-specific reporting. Full primary experiments have not yet been executed. [Research review and claim boundaries](design-review.md) still apply.

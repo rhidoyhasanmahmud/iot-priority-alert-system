@@ -1,0 +1,2 @@
+# Optional figure rendering. Core simulation/statistical analysis needs only Python.
+matplotlib==3.10.8

@@ -172,14 +172,14 @@ def initialize(output, profile='primary'):
     return manifest
 
 
-def load_registration(output):
+def load_registration(output, *, require_current_source=True):
     plan, registration = read_json(output/'plan.json'), read_json(output/'registration.json')
     if digest(plan) != registration['plan_sha256']:
         raise ValueError('Frozen plan checksum mismatch')
     for name, expected in registration['provenance']['source']['files'].items():
         if file_hash(output/'source_snapshot'/name) != expected:
             raise ValueError('Registered source snapshot checksum mismatch')
-    if source_identity() != registration['provenance']['source']:
+    if require_current_source and source_identity() != registration['provenance']['source']:
         raise ValueError('Source or Python version changed since registration; use the registered environment')
     validate_plan(plan)
     return plan, registration
@@ -308,9 +308,9 @@ def run_phase(output, phase):
 
 
 
-def verify_study(output):
+def verify_study(output, *, require_current_source=True):
     output = Path(output)
-    plan, registration = load_registration(output)
+    plan, registration = load_registration(output, require_current_source=require_current_source)
     selection = None
     for phase in ('tune', 'evaluate'):
         marker = verify(output/phase)
