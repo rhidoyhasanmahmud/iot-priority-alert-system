@@ -71,6 +71,7 @@ class SimulationResult:
     completions: tuple[Completion, ...]
     rejections: tuple[Rejection, ...]
     max_waiting: int
+    guard_activations: int = 0
 
     @property
     def admitted(self):
@@ -87,8 +88,9 @@ class SimulationResult:
 
 class _WaitingQueue:
     """All policies share admission and execution; only selection differs."""
-    def __init__(self, policy, aging_interval):
+    def __init__(self, policy, aging_interval, capacity=None, config=None):
         self.policy, self.interval, self.items = policy, aging_interval, []
+        self.capacity, self.config, self.guard_activations = capacity, config, 0
 
     def __len__(self):
         return len(self.items)
@@ -101,6 +103,15 @@ class _WaitingQueue:
         heapq.heappush(self.items, (key, sequence, event))
 
     def pop(self, clock):
+        from .scheduling import VARIANTS, select_aging
+        if self.policy in VARIANTS:
+            event, activated = select_aging([item[2] for item in self.items], clock,
+                self.capacity, self.policy, self.config, self.interval)
+            self.guard_activations += activated
+            index = next(i for i, item in enumerate(self.items) if item[2].id == event.id)
+            self.items.pop(index)
+            heapq.heapify(self.items)
+            return event
         if self.policy != 'aging':
             return heapq.heappop(self.items)[2]
         def aging_key(index):
@@ -117,25 +128,32 @@ class _WaitingQueue:
         return event
 
 
-def run_simulation(events, policy, service_time=.01, *, queue_capacity=None, aging_interval=.1):
+def run_simulation(events, policy, service_time=.01, *, queue_capacity=None, aging_interval=.1, aging_config=None):
     """Drop arriving work when waiting capacity is exhausted; drain admitted work.
 
     queue_capacity counts waiting events, excluding the worker. None is unbounded;
     zero permits service with no waiting buffer. Deadlines do not expire work yet.
     """
-    if policy not in ('fifo', 'priority', 'aging', 'edf'):
+    from .scheduling import VARIANTS, AgingConfig
+    if policy not in ('fifo', 'priority', 'aging', 'edf', *VARIANTS):
         raise ValueError('Unknown policy')
     positive(service_time, 'service_time')
     positive(aging_interval, 'aging_interval')
     if queue_capacity is not None and (type(queue_capacity) is not int or queue_capacity < 0):
         raise ValueError('queue_capacity must be a nonnegative integer or None')
+    if aging_config is None:
+        aging_config = AgingConfig()
+    if not isinstance(aging_config, AgingConfig):
+        raise ValueError('aging_config must be an AgingConfig')
+    if policy in VARIANTS and (queue_capacity is None or queue_capacity == 0):
+        raise ValueError('experimental aging requires finite positive queue_capacity')
     events = list(events)
     if any(not isinstance(event, Alert) for event in events):
         raise ValueError('events must contain Alert instances')
     if len({event.id for event in events}) != len(events):
         raise ValueError('event IDs must be unique within a run')
     events.sort(key=lambda event: (event.arrival, event.id))
-    waiting = _WaitingQueue(policy, aging_interval)
+    waiting = _WaitingQueue(policy, aging_interval, queue_capacity, aging_config)
     completions, rejections = [], []
     index, max_waiting = 0, 0
     active = None
@@ -163,4 +181,4 @@ def run_simulation(events, policy, service_time=.01, *, queue_capacity=None, agi
                 raise ValueError('service time cannot advance the finite simulation clock')
             active = Completion(event, clock, end, len(completions))
         max_waiting = max(max_waiting, len(waiting))
-    return SimulationResult(policy, len(events), tuple(completions), tuple(rejections), max_waiting)
+    return SimulationResult(policy, len(events), tuple(completions), tuple(rejections), max_waiting, waiting.guard_activations)
