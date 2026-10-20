@@ -3,6 +3,7 @@
 Explore the tradeoff between urgent alert latency and routine event waiting using MQTT and reproducible scheduling experiments.
 
 - **Policies:** FIFO, strict priority and fixed aging.
+- **Simulator:** bounded or unbounded queues, per-event service times and deadline metadata.
 - **Experiments:** seeded workloads, per-event CSV results and paired baseline analysis.
 - **MQTT demo:** simulated publishers, Mosquitto and a single processing worker.
 
@@ -36,6 +37,7 @@ Results are saved as CSV files in `results/run/`.
 ## Documentation
 
 - [Research proposal](docx/IoT_Alert_Processing_Research_Proposal.docx)
+- [Simulator foundation](docs/simulator-foundation.md)
 - [Design and evaluation](docs/design-and-evaluation.md)
 - [Related work](docs/related-work.md)
 - [Application scenario](docs/application-scenario.md)

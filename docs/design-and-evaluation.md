@@ -32,3 +32,8 @@ Weeks 1–2: problem and proposal. Weeks 3–4: MQTT and message flow. Weeks 5�
 ## Evidence update
 
 The simulator also supports fixed aging through its Python API and the pilot runner. See [pilot evidence](../evidence/pilot/README.md), [application scenario](application-scenario.md) and [related-work comparison](related-work.md). The original two-policy CLI and MQTT demo retain their existing scope.
+
+
+## Simulator foundation update
+
+FIFO, strict priority and fixed aging now share an event engine with optional bounded admission, per-event service times and relative deadline metadata. See [simulator foundation](simulator-foundation.md) for exact timestamp ordering and API usage. The original pilot remains unbounded, and its recorded evidence is unchanged. Aggregate deadline/loss metrics and EDF remain planned.
