@@ -2,7 +2,7 @@
 
 Explore the tradeoff between urgent alert latency and routine event waiting using MQTT and reproducible scheduling experiments.
 
-- **Policies:** FIFO, strict priority, fixed aging and EDF.
+- **Policies:** FIFO, strict priority, fixed aging, EDF and experimental guarded adaptive aging.
 - **Simulator:** bounded or unbounded queues, per-event service times and deadline metadata.
 - **Experiments:** seeded normal/burst traffic, variable processing costs, trace replay and deadline/loss summaries.
 - **MQTT demo:** simulated publishers, Mosquitto and a single processing worker.
@@ -41,10 +41,11 @@ Results are saved as CSV files in `results/run/`.
 - [EDF and baseline comparison](docs/edf-baseline.md)
 - [Workload generation and replay](docs/workload-generator.md)
 - [Deadline and loss metrics](docs/deadline-and-loss-metrics.md)
+- [Candidate scheduler usage](docs/research/candidate-implementation.md)
 - [Research design review and candidate specification](docs/research/design-review.md)
 - [Design and evaluation](docs/design-and-evaluation.md)
 - [Related work](docs/related-work.md)
 - [Application scenario](docs/application-scenario.md)
 - [Pilot results and reproduction](evidence/pilot/README.md)
 
-The pilot uses synthetic traffic. The adaptive scheduler and live performance validation remain planned.
+The pilot uses synthetic traffic. The adaptive scheduler is experimental; comparative evaluation and live performance validation remain planned.

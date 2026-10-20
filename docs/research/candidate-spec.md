@@ -1,6 +1,6 @@
 # Candidate scheduler specification — version 1
 
-Status: planned for Task 6; not currently implemented. Read the [design review](design-review.md) for hypotheses and limits. Working description: guarded occupancy-based aging. This is an experimental heuristic, with no optimality or starvation guarantee.
+Status: implemented in Task 6; experimental and not yet performance-evaluated. See [usage and implementation](candidate-implementation.md). Read the [design review](design-review.md) for hypotheses and limits. Working description: guarded occupancy-based aging. This is an experimental heuristic, with no optimality or starvation guarantee.
 
 ## Selection at an idle worker
 
