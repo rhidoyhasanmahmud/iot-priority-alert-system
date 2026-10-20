@@ -55,7 +55,7 @@ c.box(xs[2],490,w,145,'Per-event evidence',['Arrival, start, finish','Waiting an
 c.box(xs[3],490,w,145,'Analysis and report',['CSV + config + hashes','Paired pilot intervals'],TEAL)
 for a,b in zip(xs,xs[1:]):c.arrow([(a+w,560),(b,560)],TEAL)
 c.text(60,660,'Simulation: modeled time, one worker; optional bounded queue; no broker dependency.',19,MUTED)
-c.box(60,735,1320,130,'Planned research extensions',['Aggregate deadline and loss metrics  |  EDF baseline', 'Congestion-aware aging candidate  |  Controlled MQTT evaluation'],GRAY,True)
+c.box(60,735,1320,130,'Planned research extensions',['EDF baseline  |  Broader workload scenarios', 'Congestion-aware aging candidate  |  Controlled MQTT evaluation'],GRAY,True)
 c.text(60,900,'Blue / green: implemented components. Gray: planned work.',20,MUTED)
 c.text(60,935,'The application queue is after MQTT delivery; this design makes no network timing guarantee.',19,MUTED)
 c.save('high-level-architecture')

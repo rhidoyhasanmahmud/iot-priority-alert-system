@@ -19,7 +19,7 @@ class Alert:
     id: int
     arrival: float
     priority: int
-    deadline_s: float | None = None  # relative to arrival; metadata only in Task 1
+    deadline_s: float | None = None  # relative to arrival; does not influence scheduling
     service_time_s: float | None = None  # overrides run default when supplied
 
     def __post_init__(self):
