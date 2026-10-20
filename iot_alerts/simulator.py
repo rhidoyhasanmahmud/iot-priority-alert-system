@@ -19,7 +19,7 @@ class Alert:
     id: int
     arrival: float
     priority: int
-    deadline_s: float | None = None  # relative to arrival; does not influence scheduling
+    deadline_s: float | None = None  # relative to arrival; used for EDF selection
     service_time_s: float | None = None  # overrides run default when supplied
 
     def __post_init__(self):
@@ -94,7 +94,10 @@ class _WaitingQueue:
         return len(self.items)
 
     def push(self, sequence, event):
-        key = event.priority if self.policy == 'priority' else 0
+        if self.policy == 'edf':
+            key = event.absolute_deadline_s if event.deadline_s is not None else math.inf
+        else:
+            key = event.priority if self.policy == 'priority' else 0
         heapq.heappush(self.items, (key, sequence, event))
 
     def pop(self, clock):
@@ -120,7 +123,7 @@ def run_simulation(events, policy, service_time=.01, *, queue_capacity=None, agi
     queue_capacity counts waiting events, excluding the worker. None is unbounded;
     zero permits service with no waiting buffer. Deadlines do not expire work yet.
     """
-    if policy not in ('fifo', 'priority', 'aging'):
+    if policy not in ('fifo', 'priority', 'aging', 'edf'):
         raise ValueError('Unknown policy')
     positive(service_time, 'service_time')
     positive(aging_interval, 'aging_interval')

@@ -19,7 +19,7 @@ The output directory contains:
 | `summary.json` | The same summaries with numeric types and explicit nulls |
 | `config.json` | Run settings, basic counts, schema version and denominator definitions |
 
-A deadline is met when completion time is less than or equal to arrival plus relative deadline. A later completion is a miss. Times use simulation floating-point seconds; comparison is strict without an implicit tolerance. A drop with a deadline is a deadline failure, but is not a late completion. No event expires or changes scheduling because of these metrics.
+A deadline is met when completion time is less than or equal to arrival plus relative deadline. A later completion is a miss. Times use simulation floating-point seconds; comparison is strict without an implicit tolerance. A drop with a deadline is a deadline failure, but is not a late completion. No event expires because of these metrics. EDF uses the configured deadlines for selection; metric calculation itself does not change scheduling.
 
 ## Counts and denominators
 
