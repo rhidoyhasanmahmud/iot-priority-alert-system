@@ -48,10 +48,10 @@
 <polygon points="750,560 739.1946347717678,565.2195864093347 739.1946347717678,554.7804135906653" fill="#087F8C"/>
 <polyline points="1035,560 1095,560" fill="none" stroke="#087F8C" stroke-width="3"/>
 <polygon points="1095,560 1084.1946347717678,565.2195864093347 1084.1946347717678,554.7804135906653" fill="#087F8C"/>
-<text x="60" y="676.15" font-family="DejaVu Sans, sans-serif" font-size="19" font-weight="400" fill="#526580" text-anchor="start">Simulation: modeled time, one worker, unbounded queue, full drain; no broker dependency.</text>
+<text x="60" y="676.15" font-family="DejaVu Sans, sans-serif" font-size="19" font-weight="400" fill="#526580" text-anchor="start">Simulation: modeled time, one worker; optional bounded queue; no broker dependency.</text>
 <rect x="60" y="735" width="1320" height="130" rx="14" fill="#F1F5F9" stroke="#718096" stroke-width="2" stroke-dasharray="8 5"/>
 <text x="720.0" y="773.7" font-family="DejaVu Sans, sans-serif" font-size="22" font-weight="700" fill="#718096" text-anchor="middle">Planned research extensions</text>
-<text x="720.0" y="805.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Bounded simulation queues and admission accounting  |  EDF baseline</text>
+<text x="720.0" y="805.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Aggregate deadline and loss metrics  |  EDF baseline</text>
 <text x="720.0" y="833.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Congestion-aware aging candidate  |  Controlled MQTT evaluation</text>
 <text x="60" y="917.0" font-family="DejaVu Sans, sans-serif" font-size="20" font-weight="400" fill="#526580" text-anchor="start">Blue / green: implemented components. Gray: planned work.</text>
 <text x="60" y="951.15" font-family="DejaVu Sans, sans-serif" font-size="19" font-weight="400" fill="#526580" text-anchor="start">The application queue is after MQTT delivery; this design makes no network timing guarantee.</text>

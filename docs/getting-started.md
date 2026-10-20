@@ -59,7 +59,7 @@ The renderer expects DejaVu Sans fonts in the paths defined in the script.
 
 ## Scope and next steps
 
-The simulator models one worker with an unbounded queue and complete drain. The live demo uses a bounded queue and synthetic processing. Their latency measurements have different boundaries; neither establishes real hardware end-to-end performance.
+The simulator models one worker with complete drain. The original experiment CLI and pilot use an unbounded queue; the [foundation runner](simulator-foundation.md) also supports bounded queues and per-event metadata. The live demo uses a bounded queue and synthetic processing. Their latency measurements have different boundaries; neither establishes real hardware end-to-end performance.
 
 Planned work includes EDF, bounded simulation queues and complete loss accounting, the candidate congestion-aware aging policy, broader repeated experiments and controlled MQTT validation. See the [proposal](../docx/IoT_Alert_Processing_Research_Proposal.docx) and [design](design-and-evaluation.md).
 

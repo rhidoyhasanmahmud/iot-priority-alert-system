@@ -52,7 +52,7 @@ def run(output, count=1000):
         percentile='nearest rank', note='Source SHA256 manifest identifies uncommitted experiment code')
     import hashlib
     config['source_sha256']={n:hashlib.sha256(Path(n).read_bytes()).hexdigest() for n in
-        ('iot_alerts/experiment.py','iot_alerts/pilot.py')}
+        ('iot_alerts/experiment.py','iot_alerts/pilot.py','iot_alerts/simulator.py')}
     (output/'config.json').write_text(json.dumps(config,indent=2)+'\n')
     # Small checked-in raw example; complete raw files remain reproducible from this command.
     (output/'example-rate120-seed1-priority.csv.gz').write_bytes(

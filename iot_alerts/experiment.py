@@ -1,18 +1,10 @@
 """Deterministic single-server simulation; no wall-clock or network claims."""
 import argparse
 import csv
-import heapq
 import math
 import random
-from dataclasses import dataclass
 from pathlib import Path
-
-
-@dataclass(frozen=True)
-class Alert:
-    id: int
-    arrival: float
-    priority: int  # 0 high, 1 medium, 2 low
+from .simulator import Alert, run_simulation
 
 
 def workload(count, rate, seed):
@@ -26,38 +18,12 @@ def workload(count, rate, seed):
 
 
 def simulate(events, policy, service_time, aging_interval=.1):
-    if policy not in ('fifo', 'priority', 'aging') or not math.isfinite(service_time) or service_time <= 0:
-        raise ValueError('Invalid policy or service time')
-    if not math.isfinite(aging_interval) or aging_interval <= 0:
-        raise ValueError('Aging interval must be positive and finite')
-    events = sorted(events, key=lambda e: (e.arrival, e.id))
-    pending, rows = [], []
-    clock, index, order = 0.0, 0, 0
-    while index < len(events) or pending:
-        if not pending:
-            clock = max(clock, events[index].arrival)
-        while index < len(events) and events[index].arrival <= clock:
-            event = events[index]
-            key = event.priority if policy == 'priority' else 0
-            heapq.heappush(pending, (key, index, event))
-            index += 1
-        if policy == 'aging':
-            # Recompute at dispatch; cached heap priorities would become stale.
-            selected = min(range(len(pending)), key=lambda i: (
-                max(0, pending[i][2].priority - math.floor((clock-pending[i][2].arrival)/aging_interval)),
-                pending[i][1]))
-            _, _, event = pending.pop(selected)
-            heapq.heapify(pending)
-        else:
-            _, _, event = heapq.heappop(pending)
-        start = clock
-        clock += service_time
-        rows.append(dict(policy=policy, id=event.id, priority=event.priority,
-                         arrival_s=event.arrival, start_s=start, finish_s=clock,
-                         wait_s=start-event.arrival, latency_s=clock-event.arrival,
-                         completion_order=order))
-        order += 1
-    return rows
+    """Backward-compatible unbounded adapter; preserves the original CSV schema."""
+    result = run_simulation(events, policy, service_time, aging_interval=aging_interval)
+    return [dict(policy=policy, id=c.event.id, priority=c.event.priority,
+                 arrival_s=c.event.arrival, start_s=c.start_s, finish_s=c.finish_s,
+                 wait_s=c.wait_s, latency_s=c.latency_s,
+                 completion_order=c.completion_order) for c in result.completions]
 
 
 def percentile(values, fraction):
