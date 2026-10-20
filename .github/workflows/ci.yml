@@ -23,3 +23,7 @@ jobs:
       - run: python -m iot_alerts.foundation --policy research --count 200 --queue-capacity 10 --deadlines-ms 100 500 2000 --traffic burst --service-distribution uniform --output results/candidate-smoke
       - run: python -m iot_alerts.foundation --policy research --trace-input results/candidate-smoke/workload.csv --queue-capacity 10 --output results/candidate-replay
       - run: cmp results/candidate-smoke/summary.json results/candidate-replay/summary.json
+      - run: python -m iot_alerts.study plan --profile smoke --output results/study-smoke
+      - run: python -m iot_alerts.study tune --output results/study-smoke
+      - run: python -m iot_alerts.study evaluate --output results/study-smoke
+      - run: python -m iot_alerts.study verify --output results/study-smoke

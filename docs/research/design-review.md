@@ -35,7 +35,7 @@ A tradeoff claim additionally requires reporting low-priority drop fraction and 
 
 ## Frozen evaluation inputs, version 1
 
-These are planned inputs for Task 7, not an executable experiment runner or new results.
+These version 1 inputs are serialized in [the registered plan](../../configs/research-v1.json) and implemented by the [Task 7 runner](experiment-runner.md). Primary experiments have not yet been run.
 
 | Dimension | Primary plan |
 | --- | --- |
@@ -56,3 +56,9 @@ Primary conclusions concern finite generated workloads with full drain. Extra ch
 ## Claim boundary and next gate
 
 Task 6 may implement the heuristic and deterministic selection tests. Before a paper claims novelty, obtain R8 full text, assess applicable recent methods and either implement a justified closest-method comparator or explain model incompatibility. If the candidate fails against matched fixed aging, report that negative result and reconsider the method; do not claim the combination is novel by default. Device fairness, attack detection, authenticated priority, hard deadlines and end-to-end latency are outside the present evidence.
+
+## Task 7 protocol clarification — 21 October 2026 (Malaysia time)
+
+Before inspecting any held-out primary outcomes: tuning feasibility uses the upper 95% paired percentile-bootstrap limit for the equally weighted, scenario-averaged urgent failure difference versus strict priority. A pooled tuning pass does not establish per-scenario H2 success. Each seed is resampled as a whole across scenarios. Tuning selects one global setting independently for adaptive guarded and matched fixed guarded methods. Existing arrival-tie fixed aging stays at its historical 100 ms as an explicitly untuned reference; the matched fixed guarded method is the tuned fixed-aging comparator. Unguarded controls inherit their corresponding guarded method's selected parameters. Loss-based claim checks remain required in Task 8; they are not additional tuning filters.
+
+The executable primary plan has 48 scenarios, 7,680 tuning runs and 11,520 held-out evaluation runs. A separate reduced smoke profile tests orchestration and is labelled as engineering evidence only. Registration writes the plan, analysis rules, source snapshot and hashes before tuning. Evaluation is a separate command that requires complete, checksum-verified tuning artifacts and feasible frozen selections. If tuning is infeasible, preserve the negative result; a redesigned protocol requires a new registration and independent evaluation seeds after any held-out outcomes have been examined.
