@@ -36,7 +36,7 @@ The estimand for routine waiting is the mean difference of run-level p95 values.
 
 Scenario intervals are **exploratory and unadjusted for multiple comparisons**. The stronger tradeoff flag requires all four marginal interval criteria, but is not a simultaneous confidence claim. No result is promoted into a universal improvement statement. A narrow completed-event waiting benefit must still disclose increased drops or deadline failures. Zero-width bootstrap intervals can occur, especially with small seed counts; they do not prove equality in the underlying population.
 
-Budget sensitivity reuses each urgent-failure interval at 0, 0.005, 0.01 and 0.02. It does not retune a method or rerun held-out traffic. H3 mechanism tests and scheduler sensitivity/ablation are Task 9.
+Budget sensitivity reuses each urgent-failure interval at 0, 0.005, 0.01 and 0.02. It does not retune a method or rerun held-out traffic. The [Task 9 robustness tools](robustness.md) provide H3 component contrasts and separately registered sensitivity experiments.
 
 ## Validation and provenance
 
