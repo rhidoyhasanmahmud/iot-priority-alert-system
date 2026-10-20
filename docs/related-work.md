@@ -66,3 +66,10 @@ Verification: Publisher title and indexed first-page author text; bibliographic 
 João Carlos N. Bittencourt; Paulo Portugal; Francisco Vasques; Daniel G. Costa. 2026. **Multi-Tier Message Scheduling for IoT-Based Urban Emergency Systems Through Semantic Priority Override**. IEEE Access, 14, 140988–141015. Publisher: IEEE. DOI: [10.1109/ACCESS.2026.3732592](https://doi.org/10.1109/ACCESS.2026.3732592).
 Relevance: TRIAGE/4 combines semantic alarm priority and device fairness with simulation and an MQTT prototype. Closest conceptual overlap: alarm latency and fairness are already studied. Any novelty claim needs a full comparison with this method, not just FIFO and strict priority.
 Verification: Publisher abstract and metadata; author publication list confirms authors. [Official source](https://ieeexplore.ieee.org/document/11685955/).
+
+### R9
+Rongping Lin; Jinpeng Zhang; Shan Luo; Jing Fu; Xiong Wang; Hui Li; Moshe Zukerman. 2025. **Real-Time Priority Queue Scheduling for Bursty Traffic**. IEEE Internet of Things Journal, 12(24), 55883–55892. DOI: [10.1109/JIOT.2025.3627212](https://doi.org/10.1109/JIOT.2025.3627212).
+Relevance: Instantaneous switch queue lengths and priorities drive a Whittle-index scheduling method. Occupancy-based priority adaptation is already studied; our application-worker model alone does not establish novelty.
+Verification: Author-hosted postprint introduction/abstract and [university bibliographic record](https://scholars.cityu.edu.hk/en/publications/real-time-priority-queue-scheduling-for-bursty-traffic/). [Author postprint](https://www.ee.cityu.edu.hk/~zukerman/J207.pdf).
+
+The [research design review](research/design-review.md) records the current hypothesis and unresolved comparison gate.

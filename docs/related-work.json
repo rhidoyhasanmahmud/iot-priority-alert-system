@@ -102,5 +102,18 @@
     "access": "Publisher abstract and metadata; author publication list confirms authors",
     "method": "TRIAGE/4 combines semantic alarm priority and device fairness with simulation and an MQTT prototype.",
     "difference": "Closest conceptual overlap: alarm latency and fairness are already studied. Any novelty claim needs a full comparison with this method, not just FIFO and strict priority."
+  },
+  {
+    "id": "R9",
+    "title": "Real-Time Priority Queue Scheduling for Bursty Traffic",
+    "authors": "Rongping Lin; Jinpeng Zhang; Shan Luo; Jing Fu; Xiong Wang; Hui Li; Moshe Zukerman",
+    "year": 2025,
+    "venue": "IEEE Internet of Things Journal, 12(24), 55883–55892",
+    "publisher": "IEEE",
+    "doi": "10.1109/JIOT.2025.3627212",
+    "url": "https://scholars.cityu.edu.hk/en/publications/real-time-priority-queue-scheduling-for-bursty-traffic/",
+    "access": "Author-hosted postprint introduction and abstract; university bibliographic record",
+    "method": "Uses instantaneous switch queue lengths and priorities with a Whittle-index formulation for bursty traffic.",
+    "difference": "Queue occupancy and priority tradeoffs are prior art. Different switch model; a direct comparison needs explicit model alignment."
   }
 ]
