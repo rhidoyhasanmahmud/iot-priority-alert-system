@@ -1,6 +1,6 @@
 # Simulator foundation
 
-The shared engine runs one worker and one waiting queue. FIFO, strict priority and fixed aging use the same arrival, admission and completion logic. Only the next-event selection changes.
+The shared engine runs one worker and one waiting queue. FIFO, strict priority, fixed aging and EDF use the same arrival, admission and completion logic. Only the next-event selection changes.
 
 ## Run it
 
@@ -39,7 +39,7 @@ result = run_simulation(events, 'priority', queue_capacity=5)
 print(result.completed, result.dropped)
 ```
 
-Deadlines do not expire events or affect scheduling. Deadline and loss summaries are available; EDF remains a later task. Service is non-preemptive: a new urgent arrival cannot interrupt the worker.
+Deadlines do not expire events. EDF uses them for selection; FIFO, strict priority and fixed aging do not. See [EDF and comparison](edf-baseline.md). Service is non-preemptive: a new urgent arrival cannot interrupt the worker.
 
 ## Exact event ordering
 

@@ -1,5 +1,6 @@
-"""Run the foundation engine and export complete event outcomes."""
+"""Run scheduling baselines and export loss-aware metrics."""
 import argparse
+import hashlib
 import json
 from dataclasses import asdict, replace
 from pathlib import Path
@@ -7,10 +8,46 @@ from .experiment import workload, write_csv
 from .simulator import positive, run_simulation
 from .metrics import deadline_status, summarize
 
+POLICIES = ('fifo', 'priority', 'aging', 'edf')
+
+
+def export_run(result, output, config):
+    """Export one fully drained run; all-policy mode uses one directory per policy."""
+    rows = []
+    for completion in result.completions:
+        event = completion.event
+        rows.append(dict(**asdict(event), absolute_deadline_s=event.absolute_deadline_s,
+                         status='completed', reason='', deadline_status=deadline_status(event, completion.finish_s),
+                         start_s=completion.start_s, finish_s=completion.finish_s,
+                         wait_s=completion.wait_s, latency_s=completion.latency_s, rejected_at_s=None))
+    for rejection in result.rejections:
+        event = rejection.event
+        rows.append(dict(**asdict(event), absolute_deadline_s=event.absolute_deadline_s,
+                         status='dropped', reason=rejection.reason, deadline_status=deadline_status(event),
+                         start_s=None, finish_s=None, wait_s=None, latency_s=None,
+                         rejected_at_s=rejection.rejected_at_s))
+    rows.sort(key=lambda row: (row['arrival'], row['id']))
+    output.mkdir(parents=True, exist_ok=True)
+    write_csv(output/'events.csv', rows)
+    summary = summarize(result)
+    write_csv(output/'summary.csv', summary)
+    (output/'summary.json').write_text(json.dumps(summary, indent=2, allow_nan=False)+'\n')
+    manifest = config | dict(policy=result.policy, output=str(output), generated=result.generated,
+        admitted=result.admitted, completed=result.completed, dropped=result.dropped,
+        max_waiting=result.max_waiting, termination='drain all admitted work',
+        tie_order='completion, arrival batch sorted by id, dispatch',
+        deadline_behavior='finish <= absolute deadline succeeds; no expiry',
+        summary_schema_version=1, undefined_metrics='JSON null / CSV empty cell',
+        deadline_failure_denominator='all generated events with deadlines',
+        admitted_deadline_miss_denominator='admitted events with deadlines',
+        latency_population='completed events only')
+    (output/'config.json').write_text(json.dumps(manifest, indent=2)+'\n')
+    return summary
+
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--policy', choices=('fifo', 'priority', 'aging'), default='fifo')
+    parser.add_argument('--policy', choices=(*POLICIES, 'all'), default='fifo')
     parser.add_argument('--count', type=int, default=1000)
     parser.add_argument('--rate', type=float, default=120)
     parser.add_argument('--seed', type=int, default=42)
@@ -39,41 +76,26 @@ def main():
                           deadline_s=(args.deadlines_ms[e.priority]/1000 if args.deadlines_ms is not None
                                       else None if args.deadline_ms is None else args.deadline_ms/1000))
                   for e in workload(args.count, args.rate, args.seed)]
-        result = run_simulation(events, args.policy, args.service_ms/1000,
-                                queue_capacity=args.queue_capacity, aging_interval=args.aging_ms/1000)
+        policies = POLICIES if args.policy == 'all' else (args.policy,)
+        results = [run_simulation(events, policy, args.service_ms/1000,
+                                 queue_capacity=args.queue_capacity, aging_interval=args.aging_ms/1000)
+                   for policy in policies]
     except ValueError as error:
         parser.error(str(error))
-    rows = []
-    for completion in result.completions:
-        event = completion.event
-        rows.append(dict(**asdict(event), absolute_deadline_s=event.absolute_deadline_s,
-                         status='completed', reason='', deadline_status=deadline_status(event, completion.finish_s),
-                         start_s=completion.start_s,
-                         finish_s=completion.finish_s, wait_s=completion.wait_s,
-                         latency_s=completion.latency_s, rejected_at_s=None))
-    for rejection in result.rejections:
-        event = rejection.event
-        rows.append(dict(**asdict(event), absolute_deadline_s=event.absolute_deadline_s,
-                         status='dropped', reason=rejection.reason, deadline_status=deadline_status(event), start_s=None,
-                         finish_s=None, wait_s=None, latency_s=None,
-                         rejected_at_s=rejection.rejected_at_s))
-    rows.sort(key=lambda row: (row['arrival'], row['id']))
-    args.output.mkdir(parents=True, exist_ok=True)
-    write_csv(args.output/'events.csv', rows)
-    summary = summarize(result)
-    write_csv(args.output/'summary.csv', summary)
-    (args.output/'summary.json').write_text(json.dumps(summary, indent=2, allow_nan=False)+'\n')
-    config = vars(args) | dict(output=str(args.output), generated=result.generated,
-        admitted=result.admitted, completed=result.completed, dropped=result.dropped,
-        max_waiting=result.max_waiting, termination='drain all admitted work',
-        tie_order='completion, arrival batch sorted by id, dispatch',
-        deadline_behavior='finish <= absolute deadline succeeds; no expiry',
-        summary_schema_version=1, undefined_metrics='JSON null / CSV empty cell',
-        deadline_failure_denominator='all generated events with deadlines',
-        admitted_deadline_miss_denominator='admitted events with deadlines',
-        latency_population='completed events only')
-    (args.output/'config.json').write_text(json.dumps(config, indent=2)+'\n')
-    print(f'Completed {result.completed}; dropped {result.dropped}; output: {args.output}')
+    trace = [asdict(e) for e in events]
+    fingerprint = hashlib.sha256(json.dumps(trace, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+    config = vars(args) | dict(output=str(args.output), workload_sha256=fingerprint,
+                              edf_rule='earliest absolute deadline, missing deadline last, arrival order breaks ties')
+    summaries = []
+    for result in results:
+        output = args.output/result.policy if args.policy == 'all' else args.output
+        summaries.extend(export_run(result, output, config))
+        print(f'{result.policy}: completed {result.completed}; dropped {result.dropped}; output: {output}')
+    if args.policy == 'all':
+        write_csv(args.output/'workload.csv', trace)
+        write_csv(args.output/'summary.csv', summaries)
+        (args.output/'summary.json').write_text(json.dumps(summaries, indent=2, allow_nan=False)+'\n')
+        (args.output/'config.json').write_text(json.dumps(config | dict(policies=list(policies)), indent=2)+'\n')
 
 
 if __name__ == '__main__':
