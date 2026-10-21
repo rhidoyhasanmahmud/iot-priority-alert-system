@@ -1,0 +1,2 @@
+# Optional development broker. Default validation/CI uses system Mosquitto.
+amqtt==0.11.3

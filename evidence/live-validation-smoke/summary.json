@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "evidence": "local engineering smoke only; not a research performance result",
+  "profile": "smoke",
+  "broker": "amqtt",
+  "broker_version": "0.11.3",
+  "python": "3.12.14",
+  "paho_mqtt": "2.1.0",
+  "source_sha256": "83e75a70cde7375e21f2a65a1614bbf0f59c0b064823b35910325a4f4f492924",
+  "plan_sha256": "446a9ab5ec5ebb268492b8225feaf109dcd8c57e5ee2bfcf70832ea2bcb981fa",
+  "archive_sha256": "8ca06a4ae51ff255045db2b41b68c5e9390141405aae47b443b1a9d51ff491ec",
+  "workload_runs": [
+    {
+      "scenario_id": "s000",
+      "seed": 6101,
+      "policy": "fixed_guarded",
+      "generated": 40,
+      "completed": 24,
+      "dropped": 16
+    },
+    {
+      "scenario_id": "s000",
+      "seed": 6101,
+      "policy": "edf",
+      "generated": 40,
+      "completed": 24,
+      "dropped": 16
+    },
+    {
+      "scenario_id": "s000",
+      "seed": 6101,
+      "policy": "aging",
+      "generated": 40,
+      "completed": 24,
+      "dropped": 16
+    },
+    {
+      "scenario_id": "s000",
+      "seed": 6101,
+      "policy": "adaptive_guarded",
+      "generated": 40,
+      "completed": 24,
+      "dropped": 16
+    },
+    {
+      "scenario_id": "s000",
+      "seed": 6101,
+      "policy": "adaptive",
+      "generated": 40,
+      "completed": 24,
+      "dropped": 16
+    },
+    {
+      "scenario_id": "s000",
+      "seed": 6101,
+      "policy": "priority",
+      "generated": 40,
+      "completed": 24,
+      "dropped": 16
+    },
+    {
+      "scenario_id": "s000",
+      "seed": 6101,
+      "policy": "fifo",
+      "generated": 40,
+      "completed": 24,
+      "dropped": 16
+    },
+    {
+      "scenario_id": "s000",
+      "seed": 6101,
+      "policy": "fixed_deadline",
+      "generated": 40,
+      "completed": 24,
+      "dropped": 16
+    }
+  ],
+  "checks": [
+    {
+      "check": "overload_priority",
+      "passed": true,
+      "summary": {
+        "accepting": false,
+        "active": 0,
+        "admitted": 2,
+        "cache_evictions": 0,
+        "completed": 2,
+        "counters": "message attempts; duplicates/conflicts/full-queue retries are separate categories",
+        "deadline_met": 2,
+        "deadline_missed": 0,
+        "deadline_not_set": 0,
+        "drained": true,
+        "duplicate_messages": 0,
+        "guard_activations": 0,
+        "identity_conflicts": 0,
+        "invalid_messages": 0,
+        "max_waiting": 1,
+        "pending": 0,
+        "policy": "priority",
+        "received_messages": 32,
+        "recent_completed_ids": 2,
+        "rejected_closed": 0,
+        "rejected_queue_full": 30,
+        "reserved_ids": 0,
+        "stop_reason": "interrupt",
+        "ttl_expirations": 0,
+        "unfinished": 0,
+        "worker_errors": []
+      }
+    },
+    {
+      "check": "overload_adaptive_guarded",
+      "passed": true,
+      "summary": {
+        "accepting": false,
+        "active": 0,
+        "admitted": 2,
+        "cache_evictions": 0,
+        "completed": 2,
+        "counters": "message attempts; duplicates/conflicts/full-queue retries are separate categories",
+        "deadline_met": 2,
+        "deadline_missed": 0,
+        "deadline_not_set": 0,
+        "drained": true,
+        "duplicate_messages": 0,
+        "guard_activations": 0,
+        "identity_conflicts": 0,
+        "invalid_messages": 0,
+        "max_waiting": 1,
+        "pending": 0,
+        "policy": "adaptive_guarded",
+        "received_messages": 32,
+        "recent_completed_ids": 2,
+        "rejected_closed": 0,
+        "rejected_queue_full": 30,
+        "reserved_ids": 0,
+        "stop_reason": "interrupt",
+        "ttl_expirations": 0,
+        "unfinished": 0,
+        "worker_errors": []
+      }
+    },
+    {
+      "check": "broker_restart_resubscribe_dedup",
+      "passed": true,
+      "summary": {
+        "accepting": false,
+        "active": 0,
+        "admitted": 3,
+        "cache_evictions": 0,
+        "completed": 3,
+        "counters": "message attempts; duplicates/conflicts/full-queue retries are separate categories",
+        "deadline_met": 3,
+        "deadline_missed": 0,
+        "deadline_not_set": 0,
+        "drained": true,
+        "duplicate_messages": 2,
+        "guard_activations": 0,
+        "identity_conflicts": 0,
+        "invalid_messages": 0,
+        "max_waiting": 1,
+        "pending": 0,
+        "policy": "adaptive_guarded",
+        "received_messages": 5,
+        "recent_completed_ids": 3,
+        "rejected_closed": 0,
+        "rejected_queue_full": 0,
+        "reserved_ids": 0,
+        "stop_reason": "interrupt",
+        "ttl_expirations": 0,
+        "unfinished": 0,
+        "worker_errors": []
+      }
+    }
+  ]
+}

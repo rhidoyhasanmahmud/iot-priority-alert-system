@@ -7,7 +7,7 @@ Explore the tradeoff between urgent alert latency and routine event waiting usin
 - **Experiments:** seeded normal/burst traffic, variable processing costs, trace replay and deadline/loss summaries.
 - **MQTT demo:** eight shared scheduler policies, bounded deduplication and a draining worker.
 
-Research prototype. Simulation and live MQTT share scheduler selection; controlled live performance evaluation remains pending.
+Research prototype. Simulation and live MQTT share scheduler selection; full research experiments remain pending.
 
 ## Architecture
 

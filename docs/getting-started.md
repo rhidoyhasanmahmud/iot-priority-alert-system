@@ -43,7 +43,7 @@ python -m iot_alerts.mqtt_demo publish --count 500
 
 The receiver prints completions and writes receipts, completion CSV, configuration and a shutdown summary to `results/live`. Use a fresh `--output` directory for each run. All eight scheduler policies are available; see [live scheduling and deduplication](live-mqtt.md) for deadlines, cache limits and exact timing semantics. Run one receiver at a time.
 
-Stop the receiver with Ctrl+C and remove the broker with `docker compose down`. The broker permits anonymous access and publishes only on localhost for laboratory use. Functional broker smoke checks are available; controlled live performance validation remains pending.
+Stop the receiver with Ctrl+C and remove the broker with `docker compose down`. The broker permits anonymous access and publishes only on localhost for laboratory use. Functional broker smoke checks and [registered controlled live validation](live-validation.md) are available; full repeated research measurements remain pending.
 
 ## Diagram sources
 

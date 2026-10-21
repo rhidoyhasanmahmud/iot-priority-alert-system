@@ -1,6 +1,6 @@
 # Live scheduling and deduplication
 
-Task 10 integrates all eight simulation policy selectors with a single live MQTT worker. The broker forwards messages to `lab/alerts`; application scheduling occurs after delivery. Functional smoke checks do not establish comparative performance or deadline guarantees. Controlled live validation is Task 11.
+Task 10 integrates all eight simulation policy selectors with a single live MQTT worker. The broker forwards messages to `lab/alerts`; application scheduling occurs after delivery. Functional smoke checks do not establish comparative performance or deadline guarantees. The [controlled live validation harness](live-validation.md) adds registered replay, overload and broker restart checks; its smoke results are engineering evidence.
 
 ## Run locally
 
@@ -57,7 +57,7 @@ The application identity is `(source, id)`, independent of MQTT packet ID or its
 
 An identical key with matching priority/deadline is a duplicate. Reusing it with different priority or deadline is an identity conflict. Both are recorded without another processing operation. Queue-full rejections are not cached: a later application retry may be admitted. Invalid inputs are not remembered. The publisher uses a fresh source namespace per invocation.
 
-This is bounded, in-memory duplicate suppression. After TTL expiry, cache eviction or receiver restart, a previously completed ID may be processed again. State survives a connection reconnect within the same process. Broker redelivery and restart/reconnect stress have not yet been experimentally validated. No persistent or exactly-once application processing is claimed.
+This is bounded, in-memory duplicate suppression. After TTL expiry, cache eviction or receiver restart, a previously completed ID may be processed again. State survives a connection reconnect within the same process. The controlled harness checks broker restart, resubscription and deliberate retries within the same receiver process. Forced MQTT packet retransmissions and publishing during an outage remain untested. No persistent or exactly-once application processing is claimed.
 
 ## Output and accounting
 
@@ -66,6 +66,7 @@ This is bounded, in-memory duplicate suppression. After TTL expiry, cache evicti
 | `receipts.jsonl` | Every callback attempt: admitted, duplicate or rejected with reason |
 | `completed.csv` | One row per completion with source/ID, priority, local arrival/start/finish, waiting, latency and deadline status |
 | `config.json` | CLI options, measurement definition, Python version and scheduler/live source hashes |
+| `lifecycle.jsonl` | Connection, disconnect and subscription acknowledgements with local monotonic timestamps |
 | `summary.json` | Message counters, completed/admitted/unfinished counts, cache activity, guard overrides and drain status |
 
 The receipt partition is: received messages = admitted + duplicates + conflicts + invalid + queue-full + closed rejections. These are **message attempts**, not a count of unique generated sensor events. Retrying a full-queue rejection can create more than one rejection attempt. Completion deadline counts refer to admitted work; they are not an end-to-end loss/deadline-failure rate over generated unique events. A successful drain has admitted = completed and unfinished = 0. Repeated completion after cache expiry is allowed by the stated cache contract.
@@ -82,4 +83,4 @@ python tools/smoke_mqtt.py --output results/mqtt-smoke
 
 The harness starts an isolated loopback broker on port 18883, tests each of the eight policies and stops only the broker it started. To reuse an isolated broker already running there, pass `--external-broker`. It verifies 20 distinct completions, ten suppressed repeats, two invalid payloads, one identity conflict and full drain for each policy. Repeats are deliberate application publishes, not forced MQTT retransmissions. CI has a separate Mosquitto smoke job. Local development smoke also supports an external broker; record its implementation when interpreting results.
 
-Run `python -m unittest discover -s tests -v` for deterministic coverage of cache expiry/eviction, full-queue retry, selector parity, guard overrides, invalid payloads, concurrent duplicates and graceful close. Task 11 adds controlled live workloads, reconnect/overload checks and live evidence capture.
+Run `python -m unittest discover -s tests -v` for deterministic coverage of cache expiry/eviction, full-queue retry, selector parity, guard overrides, invalid payloads, concurrent duplicates and graceful close. See [controlled live validation](live-validation.md) for replay timing, reconnect/overload checks and evidence capture.

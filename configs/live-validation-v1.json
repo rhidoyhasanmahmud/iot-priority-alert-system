@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "scope": "controlled local engineering validation; descriptive performance, no publication claim",
+  "candidate_parameters": "development defaults; not selected by primary research tuning",
+  "profiles": {
+    "smoke": {"seeds": [6101], "rates": [200], "traffic": ["burst"], "count": 40, "capacity": 5},
+    "validation": {"seeds": [6001, 6002, 6003, 6004, 6005], "rates": [50, 150], "traffic": ["poisson", "burst"], "count": 200, "capacity": 50}
+  },
+  "policies": ["fifo", "priority", "aging", "edf", "adaptive_guarded", "adaptive", "fixed_guarded", "fixed_deadline"],
+  "service_ms": 10,
+  "aging_ms": 100,
+  "aging_min_ms": 100,
+  "aging_max_ms": 1000,
+  "service_estimate_ms": 10,
+  "deadlines_ms": [100, 500, 2000],
+  "priority_weights": [1, 2, 7],
+  "duplicate_every": 5,
+  "dedup_ttl_s": 60,
+  "dedup_capacity": 10000,
+  "checks": ["overload_priority", "overload_adaptive_guarded", "broker_restart_resubscribe_dedup"],
+  "timing": "absolute planned send offsets; QoS1 enqueue without per-message ACK pacing; log actual enqueue and ACK times",
+  "statistics": "descriptive per-run metrics; same planned trace per policy, realized arrivals differ; no warmup removed"
+}
