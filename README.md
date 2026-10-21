@@ -49,5 +49,6 @@ Results are saved as CSV files in `results/run/`.
 - [Related work](docs/related-work.md)
 - [Application scenario](docs/application-scenario.md)
 - [Pilot results and reproduction](evidence/pilot/README.md)
+- [Evidence audit and research execution guide](docs/research/reproducibility.md)
 
-The pilot uses synthetic traffic. The adaptive scheduler is experimental; comparative evaluation and live performance validation remain planned.
+The pilot uses synthetic traffic. The adaptive scheduler is experimental; full comparative experiments and controlled live validation remain pending.
