@@ -17,6 +17,7 @@ jobs:
       - run: python -m iot_alerts.foundation --policy all --count 100 --queue-capacity 5 --deadlines-ms 100 500 2000 --output results/foundation-smoke
       - run: python -m iot_alerts.pilot --output results/pilot-regression
       - run: cmp evidence/pilot/run_metrics.csv results/pilot-regression/run_metrics.csv
+      - run: python -m iot_alerts.evidence_audit --output results/evidence-audit
       - run: python -m iot_alerts.foundation --policy all --count 100 --traffic burst --service-distribution uniform --queue-capacity 5 --deadlines-ms 100 500 2000 --output results/workload-smoke
       - run: python -m iot_alerts.foundation --policy all --trace-input results/workload-smoke/workload.csv --queue-capacity 5 --output results/replay-smoke
       - run: cmp results/workload-smoke/summary.json results/replay-smoke/summary.json
