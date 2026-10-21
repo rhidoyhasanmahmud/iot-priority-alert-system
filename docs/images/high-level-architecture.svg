@@ -12,19 +12,19 @@
 <text x="547.5" y="308.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Localhost port 1883</text>
 <rect x="750" y="210" width="285" height="130" rx="14" fill="#EFF6FF" stroke="#2563EB" stroke-width="2"/>
 <text x="892.5" y="248.7" font-family="DejaVu Sans, sans-serif" font-size="22" font-weight="700" fill="#2563EB" text-anchor="middle">Receiver and queue</text>
-<text x="892.5" y="280.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Validate and enqueue</text>
-<text x="892.5" y="308.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">FIFO or strict priority</text>
+<text x="892.5" y="280.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Validate + deduplicate</text>
+<text x="892.5" y="308.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">8 scheduling policies</text>
 <rect x="1095" y="210" width="285" height="130" rx="14" fill="#EFF6FF" stroke="#2563EB" stroke-width="2"/>
 <text x="1237.5" y="248.7" font-family="DejaVu Sans, sans-serif" font-size="22" font-weight="700" fill="#2563EB" text-anchor="middle">Single worker</text>
 <text x="1237.5" y="280.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">20 ms synthetic service</text>
-<text x="1237.5" y="308.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">JSON latency output</text>
+<text x="1237.5" y="308.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">CSV + local latency</text>
 <polyline points="345,275 405,275" fill="none" stroke="#718096" stroke-width="3"/>
 <polygon points="405,275 394.1946347717679,280.21958640933474 394.1946347717679,269.78041359066526" fill="#718096"/>
 <polyline points="690,275 750,275" fill="none" stroke="#718096" stroke-width="3"/>
 <polygon points="750,275 739.1946347717678,280.21958640933474 739.1946347717678,269.78041359066526" fill="#718096"/>
 <polyline points="1035,275 1095,275" fill="none" stroke="#718096" stroke-width="3"/>
 <polygon points="1095,275 1084.1946347717678,280.21958640933474 1084.1946347717678,269.78041359066526" fill="#718096"/>
-<text x="60" y="381.15" font-family="DejaVu Sans, sans-serif" font-size="19" font-weight="400" fill="#526580" text-anchor="start">Demo queue: 10,000 events. Invalid input / full queue is logged. Live validation pending.</text>
+<text x="60" y="381.15" font-family="DejaVu Sans, sans-serif" font-size="19" font-weight="400" fill="#526580" text-anchor="start">Bounded queue + TTL dedup; JSON receipts, CSV completions and summary. Controlled evaluation pending.</text>
 <text x="60" y="457.0" font-family="DejaVu Sans, sans-serif" font-size="20" font-weight="700" fill="#087F8C" text-anchor="start">REPRODUCIBLE EXPERIMENT</text>
 <rect x="60" y="490" width="285" height="145" rx="14" fill="#ECFDF5" stroke="#087F8C" stroke-width="2"/>
 <text x="202.5" y="528.7" font-family="DejaVu Sans, sans-serif" font-size="22" font-weight="700" fill="#087F8C" text-anchor="middle">Seeded workload</text>
@@ -32,16 +32,16 @@
 <text x="202.5" y="588.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Same trace per policy</text>
 <rect x="405" y="490" width="285" height="145" rx="14" fill="#ECFDF5" stroke="#087F8C" stroke-width="2"/>
 <text x="547.5" y="528.7" font-family="DejaVu Sans, sans-serif" font-size="22" font-weight="700" fill="#087F8C" text-anchor="middle">Simulation runner</text>
-<text x="547.5" y="560.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">FIFO / strict priority</text>
-<text x="547.5" y="588.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Fixed aging / EDF</text>
+<text x="547.5" y="560.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">8 shared selector policies</text>
+<text x="547.5" y="588.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Baseline + guarded aging</text>
 <rect x="750" y="490" width="285" height="145" rx="14" fill="#ECFDF5" stroke="#087F8C" stroke-width="2"/>
 <text x="892.5" y="528.7" font-family="DejaVu Sans, sans-serif" font-size="22" font-weight="700" fill="#087F8C" text-anchor="middle">Per-event evidence</text>
 <text x="892.5" y="560.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Arrival, start, finish</text>
 <text x="892.5" y="588.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Waiting and latency</text>
 <rect x="1095" y="490" width="285" height="145" rx="14" fill="#ECFDF5" stroke="#087F8C" stroke-width="2"/>
 <text x="1237.5" y="528.7" font-family="DejaVu Sans, sans-serif" font-size="22" font-weight="700" fill="#087F8C" text-anchor="middle">Analysis and report</text>
-<text x="1237.5" y="560.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">CSV + config + hashes</text>
-<text x="1237.5" y="588.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Paired pilot intervals</text>
+<text x="1237.5" y="560.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Registered tuning / evaluation</text>
+<text x="1237.5" y="588.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Paired intervals + plots</text>
 <polyline points="345,560 405,560" fill="none" stroke="#087F8C" stroke-width="3"/>
 <polygon points="405,560 394.1946347717679,565.2195864093347 394.1946347717679,554.7804135906653" fill="#087F8C"/>
 <polyline points="690,560 750,560" fill="none" stroke="#087F8C" stroke-width="3"/>
@@ -50,9 +50,9 @@
 <polygon points="1095,560 1084.1946347717678,565.2195864093347 1084.1946347717678,554.7804135906653" fill="#087F8C"/>
 <text x="60" y="676.15" font-family="DejaVu Sans, sans-serif" font-size="19" font-weight="400" fill="#526580" text-anchor="start">Simulation: modeled time, one worker; optional bounded queue; no broker dependency.</text>
 <rect x="60" y="735" width="1320" height="130" rx="14" fill="#F1F5F9" stroke="#718096" stroke-width="2" stroke-dasharray="8 5"/>
-<text x="720.0" y="773.7" font-family="DejaVu Sans, sans-serif" font-size="22" font-weight="700" fill="#718096" text-anchor="middle">Planned research extensions</text>
-<text x="720.0" y="805.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Batch experiment runner  |  Sensitivity and ablation</text>
-<text x="720.0" y="833.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Congestion-aware aging candidate  |  Controlled MQTT evaluation</text>
+<text x="720.0" y="773.7" font-family="DejaVu Sans, sans-serif" font-size="22" font-weight="700" fill="#718096" text-anchor="middle">Remaining validation</text>
+<text x="720.0" y="805.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Controlled MQTT experiments  |  Reconnect and overload stress</text>
+<text x="720.0" y="833.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Full primary experiments  |  Evidence review and release</text>
 <text x="60" y="917.0" font-family="DejaVu Sans, sans-serif" font-size="20" font-weight="400" fill="#526580" text-anchor="start">Blue / green: implemented components. Gray: planned work.</text>
 <text x="60" y="951.15" font-family="DejaVu Sans, sans-serif" font-size="19" font-weight="400" fill="#526580" text-anchor="start">The application queue is after MQTT delivery; this design makes no network timing guarantee.</text>
 </svg>

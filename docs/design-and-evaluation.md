@@ -1,6 +1,6 @@
 # Design and evaluation
 
-The original study below describes the initial baseline experiment. For the current candidate design and planned evaluation protocol, see the [Task 5 review](research/design-review.md) and [candidate specification](research/candidate-spec.md). Their planned scope supersedes the initial protocol; existing pilot evidence remains unchanged.
+The original study below describes the initial baseline experiment. For the current live implementation, see [live MQTT](live-mqtt.md). For the candidate design and planned evaluation protocol, see the [Task 5 review](research/design-review.md) and [candidate specification](research/candidate-spec.md). Their planned scope supersedes the initial protocol; existing pilot evidence remains unchanged.
 
 ## Research question
 How does non-preemptive strict priority scheduling change high-priority IoT alert latency and low-priority waiting time compared with FIFO under increasing load?

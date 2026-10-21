@@ -32,3 +32,14 @@ jobs:
       - run: python -m iot_alerts.robustness plan --input results/study-smoke --output results/sensitivity-smoke
       - run: python -m iot_alerts.robustness run --output results/sensitivity-smoke
       - run: python -m iot_alerts.robustness sensitivity --input results/sensitivity-smoke --output results/sensitivity-analysis-smoke --plots
+  mqtt-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements.txt
+      - run: sudo apt-get update
+      - run: sudo apt-get install -y mosquitto
+      - run: python tools/smoke_mqtt.py --output results/mqtt-smoke
