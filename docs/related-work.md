@@ -73,3 +73,7 @@ Relevance: Instantaneous switch queue lengths and priorities drive a Whittle-ind
 Verification: Author-hosted postprint introduction/abstract and [university bibliographic record](https://scholars.cityu.edu.hk/en/publications/real-time-priority-queue-scheduling-for-bursty-traffic/). [Author postprint](https://www.ee.cityu.edu.hk/~zukerman/J207.pdf).
 
 The [research design review](research/design-review.md) records the current hypothesis and unresolved comparison gate.
+
+## Comparator implementation decision
+
+See the [focused closest-method review](research/closest-method-comparison.md) for verified access status, model alignment and reproduction acceptance criteria. R9 method sections have now been reviewed from its author postprint. R8 full-text access remains unresolved; its algorithm has not been reproduced.
