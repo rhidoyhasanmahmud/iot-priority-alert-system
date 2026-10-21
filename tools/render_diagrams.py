@@ -55,7 +55,7 @@ c.box(xs[2],490,w,145,'Per-event evidence',['Arrival, start, finish','Waiting an
 c.box(xs[3],490,w,145,'Analysis and report',['Registered tuning / evaluation','Paired intervals + plots'],TEAL)
 for a,b in zip(xs,xs[1:]):c.arrow([(a+w,560),(b,560)],TEAL)
 c.text(60,660,'Simulation: modeled time, one worker; optional bounded queue; no broker dependency.',19,MUTED)
-c.box(60,735,1320,130,'Remaining validation',['Controlled MQTT experiments  |  Reconnect and overload stress', 'Full primary experiments  |  Evidence review and release'],GRAY,True)
+c.box(60,735,1320,130,'Remaining validation',['Full live validation profile  |  Full primary simulation experiments', 'Evidence traceability review  |  Open-source release'],GRAY,True)
 c.text(60,900,'Blue / green: implemented components. Gray: planned work.',20,MUTED)
 c.text(60,935,'The application queue is after MQTT delivery; this design makes no network timing guarantee.',19,MUTED)
 c.save('high-level-architecture')

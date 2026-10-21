@@ -47,11 +47,42 @@ def receive(client, args, processor, subscribed):
         policies_share_selector=True, timestamp_order='real callback/worker interleaving; no simulated arrival batches')
     (args.output/'config.json').write_text(json.dumps(config, indent=2)+'\n')
     failed, errors = threading.Event(), []
-    with (args.output/'receipts.jsonl').open('w') as receipts, (args.output/'completed.csv').open('w', newline='') as completed:
+    with (args.output/'receipts.jsonl').open('w') as receipts, (args.output/'completed.csv').open('w', newline='') as completed, (args.output/'lifecycle.jsonl').open('w') as lifecycle:
         fields = ['source', 'id', 'priority', 'deadline_ms', 'sequence', 'status', 'arrival_s', 'start_s',
                   'finish_s', 'absolute_deadline_s', 'deadline_status', 'wait_ms', 'local_latency_ms', 'service_ms']
         writer = csv.DictWriter(completed, fieldnames=fields, lineterminator='\n')
         writer.writeheader()
+
+        def record_lifecycle(event, **details):
+            try:
+                lifecycle.write(json.dumps(dict(event=event, local_s=processor.now(), **details))+'\n')
+                lifecycle.flush()
+            except BaseException as error:
+                errors.append(repr(error))
+                failed.set()
+
+        def connected(client, userdata, flags, reason, properties):
+            success = not reason.is_failure
+            record_lifecycle('connected', success=success, reason=str(reason))
+            if success:
+                result, _ = client.subscribe(TOPIC, qos=1)
+                if result != 0:
+                    errors.append(f'Subscribe failed: {result}')
+                    failed.set()
+
+        def on_subscribe(client, userdata, mid, reasons, properties):
+            success = bool(reasons) and all(not reason.is_failure for reason in reasons)
+            record_lifecycle('subscribed', success=success, reasons=[str(r) for r in reasons])
+            if success:
+                subscribed.set()
+
+        def disconnected(client, userdata, flags, reason, properties):
+            subscribed.clear()
+            record_lifecycle('disconnected', reason=str(reason))
+
+        client.on_connect = connected
+        client.on_subscribe = on_subscribe
+        client.on_disconnect = disconnected
 
         def received(client, userdata, message):
             try:

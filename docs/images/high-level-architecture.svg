@@ -51,8 +51,8 @@
 <text x="60" y="676.15" font-family="DejaVu Sans, sans-serif" font-size="19" font-weight="400" fill="#526580" text-anchor="start">Simulation: modeled time, one worker; optional bounded queue; no broker dependency.</text>
 <rect x="60" y="735" width="1320" height="130" rx="14" fill="#F1F5F9" stroke="#718096" stroke-width="2" stroke-dasharray="8 5"/>
 <text x="720.0" y="773.7" font-family="DejaVu Sans, sans-serif" font-size="22" font-weight="700" fill="#718096" text-anchor="middle">Remaining validation</text>
-<text x="720.0" y="805.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Controlled MQTT experiments  |  Reconnect and overload stress</text>
-<text x="720.0" y="833.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Full primary experiments  |  Evidence review and release</text>
+<text x="720.0" y="805.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Full live validation profile  |  Full primary simulation experiments</text>
+<text x="720.0" y="833.3" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="400" fill="#526580" text-anchor="middle">Evidence traceability review  |  Open-source release</text>
 <text x="60" y="917.0" font-family="DejaVu Sans, sans-serif" font-size="20" font-weight="400" fill="#526580" text-anchor="start">Blue / green: implemented components. Gray: planned work.</text>
 <text x="60" y="951.15" font-family="DejaVu Sans, sans-serif" font-size="19" font-weight="400" fill="#526580" text-anchor="start">The application queue is after MQTT delivery; this design makes no network timing guarantee.</text>
 </svg>

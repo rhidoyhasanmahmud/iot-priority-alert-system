@@ -43,3 +43,14 @@ jobs:
       - run: sudo apt-get update
       - run: sudo apt-get install -y mosquitto
       - run: python tools/smoke_mqtt.py --output results/mqtt-smoke
+      - run: python -m iot_alerts.live_validation plan --profile smoke --output results/live-validation-smoke
+      - run: python -m iot_alerts.live_validation run --output results/live-validation-smoke
+      - run: python -m iot_alerts.live_validation verify --output results/live-validation-smoke
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: live-validation-evidence
+          path: |
+            results/mqtt-smoke
+            results/live-validation-smoke
+          retention-days: 30
