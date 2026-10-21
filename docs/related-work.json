@@ -101,7 +101,8 @@
     "url": "https://ieeexplore.ieee.org/document/11685955/",
     "access": "Publisher abstract and metadata; author publication list confirms authors",
     "method": "TRIAGE/4 combines semantic alarm priority and device fairness with simulation and an MQTT prototype.",
-    "difference": "Closest conceptual overlap: alarm latency and fairness are already studied. Any novelty claim needs a full comparison with this method, not just FIFO and strict priority."
+    "difference": "Closest conceptual overlap: alarm latency and fairness are already studied. Any novelty claim needs a full comparison with this method, not just FIFO and strict priority.",
+    "comparison_review": "research/closest-method-comparison.md"
   },
   {
     "id": "R9",
@@ -112,8 +113,10 @@
     "publisher": "IEEE",
     "doi": "10.1109/JIOT.2025.3627212",
     "url": "https://scholars.cityu.edu.hk/en/publications/real-time-priority-queue-scheduling-for-bursty-traffic/",
-    "access": "Author-hosted postprint introduction and abstract; university bibliographic record",
+    "access": "University bibliographic record; author postprint method, Algorithm 1 and implementation sections reviewed on 2026-10-21; no independent replication",
     "method": "Uses instantaneous switch queue lengths and priorities with a Whittle-index formulation for bursty traffic.",
-    "difference": "Queue occupancy and priority tradeoffs are prior art. Different switch model; a direct comparison needs explicit model alignment."
+    "difference": "Queue occupancy and priority tradeoffs are prior art. Different switch model; a direct comparison needs explicit model alignment.",
+    "full_text_url": "https://www.ee.cityu.edu.hk/~zukerman/J207.pdf",
+    "comparison_review": "research/closest-method-comparison.md"
   }
 ]

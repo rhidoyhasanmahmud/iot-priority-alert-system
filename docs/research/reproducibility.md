@@ -29,7 +29,7 @@ Hashes detect changes relative to manifests. They do not authenticate an indepen
 | Contribution differs sufficiently from closest published methods | Related-work review and identified gaps | Full-text comparison, especially reference R8, and justified comparable baseline needed |
 | System detects cyberattacks or provides production security | No security-detection evaluation | Outside current demonstrated scope; priority metadata is not attack detection |
 
-The [design review](design-review.md) and [related work](../related-work.md) define the contribution boundaries. Exploratory unadjusted scenario intervals must not become simultaneous or universal improvement claims.
+The [closest-method comparison](closest-method-comparison.md), [design review](design-review.md) and [related work](../related-work.md) define the contribution boundaries. Exploratory unadjusted scenario intervals must not become simultaneous or universal improvement claims.
 
 ## Execute the research in order
 
