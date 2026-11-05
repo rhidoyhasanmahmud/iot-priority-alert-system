@@ -1,3 +1,7 @@
+> **Evidence update — 5 November 2026:** The full **28-page accepted author manuscript for R08 / TRIAGE/4** is now available and has been critically reviewed in [R08's bilingual individual note](literature-review/papers/R08-triage4-semantic-priority-2026.md) (IEEE DOI [10.1109/ACCESS.2026.3732592](https://doi.org/10.1109/ACCESS.2026.3732592)). It specifies four strict priority bands, per-device RR, routine token buckets, AAP and its local conditional alarm bound, and provides simulation, ablation and Raspberry Pi MQTT data. **The R08 full-text access blocker described in the 21 October snapshot below is now resolved.** However, a *faithful external comparator implementation, model/resource alignment, algorithm verification and held-out comparison remain unresolved*. This update does **not** alter the registered v1 experiment protocol or imply that R08 has been replicated.
+
+---
+
 # Closest-method comparison and comparator decision
 
 Reviewed 21 October 2026 (Malaysia). Decision: retain the implemented matched controls for the registered mechanism study. The external-method comparison and algorithmic novelty gate remain open. No primary outcomes were inspected or generated for this review; `configs/research-v1.json` is unchanged.
