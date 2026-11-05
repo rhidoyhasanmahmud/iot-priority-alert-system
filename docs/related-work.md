@@ -1,3 +1,7 @@
+> **New full-text reviews (5 November 2026):** The dedicated [Literature Review Knowledge Base](research/literature-review/README.md) now contains **seven evidence-traced paper notes** (R01, R02, R08, R09, R10, R11, R12), with five English questions and collapsible Bangla explanations each. **R08's accepted author manuscript has now been fully reviewed**: the older abstract-level R08 access statements in this dated catalog are **historical and superseded** by [R08's individual note](research/literature-review/papers/R08-triage4-semantic-priority-2026.md). This is a full-text critical appraisal, **not a replication**; external comparator adaptation remains pending. The prior ID system and existing registered experimental protocol are preserved.
+
+---
+
 # Related work and contribution assessment
 
 Verified on 20 October 2026. This is a focused review, not a systematic literature review. Bibliographic verification is separate from full-text appraisal. No journal quartile or indexing claim is made.
