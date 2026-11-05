@@ -1,120 +1,170 @@
 # Literature Review Knowledge Base — IoT Priority Alert System
 
-This folder is a **readable, evidence-traced research notebook**, not a collection of abstract paraphrases. Each paper receives a self-contained English technical explanation followed by a **collapsible Bangla explanation under every question**, so that its problem, approach, evidence, and relevance can be understood again months later without repeatedly reopening the PDF.
+**Purpose:** One place to **understand each paper again after months without rereading its PDF** and to synthesize what existing research actually demonstrates about urgent-message priority, routine waiting, fairness, overload, deadline risk, and losses.
 
-**Research focus:** For a bounded, non-preemptive application worker after MQTT delivery, investigate the tradeoff between **urgent-alert deadline failures** and **routine-event waiting** under normal and bursty traffic, accounting for **loss and scheduler overhead**. The proposed occupancy-aware guarded aging policy is **experimental**, and claims of state-of-the-art superiority or novelty remain subject to closest-method evaluation and completed experiments.
+- **This README combines navigation + cross-paper summary**. No separate SUMMARY.md.
+- **Individual technical notes live only in [papers/](papers/)**.
+- **Format of every paper:** exactly **What? / Why? / How? / Evidence? / So What?**; detailed **English first**, followed immediately by a collapsible **বাংলা ব্যাখ্যা** for each question.
+- **Identity is always the actual title/authors/DOI inside the PDF, not the uploaded filename.** If they disagree, record the discrepancy and review the *actual document*.
+- **No publisher PDFs committed:** link the DOI/publisher and cite PDF page, figure, algorithm, equation as evidence instead.
+- **Evidence boundary:** “Full manuscript reviewed” means an original critical reading—not an independent replication of code, theorem, empirical output or journal peer-review process.
 
-The pre-existing project references and comparisons remain in [Related Work](../../related-work.md), [reference metadata](../../related-work.json), and [closest-method comparison](../closest-method-comparison.md). **Do not mistake a bibliographic entry there for a completed full-text paper note here.**
+**Project research question (current scope):** For a **bounded, non-preemptive application worker after MQTT delivery**, does **occupancy-dependent guarded aging** provide an empirically worthwhile tradeoff between **urgent-deadline failures**, **routine waiting**, and **admission loss** relative to tuned matched controls (including fixed aging and EDF), once overhead is measured?
 
-## Paper index
-
-| ID | Paper (verified actual title) | Year | Method / focus | Relevance | Evidence status | Individual note |
-| --- | --- | --- | --- | --- | --- | --- |
-| **R10** | **Scheduling for Periodic Multi-Source Systems with Peak-Age Violation Guarantees** — Lin, Huang & Hsu | 2023 | GRR; peak-AoI violation; IPQ vs SPQ | Medium | **Full uploaded preprint examined**; no independent replication | [Read R10](papers/R10-grr-peak-age-2023.md) |
-
-**ID policy:** R01–R09 are already used by the repository's existing [Related Work catalog](../../related-work.md); the first **new** source receives **R10**. The individual notes for R01–R09 will be created only when corresponding source material is available for a properly scoped review. Future papers continue as R11, R12, etc., without renumbering existing references.
-
-**Critical file-name mismatch:** The uploaded file was named *A Scheduling Approach to Minimize Peak-Age Violation with Fairness Guarantees in IIoT Systems* (a separate **ICC 2026** paper). Its contents actually identify Lin et al.'s **2023 GRR** paper. R10 is based **only on the contents of the uploaded 32-page 2023 preprint**. The incorrectly implied 2026 paper remains **unreviewed**, and will receive its own ID only when its actual full text is supplied.
-
-### Review status meanings
-
-| Status | Meaning |
-| --- | --- |
-| Metadata/abstract only | Identity and available abstract checked; detailed method/result claims are restricted |
-| Partial full-text review | Selected sections read; unreviewed claims remain unresolved |
-| Full uploaded manuscript examined | Core method, analytical results, experiments, figures, and limitations reviewed from the supplied version; **does not** mean independent replication |
-| Replicated | Source-level reproduction and comparison procedures documented; no paper currently has this status here |
+This is a **candidate empirical question**, not an already validated originality or superiority claim. The project's running implementation/protocol is described in [design review](../design-review.md), [registered closest-method comparison](../closest-method-comparison.md), [other related work](../../related-work.md), and [metadata catalog](../../related-work.json).
 
 ---
 
-## Consolidated literature findings
+## 1. Paper index — read the individual notes
 
-> **Scope:** This synthesis currently covers **one individually reviewed source (R10)**. The pre-existing R01–R09 catalog includes other relevant works but is **not falsely counted as nine full reviews**. Update this section as actual individual notes are added.
+**Seven individual PDF-based reviews** have been written so far: R01, R02, R08, R09, R10, R11 and R12. IDs R03–R07 remain reserved for prior catalog entries and have **not** been labeled as fully reviewed.
 
-### 1. Freshness and deadline failure are different objectives
-
-**R10:** The AoI of a source measures **how old the receiver's freshest delivered status is**. The paper studies the *probability* that **peak AoI** crosses a threshold. This is useful motivation for studying tails/violations rather than only averages, but **it is not equivalent to an alert exceeding its own processing deadline**.
-
-**Implication:** In our experiment reports, keep **urgent deadline-failure rate**, **routine waiting time**, **admission loss**, and optional **freshness measurements** conceptually distinct. Do not label deadline miss as peak-AoI violation without an appropriate generation/delivery model.
-
-### 2. Where scheduling happens changes what can be compared
-
-**R10:** GRR determines **which periodically updating source group and source** receives transmission service; IPQ/SPQ govern **which status update** a given source keeps. Its model is a shared base station with per-source queues.
-
-**Our model:** A shared application-level worker **after MQTT delivery** schedules distinct alert events. Changing an arrival-generation process, network transmission protocol, queue capacity, or packet discard policy changes the evaluated problem.
-
-**Implication:** R10 offers transferable scheduling intuition and a mathematical tail-risk viewpoint, **not a fair direct benchmark** against our current alert scheduler.
-
-### 3. Stale measurements and indispensable alerts must be distinguished
-
-**R10:** SPQ retains the latest waiting measurement and can outperform IPQ on freshness when transmitting older statuses becomes counterproductive.
-
-**Risk for our project:** If two messages represent **different emergency incidents**, dropping the earlier alert because a later alert arrived can be unacceptable. A measurement replacement policy cannot simply be reused as emergency loss management.
-
-### 4. Strong claims require the right evidence
-
-**R10:** The reported results combine mathematical bounds with computer simulations. GRR improves the modeled violation-probability trends versus standard RR for most of the source groups examined; the paper explicitly notes an exception for the group favored by RR. For SPQ a tight analytical lower bound was **not** obtained.
-
-**Implication:** Keep simulation-only claims separate from mathematical guarantees. Report workload assumptions, baseline choices, group-specific exceptions, and uncertainty. Do not infer unconditional or application-wide superiority.
-
----
-
-## Cross-paper comparison matrix
-
-This table will grow as **additional notes** are actually completed. Existing R08 and R09 summaries below are **pointers to the older scoped repository review**, not new full-paper reviews.
-
-| ID | Scheduling object and context | Core technique | Objective/evidence | Relationship to our study | Review boundary |
+| ID | Actual paper title | Authors/year/venue | Major technique | Relevance to our question | Read note |
 | --- | --- | --- | --- | --- | --- |
-| **R08** | Emergency-message scheduling (source/model details unresolved) | TRIAGE/4 semantic bands and device fairness | Alarm responsiveness/fairness in publisher abstract | **Closest conceptual overlap**; complete rules must be obtained before reproduction | Existing [closest-method note](../closest-method-comparison.md) is primarily **abstract-level** |
-| **R09** | Network switch output queues under bursty traffic | Whittle-index priority/queue-state scheduling | Queue-level performance in a different resource model | Shows congestion/priority approaches are prior art; model alignment required | Existing [closest-method note](../closest-method-comparison.md) examines method sections; **not replicated** |
-| **R10** | Periodic heterogeneous status updates via base station | Frequency-aware GRR; IPQ/SPQ | Peak-AoI violation bounds and simulated trends | Useful related theory/metric; **not a direct fairness/deadline comparator** | **Full supplied preprint reviewed**, without independent replication |
+| **R01** | [PrioMQTT: A prioritized version of the MQTT protocol](https://doi.org/10.1016/j.comcom.2024.03.018) | Patti et al., 2024, *Computer Communications*, Elsevier | MQTT priority metadata; UDP/TCP; broker transmit queue | **High:** MQTT priority prior art | [R01](papers/R01-priomqtt-2024.md) |
+| **R02** | [Priority-enabled MQTT: a robust approach to emergency event messaging](https://doi.org/10.1186/s44147-024-00400-2) | Akshatha et al., 2024, *Journal of Engineering and Applied Science*, Springer Nature | Urgent/Critical/FCFS RabbitMQ queues | **High:** emergency priority messaging | [R02](papers/R02-priority-enabled-mqtt-2024.md) |
+| **R08** | [Multi-tier Message Scheduling for IoT-based Urban Emergency Systems through Semantic Priority Override](https://doi.org/10.1109/ACCESS.2026.3732592) | Bittencourt et al., 2026, *IEEE Access*, IEEE | **TRIAGE/4:** semantic override; per-device RR; AAP admission protection | **Very high:** closest semantic/fairness comparator | [R08](papers/R08-triage4-semantic-priority-2026.md) |
+| **R09** | [Real-Time Priority Queue Scheduling for Bursty Traffic](https://doi.org/10.1109/JIOT.2025.3627212) | Lin et al., 2025, *IEEE Internet of Things Journal*, IEEE | **WTI:** Whittle index using queue occupancy/priority | **Very high:** burst-aware scheduling prior art | [R09](papers/R09-whittle-bursty-queues-2025.md) |
+| **R10** | [Scheduling for Periodic Multi-Source Systems with Peak-Age Violation Guarantees](https://doi.org/10.1109/TCOMM.2023.3308959) | Lin, Huang & Hsu, 2023, *IEEE Transactions on Communications*, IEEE | **GRR**, IPQ/SPQ, peak-AoI violation bounds | **Medium:** tail/freshness theory, not an alert comparator | [R10](papers/R10-grr-peak-age-2023.md) |
+| **R11** | [Adaptive Priority Scheduling of Internet of Things Data for Disaster Management in Smart Cities](https://doi.org/10.1109/ACCESS.2024.3407672) | Pognon, Quintero & Pierre, 2024, *IEEE Access*, IEEE | Deadline-progress ordering; fallback migration; congestion-aware routing | **High:** deadline/fairness-related WSN prior art | [R11](papers/R11-pognon-adaptive-disaster-2024.md) |
+| **R12** | [Online age of information scheduling: The power of packet management and fairness](https://doi.org/10.1016/j.comnet.2026.112690) | Jien & Kuo, 2026, *Computer Networks*, Elsevier | Packet replacement + $\delta$-Fair scheduling; online competitive bounds | **Medium–high:** theoretical fairness/replaceability | [R12](papers/R12-online-aoi-packet-management-fairness-2026.md) |
 
-**Interpretation rule:** “Not verified,” “unresolved,” or “not directly comparable” never means the competing paper lacks a method or feature. It means the evidence presently available **does not support an absence or equivalence claim**.
+**Review status of all seven:** The **supplied full PDF text and relevant figures** were examined, and an individual evidence-traced note produced. The R08 document is an **accepted author manuscript**; R09 is an **author postprint**; R10 is an **arXiv preprint**. Version-specific page numbering is explained in each note. **None has undergone independent replication here.**
 
----
+### Exact-title warning for R10
 
-## Research gaps and decision log
-
-| Candidate observation / gap | Present evidence | Status | Research action |
-| --- | --- | --- | --- |
-| Averages may hide threshold exceedance | R10's AoI/peak-age motivation and analysis | **Established within R10's model** | Explain and report relevant tail/violation metrics carefully |
-| Scheduling heterogeneity matters | GRR vs RR in R10's periodic multi-source simulations | **Supported for tested setup** | Do not transfer directly to bursty event-worker scheduling |
-| Occupancy-dependent aging's unique contribution | Existing R08/R09 record; our candidate design | **Unresolved novelty question** | Complete closest-method comparison and reproducible evaluation |
-| Urgent response versus routine waiting under bursts | Our registered research question; baseline designs | **Candidate empirical question** | Execute matched, loss-aware experiments and quantify uncertainty |
-| Formal guarantee for our MQTT worker | R10 proves results only in a different mathematical model | **Not established** | Avoid “guaranteed deadline”/“prevents starvation” claims |
-
-**Current decision:** Keep R10 as an **AoI theory and threshold-analysis background reference**. Do **not** implement GRR as a direct baseline solely on the basis of this paper. Preserve the project's existing research protocol and closest-method gate.
+The first uploaded file was **named** like the separate 2026 ICC fairness paper, but **actually contains the 2023 Lin/Huang/Hsu GRR preprint**. We reviewed **R10 by its *internal* PDF title** and **did not mistakenly attribute the 2026 paper's results to it**. If the actual 2026 ICC fairness paper is later uploaded, allocate a new distinct ID.
 
 ---
 
-## How to write every future paper note
+## 2. Cross-paper comparison matrix
 
-Store one Markdown document per actual paper under **papers/**. Preserve the **five fixed questions**, each with its English explanation first and a GitHub-compatible **Bangla collapsible section directly underneath**:
+The table emphasizes **decision scope, resource parity and outcome parity**. Similar keywords do **not** mean methods are interchangeable.
 
-1. **What?** — What problem does the paper solve? Define the objective, key metrics, and boundaries.
-2. **Why?** — Why does this problem matter? What exactly is missing from the compared approaches? Distinguish authors' positioning from independently established gaps.
-3. **How?** — Explain system model, assumptions, algorithm, mathematical intuition, **step-by-step worked example**, and alternative configurations.
-4. **Evidence?** — Record baselines, workload/dataset, parameters, figures, actual outcomes, uncertainty, and which claims are analytical versus empirical. **Do not invent percentages from charts.**
-5. **So What?** — Critically discuss strengths, limitations, reproducibility, transfer to our queue/traffic model, related-work placement, and the **decision for our research**.
+| ID | Scheduler acts at | Scheduling/admission mechanism | Evaluation outcome | Main mismatch vs our worker |
+| --- | --- | --- | --- | --- |
+| **R01** | MQTT broker **outgoing transmission queue** | Publisher-set numeric priority + UDP transport | RTT, queue time, loss in industrial testbed | **Transport and priority changed together**; no matched routine anti-starvation |
+| **R02** | RabbitMQ MQTT/AMQP virtual queues | Three **static** classes: Urgent/Critical/FCFS | Mean response, delay, jitter on small prototype | **Only 10 messages/topic**; no bursty p95/p99 or fairness evaluation |
+| **R08** | Local gateway/broker queue | Four bands; alarm override; **device RR**; routine tokens; AAP shedding | Alarm latency/p95, device fairness, shed counts, broker scheduling overhead | Geography/device fairness vs **routine-class waiting**; admission shedding changes denominator |
+| **R09** | **Network switch output port** with multiple priority queues | Learned, offline Whittle indices from instant queue state | Packet delay/loss/throughput, OVS-DPDK under bursts | **Per-class buffers**, slot-based switches, transition-learning phase |
+| **R10** | Shared base-station scheduler with per-source buffers | Frequency-aware **GRR**; IPQ vs SPQ | Peak-AoI violation probabilities / asymptotic bounds | **Periodic status freshness**, not per-event urgent deadline |
+| **R11** | **Multi-hop clustered WSN** | Preemptive priority + per-hop deadline progress + fallback + next-hop | Average end-to-end delay, delivery ratio, critical situations | **Infinite queues**; routing & preemption confound queue-only performance |
+| **R12** | Online base-station messages to terminals | **RR / $\delta$-Fair** + replace-latest packet management | Total AoI; mathematical competitive bounds + simulations | **Replaceable status**; per-terminal service fairness, not distinct event completion |
 
-Under **each** answer, use native GitHub Markdown HTML:
+---
+
+## 3. Consolidated findings — what we have genuinely learned
+
+### Finding A — Priority-based MQTT messaging **already exists**
+
+**R01** introduces protocol-level priority metadata and broker transmission priority, and reports **51.30%–79.14%** reduced RTT in its setting relative to standard MQTT; however, **UDP vs TCP** is a co-varying change. **R02** adds emergency class queues and shows proof-of-concept latency differences, but its timing study is small and does not establish robust lower-class wait guarantees.
+
+**Implication:** Never claim **“priority-enabled MQTT”** or **“urgent messages before normal messages”** as the central novelty of our paper. We must articulate the actual **decision rule** and provide a clean controlled comparison.
+
+### Finding B — Emergency priority, fairness, and adaptive protection are **already combined** in a closely related 2026 work
+
+**R08 TRIAGE/4** now has a **full-text individual review**. It uses:
+- An **ALARM** override above geographically ranked routine traffic.
+- Per-device round robin for **within-band** fairness.
+- **AAP** for high-rate anomalous sources plus global alarm admission control.
+- Simulations, five baselines, scenario ablations, sensitivity tests and a **Raspberry Pi 5 MQTT prototype**.
+
+**Specific observed R08 prototype data:** in C3, TRIAGE/4 alarm RTT **0.158 s** vs strict geographic priority **2.927 s**; scheduler overhead **P50 15.39 µs / P99 50.19 µs** (Table 12, accepted PDF p. 24). Its same-band fairness improves, but **cross-band BACKGROUND starvation is deliberately permitted** and routine-band token scarcity can greatly increase routine waiting.
+
+**Implication:** R08 is the **closest conceptual competitor**, not just a related citation. Any novelty claim must explicitly address the overlap and show whether our **urgent deadlines vs routine waiting** objective yields a genuinely distinct, supported finding.
+
+### Finding C — Instantaneous queue occupancy + priority under bursty traffic is **prior art**
+
+**R09 WTI** already balances a **priority reward** against **queue congestion/loss** via queue-state-dependent Whittle indices. In its network implementation, reported burst loss is **11.7% WTI vs 17.8% SP vs 26.5% WRR**; in a no-burst test, strict priority is slightly faster than WTI (**2170 µs vs 2294 µs**).
+
+**Implication:** We cannot claim the simple combination of **priority + occupancy** as unprecedented. Our narrower **event-level occupancy-dependent aging + urgent-deadline guard** must be evaluated against *matched controls*; a faithful/adapted WTI requires explicit resource and training alignment.
+
+### Finding D — Deadline and age risk can be expressed differently
+
+**R10** treats **peak Age of Information violation** for heterogeneous periodic status updates. **R11** dynamically sorts same-class packets using **remaining per-hop deadline budget**, migrates salvageable critical packets, and selects routes based on occupancy and past delays. It reports a **31%** urgent-delay improvement for its largest studied network, but combines several mechanisms under **infinite-buffer simulation**.
+
+**Implication:** Distinguish **per-event deadline miss** from **freshness threshold violation** and **multi-hop per-level deadline progress**. All are relevant ideas, but they are **not interchangeable endpoints**.
+
+### Finding E — Fairness depends on what is being guaranteed and whether status replacement is legal
+
+**R08**: **intra-band device RR** fairness, but not routine service guarantee across strict bands.
+
+**R11**: lower-class delivery/delay can improve through fallback migration, but salvage increases traffic and can **raise total delay**.
+
+**R12**: under **replace-latest PM**, $\delta$-Fair online algorithms are $O(\delta^4)$-competitive for **total AoI**. Without PM, its FCFS problem has an $\Omega(n^{1/5})$ lower bound. These theoretical guarantees are **not** urgent-alert completion guarantees, and **discarding distinct alarms** is not generally safe.
+
+**Implication:** Define exactly what **routine protection** means: per-class waiting, fairness across devices, fairness between classes, starvation-free service, admission probability, or delivered-age objective. These are distinct claims.
+
+### Finding F — Loss and scheduler overhead must not be hidden by a latency-only result
+
+**R08** reduces admitted-alarm latency in flood scenarios partly through selective **admission shedding**. **R11** shows that saving additional packets can increase system load and total latency. **R01** changes transport semantics; **R09** explicitly optimizes loss.
+
+**Implication:** Report **offered / admitted / rejected / completed / deadline-failed** event counts and distributions; avoid reporting latency among **completed events alone** if the algorithms admit different proportions.
+
+---
+
+## 4. Research gaps: evaluated evidence vs hypotheses
+
+| Proposition | Current status | What would establish it? |
+| --- | --- | --- |
+| Basic MQTT priority support is novel | **Disproved as a broad claim** by R01/R02/R08 | Do not claim |
+| Occupancy-aware priority scheduling under IoT bursts is entirely new | **Disproved as a broad claim** by R09 (also R11 occupancy-related routing) | Do not claim |
+| Alarm priority and fairness have not been studied together | **Disproved as a broad claim** by R08 | Do not claim |
+| Our occupancy-dependent aging produces a **useful urgent-deadline / routine-waiting tradeoff** under matched bounded-worker workloads | **Open empirical hypothesis** | Registered repeated/held-out experiments; tuned fixed controls; latency + loss + overhead with uncertainty |
+| The specific proposed combination is algorithmically original relative to closest methods | **Unresolved** | Formal decision-rule comparison, credible external comparator specification and fair model mapping |
+| Our method provides hard deadline or starvation-freedom guarantees | **Not established** | Formal model and proof, or use properly qualified empirical language |
+| TRIAGE/4 can serve as a faithful direct baseline in our original worker model | **Not yet established** | Full adaptation specification for device identity, geography, tokens, buffer, admitted work, objective and information parity |
+| R09 WTI can be fairly reproduced in an event-level shared queue | **Not yet established** | Queue mapping, state transitions, training budget, discretization, resource and time parity |
+
+**Do not frame any “not evaluated by these seven notes” topic as a universal literature gap** without broader and current searching. Our earlier [related-work catalog](../../related-work.md) includes R03–R07 and other literature that are relevant but not individually reviewed here.
+
+---
+
+## 5. Consequences for our implementation and conference paper
+
+**Research question stays narrow:** *On a bounded, non-preemptive worker following MQTT receipt, does the current guarded, occupancy-dependent aging rule achieve a better reproducible **urgent-deadline vs routine-waiting tradeoff** than suitably tuned internal controls?*
+
+**Current defensible approach:**
+1. **Preserve source-model parity:** identical arrival traces, priorities, deadlines, service costs and capacity across schedulers.
+2. **Keep strong internal controls:** FIFO, strict priority, EDF, fixed aging and a **matched guarded fixed-aging comparator** that isolates occupancy adaptation.
+3. **Do not hide losses:** distinguish rejection from processed/late completion; score deadlines appropriately.
+4. **Quantify tradeoffs**, not only who “wins”: urgent deadline failure, routine p95/p99 wait, routine/urgent loss, throughput and scheduling CPU time.
+5. **Keep held-out evaluation separate from tuning**, report seeds/intervals and sensitivity/ablation.
+6. **Record explicit external-method fidelity boundaries.** R08 full text is now available; writing a **TRIAGE/4 comparator specification** is the next work item. R09 WTI requires training/state mapping.
+7. **Do not rewrite a frozen registered experimental protocol opportunistically after inspecting results.** If a new baseline or input model is needed, issue a dated versioned amendment and use fresh evaluation seeds.
+
+**Suggested Related Work thematic sections:**
+- Priority-enabled messaging at MQTT/broker layer (**R01, R02**).
+- Emergency semantic priority and device fairness (**R08**).
+- Bursty occupancy-aware queue optimization (**R09**).
+- Deadline-progress/adaptive WSN scheduling (**R11**).
+- Freshness violation, online packet management and fairness theory (**R10, R12**).
+- Exact model gap and appropriately scoped contribution **without novelty inflation**.
+
+---
+
+## 6. How we keep this knowledge base consistent
+
+Each individual note uses these **five and only these five primary questions**:
+
+1. **What?** — Exact research problem, metric and scheduling object.
+2. **Why?** — Motivation, limits of cited methods and explicit assumptions.
+3. **How?** — Model, algorithms, equations, dispatch rules and *worked example*.
+4. **Evidence?** — Baselines, datasets/workload, evaluation settings, **figure/table-specific numerical evidence**, contrary outcomes and uncertainty.
+5. **So What?** — Strengths, limitations, match/mismatch to our queue and research decision.
+
+Under **every** answer, include GitHub-native HTML details:
 
     <details>
     <summary>🇧🇩 বাংলা ব্যাখ্যা — What?</summary>
 
-    এখানে একই technical ধারণা সহজ বাংলায় ব্যাখ্যা করা হবে।
-    কোনো assumptions বা findings বদলানো হবে না।
+    সহজ বাংলায় একই technical concept ব্যাখ্যা, কিন্তু English-এর claims
+    বা assumptions পরিবর্তন নয়।
 
     </details>
 
-### Mandatory source discipline
+**Quality bar:** Source page/figure/algorithm traceability; accurate DOI/title/authors; distinguish **author result / our interpretation / illustrative example**; mark preprint vs published versions; no invented percentages, data or theorem transfer; never treat “not evidenced” as “feature absent”; preserve existing R01–R09 reference IDs.
 
-- Record the **actual PDF title and authors**, verified venue, publisher, year, and DOI/official source. **Never trust uploaded filenames alone.**
-- If the supplied document is an **arXiv preprint**, distinguish its page numbering/version from the published article.
-- Give **section, page, figure, theorem, or equation** identifiers for substantive technical claims; any fabricated pedagogical example must be clearly labeled as such.
-- Separate **author-reported result**, **our explanatory paraphrase**, **our critical inference**, and **suggested implementation action**.
-- Keep effects within the authors' traffic/service/threshold assumptions. Explicitly note important comparator or replication gaps.
-- Do not commit third-party PDFs to this public repository unless redistribution permissions have been checked; DOI and source links suffice.
-- When a new paper is fully reviewed: create its note, add a row to the **Paper index**, update the **Consolidated literature findings**, **Cross-paper comparison**, and **Research gaps/decisions**. If appropriate, also append verified metadata to the existing [related-work catalog](../../related-work.json) via a separately reviewed edit.
+**When the next PDF arrives:** (i) inspect the **first page** for its true title/DOI, (ii) check for existing ID/duplicates, (iii) read method + figures + conclusion, (iv) add one **papers/Rxx-...md** note, and (v) **update this README's index, findings, comparator matrix and decision status**. If relevant, update existing [reference metadata](../../related-work.json) via a separately verified change.
 
-**For future reading:** Start with this README for the cross-paper synthesis, then open the individual note when the algorithm/evidence needs to be recalled.
+**Study path:** Start here to recall the **cross-paper story**, then open the linked individual note for detailed English explanations or expand the Bangla sections.
