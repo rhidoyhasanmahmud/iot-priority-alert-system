@@ -92,6 +92,10 @@ Once active, admission protection combines:
 
 **Important:** An excess alarm may be **shed at admission**. "No genuine alarms shed" is an **observed result in selected calibrated traces**, not an unconditional property for any load/parameter set.
 
+**Verified selector detail (11 November 2026, PDF p. 10, Eqs. 15-16):** When AAP is deployed, ALARM selection is two-level round robin: first among non-empty zones, then among devices in the selected zone. This applies in both the inactive and active protection states. Only statically disabling AAP restores flat per-device RR. Do not implement a switch from flat RR to hierarchical RR at activation time.
+
+**Admission detail (PDF p. 9, Eqs. 11-13):** Check the per-source gate before the global gate. A source-rejected arrival consumes no global token. A source passing its own gate can still be rejected by the band-global budget. The source-rate identity and zone/device hierarchy must be specified explicitly in any adaptation.
+
 ### D. Paper example plus our explanatory trace
 
 **Paper scenario (Section II, p. 2):** Low-ranked Zone F generates a fire alarm while the high-ranked Zone A generates a burst of routine telemetry. Under TRIAGE/4, Zone F's alarm enters **Band 0**, ahead of Zone A's routine messages. With two alarm devices in Band 0, per-device RR alternates *service opportunities* instead of draining every message from the fastest sensor first.
@@ -154,10 +158,10 @@ Routine band-এ **token bucket** আছে, তাই একেক class কত
 | **Table 12, PDF p. 24, C3 MQTT** | TRIAGE/4 alarm RTT **0.158 s [0.145, 0.172]** vs Strict **2.927 s [2.528, 3.327]** and FIFO **3.926 s [3.751, 4.102]** | Very strong **alarm semantic-override** demonstration; routine RTT TRIAGE/4 **3.715 s** vs Strict **3.557 s** → routine cost |
 | **Table 12, p. 24, C3** | TRIAGE/4 scheduler overhead **P50 15.39 µs**, **P99 50.19 µs** vs strict **4.63 / 10.11 µs** | Explicit computational price for richer scheduling |
 | **Table 12, p. 24, flood** | TRIAGE/4 **476 flood alarms shed/run**, **0 legitimate alarms shed/run** in that configured trace | **Selective** admission protection in this scenario; not zero-loss for all alarms |
-| **Ablation, p. 21** | Removing device RR reduces device-latency fairness **0.838 → 0.648** in C2 | Fairness gain attributable to per-device rotation |
-| **Ablation, p. 21** | Removing AAP raises alarm latency **34 → 724 ms** (R1) and **53 → 645 ms** (R2) | Overload benefit depends on AAP admission restriction |
-| **Ablation, p. 21** | Removing per-source limit increases legitimate alarm loss to **25.5% (R1)** / **18.9% (R2)** | Band-global limiting alone may harm genuine messages |
-| **Token scarcity, p. 21** | With rate-limited BACKGROUND, mean wait **7.506 s**; without token limits **1.186 s** | **Routine latency tradeoff** is material, not solved away |
+| **Ablation, p. 20** | Removing device RR reduces device-latency fairness **0.838 → 0.648** in C2 | Fairness gain attributable to per-device rotation |
+| **Ablation, p. 20** | Removing AAP raises alarm latency **34 → 724 ms** (R1) and **53 → 645 ms** (R2) | Overload benefit depends on AAP admission restriction |
+| **Ablation, p. 20** | Removing per-source limit increases legitimate alarm loss to **25.5% (R1)** / **18.9% (R2)** | Band-global limiting alone may harm genuine messages |
+| **Token scarcity, p. 20** | With rate-limited BACKGROUND, mean wait **7.506 s**; without token limits **1.186 s** | **Routine latency tradeoff** is material, not solved away |
 | **Table 11, p. 22** | False-negative alarm labels in flood can suffer **1.422 s** at 30% FNR and **5.733 s** at 50% FNR | Correct upstream alarm classification is a crucial dependency |
 
 **Figure/table references:** Core summary Figure 5 and Table 5 (pp. 17–18), AAP Table 7 (p. 19), component Table 9 and Figure 7 (p. 20), sensitivity Tables 10–11 (pp. 21–22), hardware Table 12/Figure 10 (p. 24).
@@ -244,3 +248,6 @@ This paper **closes the earlier full-text-access gap** in the repository's [clos
 The supplied document is a **28-page IEEE accepted author manuscript** with editable placeholders (including a contradictory template DOI). The **banner** identifies final DOI **10.1109/ACCESS.2026.3732592**. All page/figure references are to this **accepted version**, not necessarily publisher typesetting. No third-party PDF is committed.
 
 **Evidence boundary:** Full text analyzed; analytical proofs, code, hardware measurements, and figures are **not independently reproduced**. This review should inform, not silently modify, the registered experimental protocol.
+
+
+Rechecked against the supplied 28-page accepted manuscript on 11 November 2026. Source SHA-256: `886ba8a7289a038e397ed1e27952e8e2403e25df7690b064f88002bb41482a4a`. Page numbers refer to this PDF, not final journal pagination. See [verification and comparator checkpoint](../../../../paper-review/2026-11-11-comparator-checkpoint.md).
