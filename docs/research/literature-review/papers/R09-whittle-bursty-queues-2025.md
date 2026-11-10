@@ -189,6 +189,14 @@ Authorরা simulation এবং OVS-DPDK network implementation—দুইভ
 | Learned info | Offline transition/index table | No analogous model-training phase in current candidate |
 | Goal | Priority service + burst loss avoidance | Urgent deadline vs routine waiting, admission loss/overhead |
 
+### Reproduction cautions verified in the supplied postprint
+
+Algorithm 1 (manuscript p. 6 / PDF p. 8) writes exact numerical equality for value/index convergence and initializes the index search bounds to -1 and 3. A working implementation needs declared tolerances, iteration caps, handling of unvisited transition states, and deterministic tie-breaking; these choices are not established by the printed pseudocode alone. Preserve them as explicit implementation decisions rather than silently attributing them to the authors.
+
+The short indexability and asymptotic-optimality arguments on manuscript p. 5 / PDF p. 7 rely on threshold/decoupling assumptions and cited theory. This review does not independently prove those conditions; occupancy-related priority coupling deserves checking before transferring the theorem to another model.
+
+The software-switch evaluation also includes **CQ** (SP for queues 1-2, WRR for the others; manuscript pp. 7-8 / PDF pp. 9-10). The final multi-hop network comparison uses SP, WRR and WTI. Keep those evaluation tracks distinct.
+
 ### Research decision
 
 **Closely related prior art, but not a directly equivalent comparator without model alignment.** Read alongside [R08 TRIAGE/4](R08-triage4-semantic-priority-2026.md). If we propose an external WTI adaptation, write down buffer partition, service slots, transition-data generation, training/tuning separation and adaptation names **before running held-out evaluations**.
@@ -211,3 +219,6 @@ Authorরা simulation এবং OVS-DPDK network implementation—দুইভ
 ---
 
 **Source integrity:** Uses the supplied 12-page CityUHK author postprint; its journal citation and DOI are printed in the postprint cover. **PDF pages 1–2 are cover/front matter; manuscript p. 1 begins on PDF p. 3.** No independently reproduced training or evaluation. The PDF explicitly restricts re-distribution; only these original analytical notes and DOI links are committed.
+
+
+Rechecked on 11 November 2026 against the supplied 12-page CityUHK postprint. Source SHA-256: `5d8e729e24bc0b86bd1002b1d8698f3670e8255d0e0d036cad8cb3620627fab6`. Manuscript page = PDF page minus two. See [verification and comparator checkpoint](../../../../paper-review/2026-11-11-comparator-checkpoint.md).
