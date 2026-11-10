@@ -168,4 +168,4 @@ class RobustnessIntegrationTests(unittest.TestCase):
         moved = self.base/'relocated'
         package.rename(moved)
         restored, _ = robust.load_sensitivity(moved/'extension')
-        self.assertEqual((moved/'extension'/restored['parent']).resolve(), moved/'parent')
+        self.assertEqual((moved/'extension'/restored['parent']).resolve(), (moved/'parent').resolve())
