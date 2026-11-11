@@ -1,30 +1,33 @@
-# IoT Priority Alert System - Literature Review
+# IoT Alert Scheduling Research
 
-A literature-first research workspace for an IoT alert scheduling conference paper.
+Literature-first investigation of urgency, routine service, deadlines and overload in IoT messaging.
 
-**Current phase:** review 20-25 relevant papers, then select the research gap and idea. Continue research through December 2026; submission follows evidence and coauthor review. A best-paper award is an aspiration, not an established outcome.
+**Current phase:** critical literature review. Seven full-text review notes are preserved; the working target is 20-25 relevant papers before choosing the conference-paper idea. Work continues through December 2026. No algorithm or simulation protocol is currently selected.
 
-## Start here
+## Read in this order
 
-- [Paper index and review summaries](paper-review/README.md)
-- [Cross-paper comparison and synthesis](paper-review/synthesis.md)
-- [Search, selection and review protocol](paper-review/review-protocol.md)
-- [Bibliographic catalog](paper-review/catalog.json)
+1. [Search scope and selection method](literature/search.md)
+2. [Review register and individual papers](literature/README.md)
+3. [Cross-paper comparison](literature/synthesis/comparison.csv)
+4. [Evidence synthesis and unresolved questions](literature/synthesis/findings.md)
 
-Seven individual full-text review notes are preserved. Catalog-only references are not counted as completed full-text reviews. Prioritize relevant 2024-2026 publications; retain older work when it provides necessary foundations.
+[Critical-review template](literature/review-template.md) · [Reference metadata and reading status](literature/references.json)
 
-## Research sequence
+## Organization
 
-1. Collect and critically review 20-25 relevant papers.
-2. Compare methods, assumptions, evidence and unresolved problems.
-3. Select a conference-paper idea and define a defensible contribution.
-4. Design baselines, simulation and evaluation around that idea.
-5. Implement, evaluate, write and obtain coauthor review before submission.
+| Location | Research purpose |
+| --- | --- |
+| literature/reviews/ | One critical, source-located note per paper |
+| literature/synthesis/ | Compare evidence and develop questions across papers |
+| literature/search.md | Search/selection method and honest logging requirements |
+| literature/references.json | Publication identity and actual reading status |
 
-## Previous work
+Questions guide collection; evidence guides ideas. After selecting a question, design the evaluation, then implement and write. A best-paper award is an ambition; the controllable objective is important, defensible and reproducible work.
 
-The complete pre-cleanup repository is preserved on [`archive/implementation-before-literature-reset-2026-11-11`](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/tree/archive/implementation-before-literature-reset-2026-11-11), at commit [`7e419b7ddd1f`](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/commit/7e419b7ddd1f2808203a48d91849250a85d6d4dc).
+## Preserved work
 
-It contains the implementation, tests, experiment configurations, pilot/live evidence, proposal DOCX, diagrams and reproduction guides. No source history was rewritten. There were no open pull requests at the reset checkpoint. Historical comparison notes do not commit the new study to the old algorithm or comparator.
+The full implementation and experiments remain on [archive/implementation-before-literature-reset-2026-11-11](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/tree/archive/implementation-before-literature-reset-2026-11-11).
 
-This branch intentionally contains literature-review material only; no simulator or runtime CI is active.
+The [previous literature layout and detailed bilingual notes](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/tree/a88623cdbbf08caaccbf102b052c3e05188d7e31/paper-review) remain accessible at an immutable commit. Each revised review links to its earlier detailed record. Historical comparator/implementation plans are not active research decisions.
+
+The main workspace contains literature work only. No empty implementation or manuscript folders are created in advance.

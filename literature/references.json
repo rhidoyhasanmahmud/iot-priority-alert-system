@@ -1,0 +1,209 @@
+{
+  "scope": "Focused literature review, not a completed systematic review",
+  "source": "Retained review metadata; no new bibliographic verification in this restructuring",
+  "papers": [
+    {
+      "id": "R01",
+      "title": "PrioMQTT: A prioritized version of the MQTT protocol",
+      "authors": [
+        "Gaetano Patti",
+        "Luca Leonardi",
+        "Giuseppe Testa",
+        "Lucia Lo Bello"
+      ],
+      "year": 2024,
+      "venue": "Computer Communications, 220, 43-51",
+      "publisher": "Elsevier",
+      "doi": "10.1016/j.comcom.2024.03.018",
+      "reviewed_version": "Final publisher PDF; 9 PDF pages; journal pages 43-51",
+      "reading_status": "full_text_reviewed_not_replicated",
+      "review": "reviews/R01-priomqtt-2024.md"
+    },
+    {
+      "id": "R02",
+      "title": "Priority-enabled MQTT: a robust approach to emergency event messaging",
+      "authors": [
+        "P S Akshatha",
+        "S Divyashree",
+        "S M Dilip Kumar"
+      ],
+      "year": 2024,
+      "venue": "Journal of Engineering and Applied Science, 71, article 67",
+      "publisher": "Springer Nature",
+      "doi": "10.1186/s44147-024-00400-2",
+      "reviewed_version": "Published open-access article; 14 PDF pages",
+      "reading_status": "full_text_reviewed_not_replicated",
+      "review": "reviews/R02-priority-enabled-mqtt-2024.md"
+    },
+    {
+      "id": "R03",
+      "title": "PR-MQTT: a novel approach for traffic reduction and message prioritisation in IoT applications",
+      "authors": [
+        "Jiby J. Puthiyidam",
+        "Shelbi Joseph"
+      ],
+      "year": 2024,
+      "venue": "International Journal of Web Engineering and Technology, 19(1), 44–66",
+      "publisher": "Inderscience",
+      "doi": "10.1504/IJWET.2024.138096",
+      "reading_status": "catalog_only_full_text_review_not_recorded",
+      "discovery_date": null,
+      "discovery_query": null,
+      "review": null
+    },
+    {
+      "id": "R04",
+      "title": "Towards Integrating MQTT with Time-Sensitive Networking",
+      "authors": [
+        "Giuseppe Testa",
+        "Luca Leonardi",
+        "Lucia Lo Bello",
+        "Gaetano Patti"
+      ],
+      "year": 2024,
+      "venue": "2024 IEEE 29th International Conference on Emerging Technologies and Factory Automation (ETFA)",
+      "publisher": "IEEE",
+      "doi": "10.1109/ETFA61755.2024.10710933",
+      "reading_status": "catalog_only_full_text_review_not_recorded",
+      "discovery_date": null,
+      "discovery_query": null,
+      "review": null
+    },
+    {
+      "id": "R05",
+      "title": "Extending MQTT with Real-Time Communication Services Based on SDN",
+      "authors": [
+        "Ehsan Shahri",
+        "Paulo Pedreiras",
+        "Luis Almeida"
+      ],
+      "year": 2022,
+      "venue": "Sensors, 22(9), article 3162",
+      "publisher": "MDPI",
+      "doi": "10.3390/s22093162",
+      "reading_status": "catalog_only_full_text_review_not_recorded",
+      "discovery_date": null,
+      "discovery_query": null,
+      "review": null
+    },
+    {
+      "id": "R06",
+      "title": "Response Time Analysis for RT-MQTT Protocol Grounded on SDN",
+      "authors": [
+        "Ehsan Shahri",
+        "Paulo Pedreiras",
+        "Luis Almeida"
+      ],
+      "year": 2023,
+      "venue": "Fourth Workshop on Next Generation Real-Time Embedded Systems (NG-RES 2023), OASIcs 108, 5:1–5:15",
+      "publisher": "Schloss Dagstuhl – Leibniz-Zentrum für Informatik",
+      "doi": "10.4230/OASIcs.NG-RES.2023.5",
+      "reading_status": "catalog_only_full_text_review_not_recorded",
+      "discovery_date": null,
+      "discovery_query": null,
+      "review": null
+    },
+    {
+      "id": "R07",
+      "title": "Modification of Mosquitto Broker for Delivery of Urgent MQTT Message",
+      "authors": [
+        "Kitae Hwang",
+        "Jae Moon Lee",
+        "In Hwan Jung",
+        "Dong-Hee Lee"
+      ],
+      "year": 2019,
+      "venue": "2019 IEEE Eurasia Conference on IOT, Communication and Engineering (ECICE), 166–167",
+      "publisher": "IEEE",
+      "doi": "10.1109/ECICE47484.2019.8942800",
+      "reading_status": "catalog_only_full_text_review_not_recorded",
+      "discovery_date": null,
+      "discovery_query": null,
+      "review": null
+    },
+    {
+      "id": "R08",
+      "title": "Multi-Tier Message Scheduling for IoT-Based Urban Emergency Systems Through Semantic Priority Override",
+      "authors": [
+        "João Carlos N. Bittencourt",
+        "Paulo Portugal",
+        "Francisco Vasques",
+        "Daniel G. Costa"
+      ],
+      "year": 2026,
+      "venue": "IEEE Access, 14, 140988-141015",
+      "publisher": "IEEE",
+      "doi": "10.1109/ACCESS.2026.3732592",
+      "reviewed_version": "Accepted author manuscript; 28 PDF pages. Use DOI in accepted-version banner, not template placeholder",
+      "reading_status": "full_text_reviewed_not_replicated",
+      "review": "reviews/R08-triage4-2026.md"
+    },
+    {
+      "id": "R09",
+      "title": "Real-Time Priority Queue Scheduling for Bursty Traffic",
+      "authors": [
+        "Rongping Lin",
+        "Jinpeng Zhang",
+        "Shan Luo",
+        "Jing Fu",
+        "Xiong Wang",
+        "Hui Li",
+        "Moshe Zukerman"
+      ],
+      "year": 2025,
+      "venue": "IEEE Internet of Things Journal, 12(24), 55883-55892",
+      "publisher": "IEEE",
+      "doi": "10.1109/JIOT.2025.3627212",
+      "reviewed_version": "CityUHK author postprint; 12 PDF pages including two front-matter pages. Manuscript page = PDF page - 2",
+      "reading_status": "full_text_reviewed_not_replicated",
+      "review": "reviews/R09-wti-bursty-queues-2025.md"
+    },
+    {
+      "id": "R10",
+      "title": "Scheduling for Periodic Multi-Source Systems with Peak-Age Violation Guarantees",
+      "authors": [
+        "Kuan-Yu Lin",
+        "Yu-Chih Huang",
+        "Yu-Pin Hsu"
+      ],
+      "year": 2023,
+      "venue": "IEEE Transactions on Communications, 71(12), 7102-7116",
+      "publisher": "IEEE",
+      "doi": "10.1109/TCOMM.2023.3308959",
+      "reviewed_version": "Reviewed source is 32-page arXiv:2308.05445v1, not the different 2026 ICC paper suggested by its uploaded filename",
+      "reading_status": "full_text_reviewed_not_replicated",
+      "review": "reviews/R10-grr-peak-age-2023.md"
+    },
+    {
+      "id": "R11",
+      "title": "Adaptive Priority Scheduling of Internet of Things Data for Disaster Management in Smart Cities",
+      "authors": [
+        "Marie C. Pognon",
+        "Alejandro Quintero",
+        "Samuel Pierre"
+      ],
+      "year": 2024,
+      "venue": "IEEE Access, 12, beginning p. 83285 (end pagination not established in retained review)",
+      "publisher": "IEEE",
+      "doi": "10.1109/ACCESS.2024.3407672",
+      "reviewed_version": "Published article; 14 PDF pages",
+      "reading_status": "full_text_reviewed_not_replicated",
+      "review": "reviews/R11-adaptive-disaster-2024.md"
+    },
+    {
+      "id": "R12",
+      "title": "Online age of information scheduling: The power of packet management and fairness",
+      "authors": [
+        "Chen-Rui Jien",
+        "Tung-Wei Kuo"
+      ],
+      "year": 2026,
+      "venue": "Computer Networks, 289, article 112690",
+      "publisher": "Elsevier",
+      "doi": "10.1016/j.comnet.2026.112690",
+      "reviewed_version": "Final published article; 16 PDF pages",
+      "reading_status": "full_text_reviewed_not_replicated",
+      "review": "reviews/R12-online-aoi-fairness-2026.md"
+    }
+  ]
+}
