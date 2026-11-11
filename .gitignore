@@ -1,7 +1,32 @@
+# IDE settings
+.idea/
+*.iml
+.vscode/
+
+# macOS metadata
 .DS_Store
+._*
+
+# Python environments and caches
+.venv/
+venv/
 __pycache__/
 *.py[cod]
-.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local secrets; keep shareable examples
 .env
+.env.*
+!.env.example
+
+# Local experiments, logs and downloaded papers
 results/
+*.log
 *.pdf
+
+# Editor temporary files
+*.swp
+*.swo
+*~
