@@ -1,13 +1,15 @@
-# R10 - Scheduling for Periodic Multi-Source Systems with Peak-Age Violation Guarantees
+# Scheduling for Periodic Multi-Source Systems with Peak-Age Violation Guarantees
 
 ## 1. Bibliographic record and source
+
+**Review number:** 05 · **Internal reference key:** R10
 
 Kuan-Yu Lin; Yu-Chih Huang; Yu-Pin Hsu. 2023. **Scheduling for Periodic Multi-Source Systems with Peak-Age Violation Guarantees**. *IEEE Transactions on Communications, 71(12), 7102-7116*. IEEE. DOI: [10.1109/TCOMM.2023.3308959](https://doi.org/10.1109/TCOMM.2023.3308959).
 
 - **Reviewed version:** Reviewed source is 32-page arXiv:2308.05445v1, not the different 2026 ICC paper suggested by its uploaded filename.
 - **Reading status:** full-text review retained from the earlier knowledge base; no independent replication.
 - **Theme:** Periodic freshness and violation analysis.
-- **Provenance:** [earlier detailed English/Bangla review](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/blob/a88623cdbbf08caaccbf102b052c3e05188d7e31/paper-review/papers/R10-grr-peak-age-2023.md). This revision reorganizes existing review evidence; it does not represent a fresh publisher/PDF verification.
+- **Provenance:** [earlier detailed English/Bangla review](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/blob/a88623cdbbf08caaccbf102b052c3e05188d7e31/paper-review/papers/05-periodic-multi-source-peak-age-2023.md). This revision reorganizes existing review evidence; it does not represent a fresh publisher/PDF verification.
 
 ## 2. Research problem
 

@@ -4,25 +4,25 @@ This is a synthesis of seven retained critical reviews, not a comprehensive proo
 
 ## Finding 1: Priority support is established; its marginal effect depends on comparison design
 
-[R01](../reviews/R01-priomqtt-2024.md) and [R02](../reviews/R02-priority-enabled-mqtt-2024.md) establish priority messaging implementations. R01 changes transport as well as queue behavior; R02 offers a small prototype timing evaluation.
+[R01](../reviews/01-priomqtt-2024.md) and [R02](../reviews/02-priority-enabled-mqtt-2024.md) establish priority messaging implementations. R01 changes transport as well as queue behavior; R02 offers a small prototype timing evaluation.
 
 **Implication:** a new claim must identify its mechanism and isolate the intervention. A successful urgent queue alone is insufficient evidence of a distinct contribution.
 
 ## Finding 2: Fairness describes different service relationships
 
-[R08](../reviews/R08-triage4-2026.md) emphasizes within-band source/device fairness, allowing cross-band starvation. [R12](../reviews/R12-online-aoi-fairness-2026.md) relates online fairness and safe packet management to total AoI. These results do not contradict one another: they address different fairness objects and objectives.
+[R08](../reviews/03-multi-tier-message-scheduling-2026.md) emphasizes within-band source/device fairness, allowing cross-band starvation. [R12](../reviews/07-online-aoi-packet-management-fairness-2026.md) relates online fairness and safe packet management to total AoI. These results do not contradict one another: they address different fairness objects and objectives.
 
 **Implication:** specify whether protection concerns devices, urgency classes, admission probability, waiting or delivered freshness.
 
 ## Finding 3: Congestion-aware prioritization exists, with meaningful operating costs
 
-[R09](../reviews/R09-wti-bursty-queues-2025.md) uses learned queue-state indices; [R11](../reviews/R11-adaptive-disaster-2024.md) combines deadline progress with migration/routing. R09 reports conditions where SP has better no-burst endpoints, while R11 shows that saving traffic can raise delay.
+[R09](../reviews/04-priority-queue-scheduling-bursty-traffic-2025.md) uses learned queue-state indices; [R11](../reviews/06-adaptive-priority-disaster-management-2024.md) combines deadline progress with migration/routing. R09 reports conditions where SP has better no-burst endpoints, while R11 shows that saving traffic can raise delay.
 
 **Implication:** useful findings may concern operating conditions and tradeoffs rather than universal dominance. Include model-acquisition cost and component attribution.
 
 ## Finding 4: Buffer and discard semantics change the research problem
 
-[R10](../reviews/R10-grr-peak-age-2023.md) and [R12](../reviews/R12-online-aoi-fairness-2026.md) concern freshness and obsolete updates. [R08](../reviews/R08-triage4-2026.md) can reject alarms at admission; [R11](../reviews/R11-adaptive-disaster-2024.md) assumes infinite buffers.
+[R10](../reviews/05-periodic-multi-source-peak-age-2023.md) and [R12](../reviews/07-online-aoi-packet-management-fairness-2026.md) concern freshness and obsolete updates. [R08](../reviews/03-multi-tier-message-scheduling-2026.md) can reject alarms at admission; [R11](../reviews/06-adaptive-priority-disaster-management-2024.md) assumes infinite buffers.
 
 **Implication:** do not rank their headline latencies as if offered populations, buffer resources and message meanings were equivalent.
 
