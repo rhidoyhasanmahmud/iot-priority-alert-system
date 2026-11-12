@@ -1,6 +1,8 @@
-# R12 - Online age of information scheduling: The power of packet management and fairness
+# Online age of information scheduling: The power of packet management and fairness
 
 ## 1. Bibliographic record and source
+
+**Review number:** 07 · **Internal reference key:** R12
 
 Chen-Rui Jien; Tung-Wei Kuo. 2026. **Online age of information scheduling: The power of packet management and fairness**. *Computer Networks, 289, article 112690*. Elsevier. DOI: [10.1016/j.comnet.2026.112690](https://doi.org/10.1016/j.comnet.2026.112690).
 

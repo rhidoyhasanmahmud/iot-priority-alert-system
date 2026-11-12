@@ -1,13 +1,15 @@
-# R01 - PrioMQTT: A prioritized version of the MQTT protocol
+# PrioMQTT: A prioritized version of the MQTT protocol
 
 ## 1. Bibliographic record and source
+
+**Review number:** 01 · **Internal reference key:** R01
 
 Gaetano Patti; Luca Leonardi; Giuseppe Testa; Lucia Lo Bello. 2024. **PrioMQTT: A prioritized version of the MQTT protocol**. *Computer Communications, 220, 43-51*. Elsevier. DOI: [10.1016/j.comcom.2024.03.018](https://doi.org/10.1016/j.comcom.2024.03.018).
 
 - **Reviewed version:** Final publisher PDF; 9 PDF pages; journal pages 43-51.
 - **Reading status:** full-text review retained from the earlier knowledge base; no independent replication.
 - **Theme:** MQTT transmission priority.
-- **Provenance:** [earlier detailed English/Bangla review](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/blob/a88623cdbbf08caaccbf102b052c3e05188d7e31/paper-review/papers/R01-priomqtt-2024.md). This revision reorganizes existing review evidence; it does not represent a fresh publisher/PDF verification.
+- **Provenance:** [earlier detailed English/Bangla review](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/blob/a88623cdbbf08caaccbf102b052c3e05188d7e31/paper-review/papers/01-priomqtt-2024.md). This revision reorganizes existing review evidence; it does not represent a fresh publisher/PDF verification.
 
 ## 2. Research problem
 

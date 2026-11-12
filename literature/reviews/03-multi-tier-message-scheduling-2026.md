@@ -1,6 +1,8 @@
-# R08 - Multi-Tier Message Scheduling for IoT-Based Urban Emergency Systems Through Semantic Priority Override
+# Multi-Tier Message Scheduling for IoT-Based Urban Emergency Systems Through Semantic Priority Override
 
 ## 1. Bibliographic record and source
+
+**Review number:** 03 · **Internal reference key:** R08
 
 João Carlos N. Bittencourt; Paulo Portugal; Francisco Vasques; Daniel G. Costa. 2026. **Multi-Tier Message Scheduling for IoT-Based Urban Emergency Systems Through Semantic Priority Override**. *IEEE Access, 14, 140988-141015*. IEEE. DOI: [10.1109/ACCESS.2026.3732592](https://doi.org/10.1109/ACCESS.2026.3732592).
 

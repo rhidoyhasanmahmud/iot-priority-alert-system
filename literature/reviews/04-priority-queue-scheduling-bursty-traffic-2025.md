@@ -1,6 +1,8 @@
-# R09 - Real-Time Priority Queue Scheduling for Bursty Traffic
+# Real-Time Priority Queue Scheduling for Bursty Traffic
 
 ## 1. Bibliographic record and source
+
+**Review number:** 04 · **Internal reference key:** R09
 
 Rongping Lin; Jinpeng Zhang; Shan Luo; Jing Fu; Xiong Wang; Hui Li; Moshe Zukerman. 2025. **Real-Time Priority Queue Scheduling for Bursty Traffic**. *IEEE Internet of Things Journal, 12(24), 55883-55892*. IEEE. DOI: [10.1109/JIOT.2025.3627212](https://doi.org/10.1109/JIOT.2025.3627212).
 

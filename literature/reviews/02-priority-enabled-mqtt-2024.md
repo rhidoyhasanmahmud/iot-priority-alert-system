@@ -1,13 +1,15 @@
-# R02 - Priority-enabled MQTT: a robust approach to emergency event messaging
+# Priority-enabled MQTT: a robust approach to emergency event messaging
 
 ## 1. Bibliographic record and source
+
+**Review number:** 02 · **Internal reference key:** R02
 
 P S Akshatha; S Divyashree; S M Dilip Kumar. 2024. **Priority-enabled MQTT: a robust approach to emergency event messaging**. *Journal of Engineering and Applied Science, 71, article 67*. Springer Nature. DOI: [10.1186/s44147-024-00400-2](https://doi.org/10.1186/s44147-024-00400-2).
 
 - **Reviewed version:** Published open-access article; 14 PDF pages.
 - **Reading status:** full-text review retained from the earlier knowledge base; no independent replication.
 - **Theme:** Emergency messaging architecture.
-- **Provenance:** [earlier detailed English/Bangla review](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/blob/a88623cdbbf08caaccbf102b052c3e05188d7e31/paper-review/papers/R02-priority-enabled-mqtt-2024.md). This revision reorganizes existing review evidence; it does not represent a fresh publisher/PDF verification.
+- **Provenance:** [earlier detailed English/Bangla review](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/blob/a88623cdbbf08caaccbf102b052c3e05188d7e31/paper-review/papers/02-priority-enabled-mqtt-2024.md). This revision reorganizes existing review evidence; it does not represent a fresh publisher/PDF verification.
 
 ## 2. Research problem
 
