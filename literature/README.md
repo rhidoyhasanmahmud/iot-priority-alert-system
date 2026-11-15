@@ -1,6 +1,6 @@
 # Core literature review
 
-**5 completed, core-related reviews.** Target: approximately 20-25 relevant papers, with deep reading of the closest 5-8 methods. The number is a planning target, not proof of completeness.
+**6 completed, core-related reviews.** Target: approximately 20-25 relevant papers, with deep reading of the closest 5-8 methods. The number is a planning target, not proof of completeness.
 
 ## Review register
 
@@ -11,6 +11,7 @@
 | 03 | [Multi-Tier Message Scheduling for IoT-Based Urban Emergency Systems Through Semantic Priority Override](reviews/Multi-Tier%20Message%20Scheduling%20for%20IoT-Based%20Urban%20Emergency%20Systems%20Through%20Semantic%20Priority%20Override.md) | 2026 | Closest alarm/fairness/admission work | Within-band fairness and admission shaping differ from routine-class protection |
 | 04 | [Real-Time Priority Queue Scheduling for Bursty Traffic](reviews/Real-Time%20Priority%20Queue%20Scheduling%20for%20Bursty%20Traffic.md) | 2025 | Closest burst/congestion-aware priority work | Switch queues require transition training/model alignment |
 | 05 | [Adaptive Priority Scheduling of Internet of Things Data for Disaster Management in Smart Cities](reviews/Adaptive%20Priority%20Scheduling%20of%20Internet%20of%20Things%20Data%20for%20Disaster%20Management%20in%20Smart%20Cities.md) | 2024 | Closest adaptive urgency/deadline work | Multi-hop routing/migration and infinite buffers |
+| 06 | [A New Back-off Algorithm with Priority Scheduling for MQTT Protocol and IoT Protocols](reviews/A%20New%20Back-off%20Algorithm%20with%20Priority%20Scheduling%20for%20MQTT%20Protocol%20and%20IoT%20Protocols.md) | 2021 | Broker-assigned frequency priority and source back-off | Weak measurements; frequency is not urgency; combined intervention |
 
 ## Reading workflow
 
@@ -19,11 +20,11 @@
 3. Write a [critical review](review-template.md) with source locations and limitations.
 4. Update the [comparison matrix](synthesis/comparison.csv) and [synthesis](synthesis/findings.md).
 
-[Reference metadata](references.json) contains exactly these five active papers. Prior supporting/excluded notes and unreviewed catalog items are preserved in the [earlier Git snapshot](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/tree/938a07f828909bb2d8f31e271a0b479dd117f562/literature), outside the active list.
+[Reference metadata](references.json) contains exactly these six active papers. Prior supporting/excluded notes and unreviewed catalog items are preserved in the [earlier Git snapshot](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/tree/938a07f828909bb2d8f31e271a0b479dd117f562/literature), outside the active list.
 
 ## File naming and order
 
-Use the full paper title plus `.md`; replace unsafe punctuation such as a colon with a readable hyphen. Numbers belong in this register and metadata, not filenames. Use encoded destinations for Markdown links containing spaces. Retain internal reference keys/DOIs for identity; current visible serials are consecutive 01-05.
+Use the full paper title plus `.md`; replace unsafe punctuation such as a colon with a readable hyphen. Numbers belong in this register and metadata, not filenames. Use encoded destinations for Markdown links containing spaces. Retain internal reference keys/DOIs for identity; current visible serials are consecutive 01-06.
 
 ## Research boundary
 
