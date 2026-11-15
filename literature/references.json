@@ -1,6 +1,6 @@
 {
   "scope": "Active core literature for urgent/routine IoT message scheduling; only completed, scope-relevant reviews are retained",
-  "source": "Five earlier source-verified reviews plus supplied full-text reviews R15-R18 with publisher identity checked on 15 November 2026; R16 uses indexed official publisher metadata because direct HTML retrieval was rate-limited. No independent replication.",
+  "source": "Five inherited source-verified reviews plus supplied full-text reviews R15-R21 with publication identity checked on 15 November 2026. R16, R19 and R21 use indexed official publisher metadata where direct HTML access was blocked or rate-limited; R19 also matches institutional/NSF records. No independent replication or proof verification.",
   "papers": [
     {
       "id": "R01",
@@ -184,6 +184,74 @@
       "source_sha256": "fbfcdc6fb20af85420e0e874179c3cd27a2d09fc7a801ec6686b1310f41dec00",
       "review": "reviews/Design of topic priority based on industrial publish-subscribe system.md",
       "review_number": 9,
+      "reading_status": "full_text_reviewed_not_replicated",
+      "selection_status": "core_related",
+      "counts_toward_relevant_review_target": true
+    },
+    {
+      "id": "R19",
+      "title": "Data-Priority Aware Fair Task Scheduling for Stream Processing at the Edge",
+      "authors": [
+        "Faiza Akram",
+        "Peng Kang",
+        "Palden Lama",
+        "Samee U. Khan"
+      ],
+      "year": 2024,
+      "venue": "2024 IEEE Cloud Summit, 117-122",
+      "publisher": "IEEE",
+      "doi": "10.1109/Cloud-Summit61220.2024.00026",
+      "publisher_url": "https://ieeexplore.ieee.org/abstract/document/10630983",
+      "reviewed_version": "Supplied six-page manuscript corresponding to NSF repository identifier 10530954; use PDF page locations because proceedings pagination is absent.",
+      "source_sha256": "4ff6c52c7aaa75282d83b470ccb532539aa7d488cca6c54737fc2247c114262c",
+      "review": "reviews/Data-Priority Aware Fair Task Scheduling for Stream Processing at the Edge.md",
+      "review_number": 10,
+      "reading_status": "full_text_reviewed_not_replicated",
+      "selection_status": "core_related",
+      "counts_toward_relevant_review_target": true
+    },
+    {
+      "id": "R20",
+      "title": "Delay and size-dependent priority-aware scheduling for IoT-based healthcare traffic using heterogeneous multi-server priority queueing system",
+      "authors": [
+        "Barbara Kabwiga Asingwire",
+        "Louis Sibomana",
+        "Alexander Ngenzi",
+        "Charles Kabiri"
+      ],
+      "year": 2023,
+      "venue": "IET Communications, 17(16), 1877-1887",
+      "publisher": "John Wiley & Sons Ltd on behalf of The Institution of Engineering and Technology",
+      "doi": "10.1049/cmu2.12675",
+      "publisher_url": "https://ietresearch.onlinelibrary.wiley.com/doi/10.1049/cmu2.12675",
+      "reviewed_version": "Supplied published PDF; 11 pages; printed page = PDF page + 1876. Analytical/numerical study; independent simulation validation is future work.",
+      "source_sha256": "16e6a0198a1ccfb64d2a5cd4d35b2d745cb47f191939887a0352ce1cc088dac4",
+      "review": "reviews/Delay and size-dependent priority-aware scheduling for IoT-based healthcare traffic using heterogeneous multi-server priority queueing system.md",
+      "review_number": 11,
+      "reading_status": "full_text_reviewed_not_replicated",
+      "selection_status": "core_related",
+      "counts_toward_relevant_review_target": true
+    },
+    {
+      "id": "R21",
+      "title": "Deadline-aware rate allocation for IoT services in data center network",
+      "authors": [
+        "Bo Shen",
+        "Naveen Chilamkurti",
+        "Ru Wang",
+        "Xingshe Zhou",
+        "Shiwei Wang",
+        "Wen Ji"
+      ],
+      "year": 2018,
+      "venue": "Journal of Parallel and Distributed Computing, 118, 296-306",
+      "publisher": "Elsevier Inc.",
+      "doi": "10.1016/j.jpdc.2017.09.012",
+      "publisher_url": "https://www.sciencedirect.com/science/article/abs/pii/S0743731517302666",
+      "reviewed_version": "Supplied published PDF; 11 pages; printed page = PDF page + 295. Journal issue year 2018; online availability/copyright 2017.",
+      "source_sha256": "8ade1ab801c57bdcfd6478c730861dd0d74d0ad5d35e4e33c2851b2957d4a86e",
+      "review": "reviews/Deadline-aware rate allocation for IoT services in data center network.md",
+      "review_number": 12,
       "reading_status": "full_text_reviewed_not_replicated",
       "selection_status": "core_related",
       "counts_toward_relevant_review_target": true
