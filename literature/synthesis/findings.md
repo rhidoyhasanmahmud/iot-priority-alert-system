@@ -116,7 +116,9 @@ These are reading questions, not demonstrated field-wide gaps or selected contri
 
 ## Next step
 
-Screen new papers for an explicit scheduling/admission mechanism relevant to urgency, deadlines, routine protection or overload. Review only those that materially inform this question. The active set now has 19 reviews. Prioritize the closest remaining deadline/fair-queue or aging methods and compare assumptions/contrary outcomes before deciding whether the 20-25-paper working target is sufficient. Do not fill the target with architecture-only papers or treat reaching it as evidence of novelty.
+Use the [candidate research-question decision note](research-questions.md) to compare three directions: service accounting under heterogeneous bursts, admission/dispatch interaction, and label robustness. RQ-A is the provisional first investigation, with a direct fair-queue/latency-theory overlap check still pending; no gap, algorithm or final protocol is selected.
+
+The active set remains 19 completed reviews. The bounded [search log](../search-log.csv) records targeted novelty/identity checks; the two primary-source leads in the decision note are not counted as full-text reviews. Prioritize those closest checks and application-backed requirements before broad collection or implementation. The 20-25-paper working target is a coverage guide, not evidence of novelty or a mandatory count before synthesis.
 
 The [previous synthesis](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/blob/938a07f828909bb2d8f31e271a0b479dd117f562/literature/synthesis/findings.md) remains accessible for historical context. Supporting/excluded material is not part of this active synthesis.
 

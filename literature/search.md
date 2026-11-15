@@ -23,7 +23,7 @@ Exclude duplicates, unavailable full texts from the completed-review count, and 
 
 ## Search records for future sessions
 
-When a new search is actually performed, record date, database, exact query, filters, candidate DOI/title, decision and reason in a search-log CSV. Create that file with real entries; do not backfill invented historical searches. The inherited catalog has no complete historical search log.
+When a new search is actually performed, record date, database, exact query, filters, candidate DOI/title, decision and reason in a search-log CSV. Create that file with real entries; do not backfill invented historical searches. The inherited catalog has no complete historical search log. The [executed-search log](search-log.csv) starts with the bounded research-question checks of 15 November 2026; it does not reconstruct older searches or imply exhaustive screening.
 
 ## Reading and updating
 
@@ -37,7 +37,7 @@ Read the closest 5-8 methods deeply. Stop broad collection when decisions are we
 
 ## Gate before implementation
 
-Compare 2-3 candidate research questions on importance, existing overlap, falsifiability, fair evaluation and feasibility. Select an idea only after the review supports that choice. Plan experiments around the question, not around proving the archived code successful.
+Compare 2-3 candidate research questions on importance, existing overlap, falsifiability, fair evaluation and feasibility. The current [candidate decision note](synthesis/research-questions.md) records three questions, a provisional investigation order and unresolved novelty checks. Select an idea only after the review supports that choice. Plan experiments around the question, not around proving the archived code successful.
 
 ## Active-set policy - 15 November 2026
 
@@ -48,3 +48,4 @@ If a paper is supporting-only or unrelated, give a short reason to the user and 
 Relevance is separate from quality and comparator fidelity. The register and reference metadata track the current completed set; inclusion does not mean a method is ready for implementation.
 
 A topic-related paper may be held outside the active evidence set when publication identity is unverified or unresolved fundamental method/evidence problems prevent dependable use. State that reason explicitly; do not label it unrelated. For supplied batches, keep brief screening decisions in the review PR description rather than creating detailed active reviews for rejected items.
+

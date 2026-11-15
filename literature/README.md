@@ -32,6 +32,7 @@
 2. Read each paper's problem, method, assumptions and evaluation.
 3. Write a [critical review](review-template.md) with source locations and limitations.
 4. Update the [comparison matrix](synthesis/comparison.csv) and [synthesis](synthesis/findings.md).
+5. Compare [candidate research questions](synthesis/research-questions.md), check overlap through [logged searches](search-log.csv), and select a contribution only when the evidence supports it.
 
 [Reference metadata](references.json) contains exactly these nineteen active papers. Prior supporting/excluded notes and unreviewed catalog items are preserved in the [earlier Git snapshot](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/tree/938a07f828909bb2d8f31e271a0b479dd117f562/literature), outside the active list.
 
