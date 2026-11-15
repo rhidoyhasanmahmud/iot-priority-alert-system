@@ -1,6 +1,6 @@
 {
   "scope": "Focused literature review, not a completed systematic review",
-  "source": "Retained review metadata; no new bibliographic verification in this restructuring",
+  "source": "Earlier entries retain their recorded verification boundaries; R13 identity verified from supplied publisher-formatted PDF on 15 November 2026.",
   "papers": [
     {
       "id": "R01",
@@ -216,6 +216,32 @@
       "reading_status": "full_text_reviewed_not_replicated",
       "review": "reviews/07-online-aoi-packet-management-fairness-2026.md",
       "review_number": 7
+    },
+    {
+      "id": "R13",
+      "title": "A Cloud-Edge-End Collaborative Remote Monitoring and Scheduling System for Textile Equipment",
+      "authors": [
+        "Chi Zhang",
+        "Peng Lin",
+        "Cancan Rao",
+        "Hongjun Li",
+        "Jun Wang",
+        "Chengjun Zhang",
+        "Hang Hu"
+      ],
+      "year": 2026,
+      "venue": "Applied Sciences, 16, article 5773",
+      "publisher": "MDPI",
+      "doi": "10.3390/app16125773",
+      "publication_date": "2026-06-08",
+      "reviewed_version": "Supplied publisher-formatted applsci-16-05773-v2.pdf; 32 pages; printed and PDF pages align",
+      "source_sha256": "7b937c49072ad0a13ca0feb3f21d318b493dfe4d6bfa1e8e92d54b8111cde779",
+      "verification_basis": "Title, authors, journal/article number, date and DOI inside supplied PDF; indexing/quartile not verified",
+      "reading_status": "full_text_reviewed_not_replicated",
+      "review": "reviews/08-cloud-edge-end-textile-monitoring-2026.md",
+      "review_number": 8,
+      "review_date": "2026-11-15",
+      "relevance": "Supporting industrial systems/evaluation reference; not a direct queue-policy comparator"
     }
   ]
 }

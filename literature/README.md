@@ -1,6 +1,6 @@
 # Literature review workspace
 
-**Purpose:** understand existing evidence before choosing the conference-paper contribution. Current register: **7 full-text review notes**, with additional catalog-only items. Target: approximately **20-25 relevant full-text reviews**, including deep study of the closest methods. The number is a planning target, not an adequacy guarantee.
+**Purpose:** understand existing evidence before choosing the conference-paper contribution. Current register: **8 full-text review notes**, with additional catalog-only items. Target: approximately **20-25 relevant full-text reviews**, including deep study of the closest methods. The number is a planning target, not an adequacy guarantee.
 
 ## Reading route
 
@@ -20,6 +20,7 @@
 | 05 | [Scheduling for Periodic Multi-Source Systems with Peak-Age Violation Guarantees](reviews/05-periodic-multi-source-peak-age-2023.md) | 2023 | Periodic freshness and violation analysis | Full text reviewed; not replicated |
 | 06 | [Adaptive Priority Scheduling of Internet of Things Data for Disaster Management in Smart Cities](reviews/06-adaptive-priority-disaster-management-2024.md) | 2024 | Multi-hop deadline-progress scheduling | Full text reviewed; not replicated |
 | 07 | [Online age of information scheduling: The power of packet management and fairness](reviews/07-online-aoi-packet-management-fairness-2026.md) | 2026 | Online fairness and replaceable updates | Full text reviewed; not replicated |
+| 08 | [A Cloud-Edge-End Collaborative Remote Monitoring and Scheduling System for Textile Equipment](reviews/08-cloud-edge-end-textile-monitoring-2026.md) | 2026 | Industrial hierarchical alerting and compute/production coordination | Full text reviewed; not replicated |
 
 [References and reading status](references.json) also retain catalog-only items R03-R07. They are not counted as completed reviews. Internal reference keys are preserved for traceability; visible review numbers are consecutive. R10 is a 2023 foundation paper; most new collection should prioritize 2024-2026 relevance.
 
@@ -35,4 +36,4 @@ The question area is urgency, routine service, deadlines and overload in IoT mes
 
 ## File naming and order
 
-Use `NN-short-paper-title-YYYY.md`, for example `08-deadline-aware-message-scheduling-2026.md`. The example is a naming pattern, not an identified paper. Numbers represent a stable review sequence, not publication year, relevance ranking or bibliography citation number. Append the next number when a new review is completed. Keep sorting/filtering by year or theme in the register instead of repeatedly renaming existing notes. Preserve DOI and internal reference keys independently of display order.
+Use `NN-short-paper-title-YYYY.md`, for example `09-deadline-aware-message-scheduling-2026.md`. The example is a naming pattern, not an identified paper. Numbers represent a stable review sequence, not publication year, relevance ranking or bibliography citation number. Append the next number when a new review is completed. Keep sorting/filtering by year or theme in the register instead of repeatedly renaming existing notes. Preserve DOI and internal reference keys independently of display order.
