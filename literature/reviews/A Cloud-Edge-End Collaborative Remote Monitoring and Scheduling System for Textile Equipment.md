@@ -141,10 +141,10 @@ Section 4 (pp. 18-19) states that seeds were fixed, CIs estimated where applicab
 
 ### Connection to reviewed work
 
-- [Review 01: PrioMQTT](01-priomqtt-2024.md): both demonstrate that communication-path changes can accompany apparent latency improvements. Here filtering, inference, routing and compute placement co-vary.
-- [Review 03: TRIAGE/4](03-multi-tier-message-scheduling-2026.md): traffic admission/suppression changes the measured population. Semantic clustering of redundant alarms is not the same mechanism as source-rate admission shedding.
-- [Review 06: disaster scheduling](06-adaptive-priority-disaster-management-2024.md): both combine scheduling with other interventions, so a total-system gain does not identify a queue-only effect.
-- [Review 07: online AoI](07-online-aoi-packet-management-fairness-2026.md): suppressing repeated fault reports requires a semantic justification; it is not automatically equivalent to safely replacing obsolete status updates.
+- [Review 01: PrioMQTT](PrioMQTT%20-%20A%20prioritized%20version%20of%20the%20MQTT%20protocol.md): both demonstrate that communication-path changes can accompany apparent latency improvements. Here filtering, inference, routing and compute placement co-vary.
+- [Review 03: TRIAGE/4](Multi-Tier%20Message%20Scheduling%20for%20IoT-Based%20Urban%20Emergency%20Systems%20Through%20Semantic%20Priority%20Override.md): traffic admission/suppression changes the measured population. Semantic clustering of redundant alarms is not the same mechanism as source-rate admission shedding.
+- [Review 06: disaster scheduling](Adaptive%20Priority%20Scheduling%20of%20Internet%20of%20Things%20Data%20for%20Disaster%20Management%20in%20Smart%20Cities.md): both combine scheduling with other interventions, so a total-system gain does not identify a queue-only effect.
+- [Review 07: online AoI](Online%20age%20of%20information%20scheduling%20-%20The%20power%20of%20packet%20management%20and%20fairness.md): suppressing repeated fault reports requires a semantic justification; it is not automatically equivalent to safely replacing obsolete status updates.
 
 **Research-use decision:** retain for industrial motivation, cloud-edge placement, alert aggregation, component ablation and careful metric definition. Do not select it as a direct FIFO/EDF/aging comparator without a separately justified model and implementation specification. No implementation starts from this review.
 

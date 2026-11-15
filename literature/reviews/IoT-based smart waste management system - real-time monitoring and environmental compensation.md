@@ -124,9 +124,9 @@ A <2 s cloud-update statement after scheduled sampling does not establish <2 s a
 
 ### Connection to the existing reviews
 
-- [Review 02](02-priority-enabled-mqtt-2024.md) is also a prototype, but addresses message classes; this smart-bin paper does not.
-- [Review 08](08-cloud-edge-end-textile-monitoring-2026.md) studies an integrated alert pipeline. Here rain-based suspension provides a simpler example of why lower observed alert traffic need not mean better scheduling.
-- [Review 03](03-multi-tier-message-scheduling-2026.md) explicitly controls admission. Rain-based suspension is not equivalent to rate-aware admission shedding, and neither can be judged from surviving-alert delay alone.
+- [Review 02](Priority-enabled%20MQTT%20-%20a%20robust%20approach%20to%20emergency%20event%20messaging.md) is also a prototype, but addresses message classes; this smart-bin paper does not.
+- [Review 08](A%20Cloud-Edge-End%20Collaborative%20Remote%20Monitoring%20and%20Scheduling%20System%20for%20Textile%20Equipment.md) studies an integrated alert pipeline. Here rain-based suspension provides a simpler example of why lower observed alert traffic need not mean better scheduling.
+- [Review 03](Multi-Tier%20Message%20Scheduling%20for%20IoT-Based%20Urban%20Emergency%20Systems%20Through%20Semantic%20Priority%20Override.md) explicitly controls admission. Rain-based suspension is not equivalent to rate-aware admission shedding, and neither can be judged from surviving-alert delay alone.
 
 **Use in our research:** retain the full-text exclusion record so we do not re-screen it. It may illustrate periodic telemetry, sensor-validity states and the distinction between sensing and dispatch. It does not establish a priority-scheduling gap or serve as a faithful comparator.
 

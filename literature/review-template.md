@@ -1,5 +1,7 @@
 # Critical paper review template
 
+Save as the full paper title plus `.md`; replace filename-unsafe punctuation, and keep the serial number in the register/metadata rather than the filename.
+
 Copy only when reviewing a real paper. Keep claims specific, source-located and distinguishable from reviewer inference.
 
 ## 1. Bibliographic record and source
