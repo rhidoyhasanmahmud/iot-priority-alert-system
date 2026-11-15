@@ -38,3 +38,11 @@ Read the closest 5-8 methods deeply. Stop broad collection when decisions are we
 ## Gate before implementation
 
 Compare 2-3 candidate research questions on importance, existing overlap, falsifiability, fair evaluation and feasibility. Select an idea only after the review supports that choice. Plan experiments around the question, not around proving the archived code successful.
+
+## Active-set policy - 15 November 2026
+
+Only completed, core-related full-text reviews belong in the active register, reference catalog and comparison matrix. Screen title/abstract plus method/evaluation before writing a detailed note. An IoT/MQTT application without a relevant scheduling/admission mechanism is excluded. Loosely related freshness theory or industrial architecture is not added to fill the core target.
+
+If a paper is supporting-only or unrelated, give a short reason to the user and do not add a long active review. Catalog-only candidates are not counted or added as reviewed papers. Keep a conceptually close method despite buffer/network differences when it genuinely informs urgency, routine protection, deadlines or congestion; disclose those differences.
+
+Relevance is separate from quality and comparator fidelity. The active register currently contains five papers, not a claim that five algorithms are ready for implementation.

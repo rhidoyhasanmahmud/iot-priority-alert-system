@@ -2,7 +2,7 @@
 
 ## 1. Bibliographic record and source
 
-**Review number:** 06 · **Internal reference key:** R11
+**Review number:** 05 · **Internal reference key:** R11
 
 Marie C. Pognon; Alejandro Quintero; Samuel Pierre. 2024. **Adaptive Priority Scheduling of Internet of Things Data for Disaster Management in Smart Cities**. *IEEE Access, 12, beginning p. 83285 (end pagination not established in retained review)*. IEEE. DOI: [10.1109/ACCESS.2024.3407672](https://doi.org/10.1109/ACCESS.2024.3407672).
 

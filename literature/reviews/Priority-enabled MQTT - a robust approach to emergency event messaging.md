@@ -9,7 +9,7 @@ P S Akshatha; S Divyashree; S M Dilip Kumar. 2024. **Priority-enabled MQTT: a ro
 - **Reviewed version:** Published open-access article; 14 PDF pages.
 - **Reading status:** full-text review retained from the earlier knowledge base; no independent replication.
 - **Theme:** Emergency messaging architecture.
-- **Provenance:** [earlier detailed English/Bangla review](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/blob/a88623cdbbf08caaccbf102b052c3e05188d7e31/paper-review/papers/02-priority-enabled-mqtt-2024.md). This revision reorganizes existing review evidence; it does not represent a fresh publisher/PDF verification.
+- **Provenance:** [earlier detailed English/Bangla review](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/blob/a88623cdbbf08caaccbf102b052c3e05188d7e31/paper-review/papers/R02-priority-enabled-mqtt-2024.md). This revision reorganizes existing review evidence; it does not represent a fresh publisher/PDF verification.
 
 ## 2. Research problem
 
