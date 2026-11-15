@@ -1,6 +1,6 @@
 # Core literature review
 
-**9 completed, core-related reviews.** Target: approximately 20-25 relevant papers, with deep reading of the closest 5-8 methods. The number is a planning target, not proof of completeness.
+**12 completed, core-related reviews.** Target: approximately 20-25 relevant papers, with deep reading of the closest 5-8 methods. The number is a planning target, not proof of completeness.
 
 ## Review register
 
@@ -15,6 +15,9 @@
 | 07 | [An Adaptive Emergency First Intelligent Scheduling Algorithm for Efficient Task Management and Scheduling in Hybrid of Hard Real-Time and Soft Real-Time Embedded IoT Systems](reviews/An%20Adaptive%20Emergency%20First%20Intelligent%20Scheduling%20Algorithm%20for%20Efficient%20Task%20Management%20and%20Scheduling%20in%20Hybrid%20of%20Hard%20Real-Time%20and%20Soft%20Real-Time%20Embedded%20IoT%20Systems.md) | 2019 | Close urgency/deadline/starvation method | Preemptive CPU model; ANN detail and result-table inconsistencies |
 | 08 | [PR-MQTT: a novel approach for traffic reduction and message prioritisation in IoT applications](reviews/PR-MQTT%20-%20a%20novel%20approach%20for%20traffic%20reduction%20and%20message%20prioritisation%20in%20IoT%20applications.md) | 2024 | Broker value-based priority and selective forwarding | Filtering changes delivered work; equation/example ambiguity |
 | 09 | [Design of topic priority based on industrial publish-subscribe system](reviews/Design%20of%20topic%20priority%20based%20on%20industrial%20publish-subscribe%20system.md) | 2022 | Topic priority, emergency override and routine feedback | Underspecified feedback control; no formal waiting bound |
+| 10 | [Data-Priority Aware Fair Task Scheduling for Stream Processing at the Edge](reviews/Data-Priority%20Aware%20Fair%20Task%20Scheduling%20for%20Stream%20Processing%20at%20the%20Edge.md) | 2024 | Closest stream-priority/fairness batching method | Mix-sensitive gains; batch/pipeline and pseudocode limits |
+| 11 | [Delay and size-dependent priority-aware scheduling for IoT-based healthcare traffic using heterogeneous multi-server priority queueing system](reviews/Delay%20and%20size-dependent%20priority-aware%20scheduling%20for%20IoT-based%20healthcare%20traffic%20using%20heterogeneous%20multi-server%20priority%20queueing%20system.md) | 2023 | Delay/size priority with heterogeneous servers | Analytical evidence; infinite queues; simulation/quota future work |
+| 12 | [Deadline-aware rate allocation for IoT services in data center network](reviews/Deadline-aware%20rate%20allocation%20for%20IoT%20services%20in%20data%20center%20network.md) | 2018 | Deadline plus historical-deprivation service feedback | Preemptible flows; link fairness; successful-only latency |
 
 ## Reading workflow
 
@@ -23,11 +26,11 @@
 3. Write a [critical review](review-template.md) with source locations and limitations.
 4. Update the [comparison matrix](synthesis/comparison.csv) and [synthesis](synthesis/findings.md).
 
-[Reference metadata](references.json) contains exactly these nine active papers. Prior supporting/excluded notes and unreviewed catalog items are preserved in the [earlier Git snapshot](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/tree/938a07f828909bb2d8f31e271a0b479dd117f562/literature), outside the active list.
+[Reference metadata](references.json) contains exactly these twelve active papers. Prior supporting/excluded notes and unreviewed catalog items are preserved in the [earlier Git snapshot](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/tree/938a07f828909bb2d8f31e271a0b479dd117f562/literature), outside the active list.
 
 ## File naming and order
 
-Use the full paper title plus `.md`; replace unsafe punctuation such as a colon with a readable hyphen. Numbers belong in this register and metadata, not filenames. Use encoded destinations for Markdown links containing spaces. Retain internal reference keys/DOIs for identity; current visible serials are consecutive 01-09.
+Use the full paper title plus `.md`; replace unsafe punctuation such as a colon with a readable hyphen. Numbers belong in this register and metadata, not filenames. Use encoded destinations for Markdown links containing spaces. Retain internal reference keys/DOIs for identity; current visible serials are consecutive 01-12.
 
 ## Research boundary
 
