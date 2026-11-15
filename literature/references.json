@@ -1,6 +1,6 @@
 {
   "scope": "Active core literature for urgent/routine IoT message scheduling; only completed, scope-relevant reviews are retained",
-  "source": "Five inherited source-verified reviews plus supplied full-text reviews R15-R24 with publication identity checked on 15 November 2026. R16, R19, R21, R23 and R24 use indexed official publisher metadata where direct HTML access was blocked or rate-limited; R19, R22 and R24 also match institutional records. R22 reviews the supplied arXiv v1, separately from the verified proceedings identity. No independent replication or proof verification.",
+  "source": "Five inherited source-verified reviews plus supplied full-text reviews R15-R28, with publication identities checked on 15 November 2026. R16/R19/R21/R23/R24/R25 use indexed official metadata where direct publisher HTML was blocked or limited. R19/R22/R24/R27/R28 also match institutional or funder records. R22 reviews a separately identified arXiv v1; R28 is the journal version, distinct from the INFOCOM precursor. No full independent replication or complete proof certification; R26 includes a limited independent stationary baseline check.",
   "papers": [
     {
       "id": "R01",
@@ -317,6 +317,92 @@
       "source_sha256": "384e1fe73410acb21de361e70d0272544faebe19f82664897d769778c0857cb9",
       "review": "reviews/Priority based Adaptive Scheduling Algorithm for IoT Sensor Systems.md",
       "review_number": 15,
+      "reading_status": "full_text_reviewed_not_replicated",
+      "selection_status": "core_related",
+      "counts_toward_relevant_review_target": true
+    },
+    {
+      "id": "R25",
+      "title": "An Approach to Scheduling Bursty Traffic",
+      "authors": [
+        "Mahmoud Daneshvar Farzanegan",
+        "Hossein Saidi",
+        "Mehdi Mahdavi"
+      ],
+      "year": 2014,
+      "venue": "ETRI Journal, 36(1), 69-79",
+      "publisher": "Electronics and Telecommunications Research Institute (ETRI)",
+      "doi": "10.4218/etrij.14.0112.0524",
+      "publisher_url": "https://onlinelibrary.wiley.com/doi/10.4218/etrij.14.0112.0524",
+      "reviewed_version": "Supplied published PDF, 11 pages; printed page = PDF page + 68.",
+      "source_sha256": "997986f96255ef9db430fd677cac0724c52a734de65c22450bad3526cede35ee",
+      "review": "reviews/An Approach to Scheduling Bursty Traffic.md",
+      "review_number": 16,
+      "reading_status": "full_text_reviewed_not_replicated",
+      "selection_status": "core_related",
+      "counts_toward_relevant_review_target": true
+    },
+    {
+      "id": "R26",
+      "title": "Reliability-Aware Admission Threshold Selection for IoT Gateway–Cloud Systems: Trade-Off-Driven and Constraint-Based Approaches",
+      "authors": [
+        "Shensheng Tang"
+      ],
+      "year": 2026,
+      "venue": "IoT, 7(3), 60",
+      "publisher": "MDPI",
+      "doi": "10.3390/iot7030060",
+      "publisher_url": "https://www.mdpi.com/2624-831X/7/3/60",
+      "reviewed_version": "Supplied published PDF, 23 pages; printed page = PDF page. Three supplied filenames are byte-identical copies; counted once.",
+      "source_sha256": "e6eafa8059d3be71c8dc8840a083ef55059055e501b78c8194d11c47842f4d6d",
+      "validation_scope": "Independent 84-state stationary baseline check reproduces weighted threshold 15 and largest feasible threshold 18; not a full replication of all figures or a deployment validation.",
+      "review": "reviews/Reliability-Aware Admission Threshold Selection for IoT Gateway-Cloud Systems - Trade-Off-Driven and Constraint-Based Approaches.md",
+      "review_number": 17,
+      "reading_status": "full_text_reviewed_with_baseline_numerical_spot_check",
+      "selection_status": "core_related",
+      "counts_toward_relevant_review_target": true
+    },
+    {
+      "id": "R27",
+      "title": "QoS-Aware Priority-Based Task Offloading for Deep Learning Services at the Edge",
+      "authors": [
+        "Minoo Hosseinzadeh",
+        "Andrew Wachal",
+        "Hana Khamfroush",
+        "Daniel E. Lucani"
+      ],
+      "year": 2022,
+      "venue": "2022 IEEE 19th Annual Consumer Communications & Networking Conference (CCNC), 319-325",
+      "publisher": "IEEE",
+      "doi": "10.1109/CCNC49033.2022.9700676",
+      "publisher_url": "https://doi.org/10.1109/CCNC49033.2022.9700676",
+      "verification_url": "https://scholars.uky.edu/en/publications/qos-aware-priority-based-task-offloading-for-deep-learning-servic/",
+      "reviewed_version": "Supplied published PDF, 7 pages; printed page = PDF page + 318. Matches NSF-hosted manuscript.",
+      "source_sha256": "0395338d36a46c7a2c6c802f4d6c8d4b47c622869639e277b4fdf96c52646347",
+      "review": "reviews/QoS-Aware Priority-Based Task Offloading for Deep Learning Services at the Edge.md",
+      "review_number": 18,
+      "reading_status": "full_text_reviewed_not_replicated",
+      "selection_status": "core_related",
+      "counts_toward_relevant_review_target": true
+    },
+    {
+      "id": "R28",
+      "title": "Optimal Control of Wireless Networks With Finite Buffers",
+      "authors": [
+        "Long Bao Le",
+        "Eytan Modiano",
+        "Ness B. Shroff"
+      ],
+      "year": 2012,
+      "venue": "IEEE/ACM Transactions on Networking, 20(4), 1316-1329",
+      "publisher": "IEEE/ACM (published by IEEE)",
+      "doi": "10.1109/TNET.2011.2176140",
+      "publisher_url": "https://doi.org/10.1109/TNET.2011.2176140",
+      "verification_url": "https://www.mit.edu/~modiano/papers/CV_J_65.pdf",
+      "reviewed_version": "Supplied published journal PDF, 14 pages; printed page = PDF page + 1315. Issue August 2012; online 30 November 2011. Distinct from the 2010 INFOCOM precursor.",
+      "source_sha256": "8c13e47b0ef7e5257dcc17b2efe7e0a31cb9a32959fb7936579309817efdef7b",
+      "review": "reviews/Optimal Control of Wireless Networks With Finite Buffers.md",
+      "review_number": 19,
       "reading_status": "full_text_reviewed_not_replicated",
       "selection_status": "core_related",
       "counts_toward_relevant_review_target": true
