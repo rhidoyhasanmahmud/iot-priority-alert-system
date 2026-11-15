@@ -242,6 +242,33 @@
       "review_number": 8,
       "review_date": "2026-11-15",
       "relevance": "Supporting industrial systems/evaluation reference; not a direct queue-policy comparator"
+    },
+    {
+      "id": "R14",
+      "title": "IoT-based smart waste management system: real-time monitoring and environmental compensation",
+      "authors": [
+        "Osama Saeed",
+        "Ayesha Noroz",
+        "Maimoona Waqar",
+        "Abuzar Ali",
+        "Daniyal Butt"
+      ],
+      "year": 2026,
+      "venue": "Natural and Applied Sciences International Journal (NASIJ), 7(1), 42-53",
+      "publisher": "IDEA Publishers Group",
+      "doi": "10.47264/idea.nasij/7.1.3",
+      "url": "https://www.ideapublishers.org/index.php/nasij/article/view/7.1.3",
+      "publication_date": "2026-07-19",
+      "reviewed_version": "Supplied 12-page publisher PDF; printed page = PDF page + 41",
+      "source_sha256": "f8f2dcc97d513cead03ad7c5e9d3b59b9de908b9165e2e7e3163c34b27248df7",
+      "verification_basis": "Full supplied PDF and official publisher bibliographic record, 15 November 2026; author surname Butt follows byline/publisher rather than PDF citation typo Bhutt",
+      "reading_status": "full_text_reviewed_not_replicated",
+      "selection_status": "excluded_from_core_scheduling_set",
+      "selection_reason": "Sensor/cloud monitoring prototype with no queue-policy, deadline/fairness or scheduling evaluation",
+      "counts_toward_relevant_review_target": false,
+      "review": "reviews/09-iot-smart-waste-monitoring-2026.md",
+      "review_number": 9,
+      "review_date": "2026-11-15"
     }
   ]
 }
