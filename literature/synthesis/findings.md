@@ -1,6 +1,6 @@
 # Cross-paper synthesis
 
-This is a synthesis of seven retained critical reviews, not a comprehensive proof of a literature gap. Supporting references link to the source-located individual notes. No new experiment was run.
+This is a synthesis of eight critical reviews (seven retained and one newly examined supplied PDF), not a comprehensive proof of a literature gap. Supporting references link to the source-located individual notes. No new experiment was run.
 
 ## Finding 1: Priority support is established; its marginal effect depends on comparison design
 
@@ -26,6 +26,16 @@ This is a synthesis of seven retained critical reviews, not a comprehensive proo
 
 **Implication:** do not rank their headline latencies as if offered populations, buffer resources and message meanings were equivalent.
 
+## Finding 5: Applied deployment evidence and queue-only scheduling evidence answer different questions
+
+[Review 08: textile cloud-edge-end system](../reviews/08-cloud-edge-end-textile-monitoring-2026.md) adds workshop evidence from 120 looms, but combines detection, aggregation, diagnosis, routing, task migration/preemption and production optimization. Table 5 (p. 22) reports alert p99 200 vs 452 ms; Table 7 (p. 24) reports burst-task response 236 ± 48 vs 521 ± 132 ms. These are different endpoints.
+
+Table 9 (p. 28) helps separate some components: disabling compute preemption changes burst response to 348 ± 76 ms, so the full threshold-baseline gain cannot be attributed solely to priority. Redundant filtering rises 61.5% to 87.4% (+25.9 pp; +42.1% relative), changing work forwarded to the cloud. The 6x6 classification matrix and repeated hold-out aggregation need clarification before treating the stated multi-label exact-match metric as independently verified.
+
+**Connection:** like R01 and R11, multiple interventions complicate attribution; like R08/R12, changed traffic populations require explicit semantics. Alarm clustering, source-rate shedding and obsolete-update replacement are distinct mechanisms.
+
+**Implication:** classify this as supporting systems/evaluation work. Ask whether distinct incidents remain observable and compare equal offered populations/resources before claiming a scheduling advantage. One paper's reporting ambiguity is not proof of a novel research gap.
+
 ## Questions to challenge with further reading
 
 | Candidate question | Existing supporting evidence | Evidence needed before calling it a gap |
@@ -33,6 +43,8 @@ This is a synthesis of seven retained critical reviews, not a comprehensive proo
 | Which policies protect routine service while controlling urgent failure under bursts? | R08 separates intra-band fairness from cross-band service; R09 demonstrates priority/congestion tradeoffs | Closest deadline/aging/fair-queue methods and counterexamples |
 | Which apparent latency gains persist when loss and offered workload are reconciled? | R01 transport changes; R08 shedding; R11 retained-traffic cost | Matched evaluations that already address these confounders |
 | When do learned versus simple queue-state rules justify their information/overhead costs? | R09 transition training; R08 measured scheduling overhead | Methods studying workload shift, model error and overhead under comparable resources |
+
+The new R13 evidence strengthens the need to separate alert-pipeline latency, compute-task response and production-order completion. It does not select a new algorithm or authorize implementation.
 
 These are reading directions. None is a chosen contribution.
 
