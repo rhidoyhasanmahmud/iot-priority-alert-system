@@ -2,7 +2,7 @@
 
 Literature-first investigation of urgency, routine service, deadlines and overload in IoT messaging.
 
-**Current phase:** critical literature review. Eight full-text review notes are recorded; the working target is 20-25 relevant papers before choosing the conference-paper idea. Work continues through December 2026. No algorithm or simulation protocol is currently selected.
+**Current phase:** critical literature review. Nine full-text assessments are recorded, including one out-of-scope exclusion (review 09); the working target is 20-25 relevant papers before choosing the conference-paper idea. Work continues through December 2026. No algorithm or simulation protocol is currently selected.
 
 ## Read in this order
 

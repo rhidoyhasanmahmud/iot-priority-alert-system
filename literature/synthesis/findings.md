@@ -1,6 +1,6 @@
 # Cross-paper synthesis
 
-This is a synthesis of eight critical reviews (seven retained and one newly examined supplied PDF), not a comprehensive proof of a literature gap. Supporting references link to the source-located individual notes. No new experiment was run.
+This is a synthesis of eight in-scope reviews plus one documented out-of-scope full-text assessment, not a comprehensive proof of a literature gap. Supporting references link to the source-located individual notes. No new experiment was run.
 
 ## Finding 1: Priority support is established; its marginal effect depends on comparison design
 
@@ -47,6 +47,14 @@ Table 9 (p. 28) helps separate some components: disabling compute preemption cha
 The new R13 evidence strengthens the need to separate alert-pipeline latency, compute-task response and production-order completion. It does not select a new algorithm or authorize implementation.
 
 These are reading directions. None is a chosen contribution.
+
+## Full-text screening record: review 09 excluded from the core set
+
+[Review 09: smart waste monitoring](../reviews/09-iot-smart-waste-monitoring-2026.md) describes threshold sensing, rain-triggered suspension and periodic ThingSpeak updates. It has no priority/deadline queue policy, burst scheduling baseline or routine-service evaluation; therefore it is **not counted toward the 20-25 relevant scheduling-paper target**.
+
+Its reported 99% correctness lacks test denominators; methodology uses feet while Table 1 uses metres; Table 2 mixes average update delay and 95%-within-2s phrasing. These reporting issues further limit its use, but scope mismatch alone justifies exclusion. Its publisher/DOI identity is verified; journal rank is not asserted.
+
+**Transferable lesson:** sensor validity, event detection, sampled publication and queue dispatch have different timing boundaries. Pausing observation during rain is not evidence of improved scheduler reliability. Keep this record to avoid repeating selection; do not let recent publication year or a high headline accuracy substitute for relevance.
 
 ## Evidence that would change our direction
 
