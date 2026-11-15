@@ -1,33 +1,24 @@
 # IoT Alert Scheduling Research
 
-Literature-first investigation of urgency, routine service, deadlines and overload in IoT messaging.
+Literature-first investigation of urgent/routine service, deadlines, fairness and burst/overload handling in IoT messaging.
 
-**Current phase:** critical literature review. Nine full-text assessments are recorded, including one out-of-scope exclusion (review 09); the working target is 20-25 relevant papers before choosing the conference-paper idea. Work continues through December 2026. No algorithm or simulation protocol is currently selected.
+**Current progress: 5 core-related full-text reviews.** The working target is 20-25 relevant papers before selecting the conference-paper idea. Work continues through December 2026; no algorithm or simulation protocol is currently selected.
 
 ## Read in this order
 
-1. [Search scope and selection method](literature/search.md)
-2. [Review register and individual papers](literature/README.md)
+1. [Search scope and relevance criteria](literature/search.md)
+2. [Paper register and individual reviews](literature/README.md)
 3. [Cross-paper comparison](literature/synthesis/comparison.csv)
-4. [Evidence synthesis and unresolved questions](literature/synthesis/findings.md)
+4. [Findings and research questions](literature/synthesis/findings.md)
 
-[Critical-review template](literature/review-template.md) · [Reference metadata and reading status](literature/references.json)
+[Critical-review template](literature/review-template.md) · [Reference metadata](literature/references.json)
 
-## Organization
+The active set contains only completed reviews directly related to message priority, urgency/deadlines, routine protection or congestion-aware service. Relevance does not establish methodological strength, novelty or readiness as an implementation baseline.
 
-| Location | Research purpose |
-| --- | --- |
-| literature/reviews/ | One critical, source-located note per paper |
-| literature/synthesis/ | Compare evidence and develop questions across papers |
-| literature/search.md | Search/selection method and honest logging requirements |
-| literature/references.json | Publication identity and actual reading status |
+## Preserved prior work
 
-Questions guide collection; evidence guides ideas. After selecting a question, design the evaluation, then implement and write. A best-paper award is an ambition; the controllable objective is important, defensible and reproducible work.
+The earlier [literature state](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/tree/938a07f828909bb2d8f31e271a0b479dd117f562/literature) retains the removed supporting/excluded notes and unreviewed catalog candidates in Git history.
 
-## Preserved work
+The original implementation and experiments remain on [archive/implementation-before-literature-reset-2026-11-11](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/tree/archive/implementation-before-literature-reset-2026-11-11).
 
-The full implementation and experiments remain on [archive/implementation-before-literature-reset-2026-11-11](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/tree/archive/implementation-before-literature-reset-2026-11-11).
-
-The [previous literature layout and detailed bilingual notes](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/tree/a88623cdbbf08caaccbf102b052c3e05188d7e31/paper-review) remain accessible at an immutable commit. Each revised review links to its earlier detailed record. Historical comparator/implementation plans are not active research decisions.
-
-The main workspace contains literature work only. No empty implementation or manuscript folders are created in advance.
+New papers are screened for relevance before a detailed review. Review filenames use the full paper title; serials appear in the register and metadata.
