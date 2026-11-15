@@ -2,7 +2,7 @@
 
 Literature-first investigation of urgent/routine service, deadlines, fairness and burst/overload handling in IoT messaging.
 
-**Current progress: 5 core-related full-text reviews.** The working target is 20-25 relevant papers before selecting the conference-paper idea. Work continues through December 2026; no algorithm or simulation protocol is currently selected.
+**Current progress: 6 core-related full-text reviews.** The working target is 20-25 relevant papers before selecting the conference-paper idea. Work continues through December 2026; no algorithm or simulation protocol is currently selected.
 
 ## Read in this order
 

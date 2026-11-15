@@ -1,6 +1,6 @@
-# Synthesis of the five core papers
+# Synthesis of the six core papers
 
-This active synthesis uses the retained full-text reviews. It is a focused literature assessment, not an exhaustive SLR, new source verification or independent replication. Review numbers are navigation; internal reference keys remain stable.
+This active synthesis uses the retained full-text reviews. It is a focused literature assessment, not an exhaustive SLR or independent replication. R15 was newly checked against its supplied full text and official publisher record; the other five reviews retain their earlier verification provenance. Review numbers are navigation; internal reference keys remain stable.
 
 ## Priority messaging already exists
 
@@ -24,11 +24,18 @@ Do not claim occupancy-aware priority is unstudied. Transition training, separat
 
 [Adaptive Priority Scheduling of Internet of Things Data for Disaster Management in Smart Cities](../reviews/Adaptive%20Priority%20Scheduling%20of%20Internet%20of%20Things%20Data%20for%20Disaster%20Management%20in%20Smart%20Cities.md) combines deadline-progress reordering, fallback migration and next-hop selection. Infinite queues and composite interventions limit direct transfer. Saving packets can increase average delay because retained traffic consumes resources.
 
+## Frequency-based source control can conflict with urgent bursts
+
+[A New Back-off Algorithm with Priority Scheduling for MQTT Protocol and IoT Protocols](../reviews/A%20New%20Back-off%20Algorithm%20with%20Priority%20Scheduling%20for%20MQTT%20Protocol%20and%20IoT%20Protocols.md) already combines broker-assigned priority and rate-dependent back-off in 2021. It favors low-frequency publishers, while above-baseline traffic is treated as suspicious. Frequency is not an urgency label; a legitimate emergency may itself increase traffic.
+
+Its latency comparison changes source control and scheduling together. The selected-publisher trace also does not support the strongest prose claim about non-overlapping latency ranges. Retain it as close prior art with limited evidence, rather than a validated deadline/fairness baseline. Further reading should examine legitimate-burst discrimination and how initial-rate assumptions affect delivered work.
+
 ## Questions to challenge with more core literature
 
 | Candidate question | Why these papers motivate it | Evidence still needed |
 | --- | --- | --- |
 | Which methods balance urgent failures with routine tail waiting under bursts? | TRIAGE/4 fairness scope; WTI congestion/priority tradeoff | Close deadline/aging/fair-queue approaches, contrary results and matched objective definitions |
+| How do source controls distinguish urgent bursts from rate anomalies? | R15 frequency proxy and startup-rate trust; TRIAGE/4 semantic labels and admission | Methods evaluating legitimate bursts, anomaly errors and class outcomes under matched offered load |
 | Which latency improvements persist under equal transport, resources and offered populations? | PrioMQTT transport change; TRIAGE/4 admission; disaster routing/migration | Comparable evaluations isolating the intervention and reporting loss |
 | When is model-training or adaptation cost justified? | WTI transition information; adaptive controls and measured overhead | Workload-shift/model-error/overhead studies under comparable information budgets |
 

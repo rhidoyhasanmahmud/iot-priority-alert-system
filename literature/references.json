@@ -1,6 +1,6 @@
 {
   "scope": "Active core literature for urgent/routine IoT message scheduling; only completed, scope-relevant reviews are retained",
-  "source": "Existing source-verified reviews; scope filtering on 15 November 2026 is not a new PDF verification or independent replication",
+  "source": "Existing source-verified reviews plus a newly supplied full-text review (R15); R15 publisher identity verified on 15 November 2026. No independent replication.",
   "papers": [
     {
       "id": "R01",
@@ -100,6 +100,27 @@
       "reading_status": "full_text_reviewed_not_replicated",
       "review": "reviews/Adaptive Priority Scheduling of Internet of Things Data for Disaster Management in Smart Cities.md",
       "review_number": 5,
+      "selection_status": "core_related",
+      "counts_toward_relevant_review_target": true
+    },
+    {
+      "id": "R15",
+      "title": "A New Back-off Algorithm with Priority Scheduling for MQTT Protocol and IoT Protocols",
+      "authors": [
+        "Marwa O Al Enany",
+        "Hany M. Harb",
+        "Gamal Attiya"
+      ],
+      "year": 2021,
+      "venue": "International Journal of Advanced Computer Science and Applications (IJACSA), 12(11), 349-357",
+      "publisher": "The Science and Information Organization",
+      "doi": "10.14569/IJACSA.2021.0121140",
+      "publisher_url": "https://thesai.org/Publications/ViewPaper?Code=IJACSA&Issue=11&SerialNo=40&Volume=12",
+      "reviewed_version": "Supplied publisher-formatted PDF; 9 PDF pages; printed page = PDF page + 348",
+      "source_sha256": "6de590032c9fc5de52c5fe468d83c19c34965fcb30ea123519c0592c5a005260",
+      "reading_status": "full_text_reviewed_not_replicated",
+      "review": "reviews/A New Back-off Algorithm with Priority Scheduling for MQTT Protocol and IoT Protocols.md",
+      "review_number": 6,
       "selection_status": "core_related",
       "counts_toward_relevant_review_target": true
     }
