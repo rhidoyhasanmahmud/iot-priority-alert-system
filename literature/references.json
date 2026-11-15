@@ -1,6 +1,6 @@
 {
   "scope": "Active core literature for urgent/routine IoT message scheduling; only completed, scope-relevant reviews are retained",
-  "source": "Five inherited source-verified reviews plus supplied full-text reviews R15-R21 with publication identity checked on 15 November 2026. R16, R19 and R21 use indexed official publisher metadata where direct HTML access was blocked or rate-limited; R19 also matches institutional/NSF records. No independent replication or proof verification.",
+  "source": "Five inherited source-verified reviews plus supplied full-text reviews R15-R24 with publication identity checked on 15 November 2026. R16, R19, R21, R23 and R24 use indexed official publisher metadata where direct HTML access was blocked or rate-limited; R19, R22 and R24 also match institutional records. R22 reviews the supplied arXiv v1, separately from the verified proceedings identity. No independent replication or proof verification.",
   "papers": [
     {
       "id": "R01",
@@ -252,6 +252,71 @@
       "source_sha256": "8ade1ab801c57bdcfd6478c730861dd0d74d0ad5d35e4e33c2851b2957d4a86e",
       "review": "reviews/Deadline-aware rate allocation for IoT services in data center network.md",
       "review_number": 12,
+      "reading_status": "full_text_reviewed_not_replicated",
+      "selection_status": "core_related",
+      "counts_toward_relevant_review_target": true
+    },
+    {
+      "id": "R22",
+      "title": "Priority-based Fair Scheduling in Edge Computing",
+      "authors": [
+        "Arkadiusz Madej",
+        "Nan Wang",
+        "Nikolaos Athanasopoulos",
+        "Rajiv Ranjan",
+        "Blesson Varghese"
+      ],
+      "year": 2020,
+      "venue": "2020 IEEE 4th International Conference on Fog and Edge Computing (ICFEC), 39-48",
+      "publisher": "IEEE",
+      "doi": "10.1109/ICFEC50348.2020.00012",
+      "publisher_url": "https://doi.org/10.1109/ICFEC50348.2020.00012",
+      "verification_url": "https://pure.qub.ac.uk/en/publications/priority-based-fair-scheduling-in-edge-computing/",
+      "reviewed_version": "Supplied arXiv:2001.09070v1, 24 January 2020, 10 pages; manuscript page = PDF page. Proceedings identity verified; not assumed identical to the final publisher version.",
+      "source_sha256": "ce760f0d9fe826cd995ea7eee599f8f1e07c427c22fb726ceeae84cb9d243e9e",
+      "review": "reviews/Priority-based Fair Scheduling in Edge Computing.md",
+      "review_number": 13,
+      "reading_status": "full_text_reviewed_not_replicated",
+      "selection_status": "core_related",
+      "counts_toward_relevant_review_target": true
+    },
+    {
+      "id": "R23",
+      "title": "Dynamic priority-based task scheduling and adaptive resource allocation algorithms for efficient edge computing in healthcare systems",
+      "authors": [
+        "J. Anand",
+        "B. Karthikeyan"
+      ],
+      "year": 2025,
+      "venue": "Results in Engineering, 25, 104342",
+      "publisher": "Elsevier B.V.",
+      "doi": "10.1016/j.rineng.2025.104342",
+      "publisher_url": "https://www.sciencedirect.com/science/article/pii/S2590123025004232",
+      "reviewed_version": "Supplied published PDF, 16 pages; article page = PDF page. Online 13 February 2025; issue March 2025.",
+      "source_sha256": "b3f8a9a0037178f4a194e21c532ce7f229b37d26529552d567b74db1bf465090",
+      "review": "reviews/Dynamic priority-based task scheduling and adaptive resource allocation algorithms for efficient edge computing in healthcare systems.md",
+      "review_number": 14,
+      "reading_status": "full_text_reviewed_not_replicated",
+      "selection_status": "core_related",
+      "counts_toward_relevant_review_target": true
+    },
+    {
+      "id": "R24",
+      "title": "Priority based Adaptive Scheduling Algorithm for IoT Sensor Systems",
+      "authors": [
+        "K. Kavitha",
+        "G. Suseendran"
+      ],
+      "year": 2019,
+      "venue": "2019 International Conference on Automation, Computational and Technology Management (ICACTM), 361-366",
+      "publisher": "IEEE",
+      "doi": "10.1109/ICACTM.2019.8776691",
+      "publisher_url": "https://ieeexplore.ieee.org/abstract/document/8776691",
+      "verification_url": "https://ir.vistas.ac.in/id/eprint/9133/",
+      "reviewed_version": "Supplied published PDF, 6 pages; printed page = PDF page + 360.",
+      "source_sha256": "384e1fe73410acb21de361e70d0272544faebe19f82664897d769778c0857cb9",
+      "review": "reviews/Priority based Adaptive Scheduling Algorithm for IoT Sensor Systems.md",
+      "review_number": 15,
       "reading_status": "full_text_reviewed_not_replicated",
       "selection_status": "core_related",
       "counts_toward_relevant_review_target": true

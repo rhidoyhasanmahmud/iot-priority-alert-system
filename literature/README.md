@@ -1,6 +1,6 @@
 # Core literature review
 
-**12 completed, core-related reviews.** Target: approximately 20-25 relevant papers, with deep reading of the closest 5-8 methods. The number is a planning target, not proof of completeness.
+**15 completed, core-related reviews.** Target: approximately 20-25 relevant papers, with deep reading of the closest 5-8 methods. The number is a planning target, not proof of completeness.
 
 ## Review register
 
@@ -18,6 +18,9 @@
 | 10 | [Data-Priority Aware Fair Task Scheduling for Stream Processing at the Edge](reviews/Data-Priority%20Aware%20Fair%20Task%20Scheduling%20for%20Stream%20Processing%20at%20the%20Edge.md) | 2024 | Closest stream-priority/fairness batching method | Mix-sensitive gains; batch/pipeline and pseudocode limits |
 | 11 | [Delay and size-dependent priority-aware scheduling for IoT-based healthcare traffic using heterogeneous multi-server priority queueing system](reviews/Delay%20and%20size-dependent%20priority-aware%20scheduling%20for%20IoT-based%20healthcare%20traffic%20using%20heterogeneous%20multi-server%20priority%20queueing%20system.md) | 2023 | Delay/size priority with heterogeneous servers | Analytical evidence; infinite queues; simulation/quota future work |
 | 12 | [Deadline-aware rate allocation for IoT services in data center network](reviews/Deadline-aware%20rate%20allocation%20for%20IoT%20services%20in%20data%20center%20network.md) | 2018 | Deadline plus historical-deprivation service feedback | Preemptible flows; link fairness; successful-only latency |
+| 13 | [Priority-based Fair Scheduling in Edge Computing](reviews/Priority-based%20Fair%20Scheduling%20in%20Edge%20Computing.md) | 2020 | Closest historical class/client fairness method | Job-count shares; similar runtimes; Hybrid class/client intersection needs clarification |
+| 14 | [Dynamic priority-based task scheduling and adaptive resource allocation algorithms for efficient edge computing in healthcare systems](reviews/Dynamic%20priority-based%20task%20scheduling%20and%20adaptive%20resource%20allocation%20algorithms%20for%20efficient%20edge%20computing%20in%20healthcare%20systems.md) | 2025 | Urgency, age/deadline and load with routine offloading | Coupled placement/resources; score ordering, units and overload path unclear |
+| 15 | [Priority based Adaptive Scheduling Algorithm for IoT Sensor Systems](reviews/Priority%20based%20Adaptive%20Scheduling%20Algorithm%20for%20IoT%20Sensor%20Systems.md) | 2019 | Traffic-class slot scheduling and adaptive sensor sleep | MAC/source-control model; buffer proxy; no class deadline/tail evidence |
 
 ## Reading workflow
 
@@ -26,12 +29,13 @@
 3. Write a [critical review](review-template.md) with source locations and limitations.
 4. Update the [comparison matrix](synthesis/comparison.csv) and [synthesis](synthesis/findings.md).
 
-[Reference metadata](references.json) contains exactly these twelve active papers. Prior supporting/excluded notes and unreviewed catalog items are preserved in the [earlier Git snapshot](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/tree/938a07f828909bb2d8f31e271a0b479dd117f562/literature), outside the active list.
+[Reference metadata](references.json) contains exactly these fifteen active papers. Prior supporting/excluded notes and unreviewed catalog items are preserved in the [earlier Git snapshot](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/tree/938a07f828909bb2d8f31e271a0b479dd117f562/literature), outside the active list.
 
 ## File naming and order
 
-Use the full paper title plus `.md`; replace unsafe punctuation such as a colon with a readable hyphen. Numbers belong in this register and metadata, not filenames. Use encoded destinations for Markdown links containing spaces. Retain internal reference keys/DOIs for identity; current visible serials are consecutive 01-12.
+Use the full paper title plus `.md`; replace unsafe punctuation such as a colon with a readable hyphen. Numbers belong in this register and metadata, not filenames. Use encoded destinations for Markdown links containing spaces. Retain internal reference keys/DOIs for identity; current visible serials are consecutive 01-15.
 
 ## Research boundary
 
 No algorithm, comparator implementation or simulation matrix is selected. Core relevance is separate from evidence quality or baseline fidelity. Include contrary findings and close methods even when their resource model differs. Do not fill the target with generic IoT applications or loosely related theory.
+

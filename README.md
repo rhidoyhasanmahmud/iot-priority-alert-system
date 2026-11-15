@@ -2,7 +2,7 @@
 
 Literature-first investigation of urgent/routine service, deadlines, fairness and burst/overload handling in IoT messaging.
 
-**Current progress: 12 core-related full-text reviews.** The working target is 20-25 relevant papers before selecting the conference-paper idea. Work continues through December 2026; no algorithm or simulation protocol is currently selected.
+**Current progress: 15 core-related full-text reviews.** The working target is 20-25 relevant papers before selecting the conference-paper idea. Work continues through December 2026; no algorithm or simulation protocol is currently selected.
 
 ## Read in this order
 
@@ -22,3 +22,4 @@ The earlier [literature state](https://github.com/rhidoyhasanmahmud/iot-priority
 The original implementation and experiments remain on [archive/implementation-before-literature-reset-2026-11-11](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/tree/archive/implementation-before-literature-reset-2026-11-11).
 
 New papers are screened for relevance before a detailed review. Review filenames use the full paper title; serials appear in the register and metadata.
+
