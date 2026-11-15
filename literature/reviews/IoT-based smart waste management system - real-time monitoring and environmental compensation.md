@@ -14,6 +14,8 @@ Osama Saeed; Ayesha Noroz; Maimoona Waqar; Abuzar Ali; Daniyal Butt. 2026. **IoT
 - **Selection decision:** **exclude from the core scheduling-paper set; retain this assessment as a screening record and optional application example**. It does not count toward the target of 20-25 relevant scheduling reviews.
 - **Venue boundary:** verified publication identity does not establish indexing, journal quartile or methodological quality. No Scopus/Q1/Q2 claim is made.
 
+**Relevance audit (15 November 2026): Excluded: unrelated.** Sensor threshold/rain-state monitoring with no service scheduling or class tradeoff. IoT and cloud dashboard alone do not meet this research scope. Does not count toward the core relevant-paper target. See the [selection audit](../relevance-audit.md).
+
 ## 2. Research problem
 
 The application monitors bin fill level and rain so that waste-management staff can see local/cloud status and act before overflow.

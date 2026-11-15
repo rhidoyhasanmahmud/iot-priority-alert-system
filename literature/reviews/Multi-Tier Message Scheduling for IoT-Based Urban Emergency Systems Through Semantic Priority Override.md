@@ -11,6 +11,8 @@ João Carlos N. Bittencourt; Paulo Portugal; Francisco Vasques; Daniel G. Costa.
 - **Theme:** Semantic alarm priority and source fairness.
 - **Provenance:** [earlier detailed English/Bangla review](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/blob/a88623cdbbf08caaccbf102b052c3e05188d7e31/paper-review/papers/R08-triage4-semantic-priority-2026.md). This revision reorganizes existing review evidence; it does not represent a fresh publisher/PDF verification.
 
+**Relevance audit (15 November 2026): Core-related; closest.** Semantic alarm scheduling, strict bands, device/source fairness and overload admission protection. Within-band fairness is not routine cross-band protection; admission and metadata must be aligned. Counts toward the core relevant-paper target. See the [selection audit](../relevance-audit.md).
+
 ## 2. Research problem
 
 How can actual alarms bypass geographically important routine traffic while preventing sources within a priority band from monopolizing service?

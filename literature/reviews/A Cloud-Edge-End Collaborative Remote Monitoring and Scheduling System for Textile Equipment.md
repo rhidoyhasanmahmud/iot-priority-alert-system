@@ -14,6 +14,8 @@ Chi Zhang; Peng Lin; Cancan Rao; Hongjun Li; Jun Wang; Chengjun Zhang; Hang Hu. 
 - **Reading status:** full supplied text examined, including method, evaluation, ablation, scope discussion and data-availability statement; Table 6 and Table 9 visually inspected. No independent code, model, experiment or dataset replication.
 - **Relevance decision:** include as **supporting industrial systems/evaluation evidence**, not currently a direct queue-policy comparator. This decision follows the paper's own applied-system positioning (abstract p. 1; Section 2 p. 3; Section 4.6 pp. 29-30).
 
+**Relevance audit (15 November 2026): Supporting only.** Industrial alert-pipeline architecture, compute coordination and component ablation. Composite sensing/filtering/diagnosis/routing/placement study; not a queue-only urgency/routine policy comparison. Does not count toward the core relevant-paper target. See the [selection audit](../relevance-audit.md).
+
 ## 2. Research problem
 
 The authors address heterogeneous textile-equipment acquisition, low-latency fault alerting and monitoring-informed resource/production decisions in one cloud-edge-end architecture.

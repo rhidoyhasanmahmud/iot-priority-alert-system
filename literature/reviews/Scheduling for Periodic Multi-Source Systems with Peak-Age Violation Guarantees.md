@@ -9,7 +9,9 @@ Kuan-Yu Lin; Yu-Chih Huang; Yu-Pin Hsu. 2023. **Scheduling for Periodic Multi-So
 - **Reviewed version:** Reviewed source is 32-page arXiv:2308.05445v1, not the different 2026 ICC paper suggested by its uploaded filename.
 - **Reading status:** full-text review retained from the earlier knowledge base; no independent replication.
 - **Theme:** Periodic freshness and violation analysis.
-- **Provenance:** [earlier detailed English/Bangla review](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/blob/a88623cdbbf08caaccbf102b052c3e05188d7e31/paper-review/papers/05-periodic-multi-source-peak-age-2023.md). This revision reorganizes existing review evidence; it does not represent a fresh publisher/PDF verification.
+- **Provenance:** [earlier detailed English/Bangla review](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/blob/a88623cdbbf08caaccbf102b052c3e05188d7e31/paper-review/papers/R10-grr-peak-age-2023.md). This revision reorganizes existing review evidence; it does not represent a fresh publisher/PDF verification.
+
+**Relevance audit (15 November 2026): Supporting only.** Useful freshness/threshold and queue-management theory. Periodic peak-AoI objective, not urgency-class deadline or emergency-alert tradeoff. Do not treat as a direct comparator. Does not count toward the core relevant-paper target. See the [selection audit](../relevance-audit.md).
 
 ## 2. Research problem
 

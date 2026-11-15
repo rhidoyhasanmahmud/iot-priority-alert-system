@@ -11,6 +11,8 @@ Marie C. Pognon; Alejandro Quintero; Samuel Pierre. 2024. **Adaptive Priority Sc
 - **Theme:** Multi-hop deadline-progress scheduling.
 - **Provenance:** [earlier detailed English/Bangla review](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/blob/a88623cdbbf08caaccbf102b052c3e05188d7e31/paper-review/papers/R11-pognon-adaptive-disaster-2024.md). This revision reorganizes existing review evidence; it does not represent a fresh publisher/PDF verification.
 
+**Relevance audit (15 November 2026): Core-related; closest.** Adaptive urgency/deadline-progress scheduling explicitly protects less urgent traffic in disaster IoT. Multi-hop routing/migration, preemption and infinite buffers complicate comparison; still core conceptual prior art. Counts toward the core relevant-paper target. See the [selection audit](../relevance-audit.md).
+
 ## 2. Research problem
 
 How can multi-hop disaster-monitoring networks deliver urgent data while protecting less urgent packets under congestion and changing progress toward deadlines?

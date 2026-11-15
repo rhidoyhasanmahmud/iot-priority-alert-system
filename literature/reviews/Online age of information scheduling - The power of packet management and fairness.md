@@ -11,6 +11,8 @@ Chen-Rui Jien; Tung-Wei Kuo. 2026. **Online age of information scheduling: The p
 - **Theme:** Online fairness and replaceable updates.
 - **Provenance:** [earlier detailed English/Bangla review](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/blob/a88623cdbbf08caaccbf102b052c3e05188d7e31/paper-review/papers/R12-online-aoi-packet-management-fairness-2026.md). This revision reorganizes existing review evidence; it does not represent a fresh publisher/PDF verification.
 
+**Relevance audit (15 November 2026): Supporting only.** Useful online fairness, starvation counterexamples and packet-management theory. Total AoI and replaceable status updates differ from non-replaceable emergency alerts. Does not count toward the core relevant-paper target. See the [selection audit](../relevance-audit.md).
+
 ## 2. Research problem
 
 How do fairness and safe replacement of obsolete updates affect the achievable online total-AoI objective when future arrivals and terminal lifetimes are unknown?

@@ -9,7 +9,9 @@ Gaetano Patti; Luca Leonardi; Giuseppe Testa; Lucia Lo Bello. 2024. **PrioMQTT: 
 - **Reviewed version:** Final publisher PDF; 9 PDF pages; journal pages 43-51.
 - **Reading status:** full-text review retained from the earlier knowledge base; no independent replication.
 - **Theme:** MQTT transmission priority.
-- **Provenance:** [earlier detailed English/Bangla review](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/blob/a88623cdbbf08caaccbf102b052c3e05188d7e31/paper-review/papers/01-priomqtt-2024.md). This revision reorganizes existing review evidence; it does not represent a fresh publisher/PDF verification.
+- **Provenance:** [earlier detailed English/Bangla review](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/blob/a88623cdbbf08caaccbf102b052c3e05188d7e31/paper-review/papers/R01-priomqtt-2024.md). This revision reorganizes existing review evidence; it does not represent a fresh publisher/PDF verification.
+
+**Relevance audit (15 November 2026): Core-related.** Explicit broker/message priority ordering for time-critical MQTT. Direct prior art, although transport also changes. Protocol/transmission layer; UDP/TCP change prevents queue-only gain attribution. Counts toward the core relevant-paper target. See the [selection audit](../relevance-audit.md).
 
 ## 2. Research problem
 

@@ -38,3 +38,14 @@ Read the closest 5-8 methods deeply. Stop broad collection when decisions are we
 ## Gate before implementation
 
 Compare 2-3 candidate research questions on importance, existing overlap, falsifiability, fair evaluation and feasibility. Select an idea only after the review supports that choice. Plan experiments around the question, not around proving the archived code successful.
+
+## Relevance gate before a detailed review
+
+Screen abstract, method/model and evaluation first. Core inclusion requires an explicit message/task service or admission decision relevant to urgency, deadlines, aging, congestion or routine protection. IoT/MQTT use alone is insufficient.
+
+- **Core-related:** directly informs the scheduling/admission question. Count only after full-text assessment.
+- **Supporting-only:** useful theory, architecture or measurement under a different objective/model. Keep separate from core target; prepare a detailed note only when it answers a specific research need.
+- **Excluded:** unrelated application sensing/dashboard work. Do not write another long review; give a short screening reason, recording a lightweight exclusion entry if needed.
+- **Pending:** catalog metadata without full-text screening. Do not count or silently infer missing algorithm features.
+
+Do not discard a conceptually close paper just because its buffer, network layer or method differs; document the mismatch. Relevance is separate from quality, novelty and comparator fidelity. See [current audit](relevance-audit.md).

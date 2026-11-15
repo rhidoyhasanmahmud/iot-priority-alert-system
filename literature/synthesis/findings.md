@@ -1,6 +1,6 @@
 # Cross-paper synthesis
 
-This is a synthesis of eight in-scope reviews plus one documented out-of-scope full-text assessment, not a comprehensive proof of a literature gap. Supporting references link to the source-located individual notes. No new experiment was run.
+This synthesis draws on **5 core-related reviews and 3 supporting-only references**, plus 1 excluded assessment retained as a screening record. The [relevance audit](../relevance-audit.md) distinguishes these roles. Supporting AoI/industrial studies inform concepts and measurement, not a claim that they directly address urgent/routine alert scheduling. No source PDF was reread or new experiment performed for this relevance audit.
 
 ## Finding 1: Priority support is established; its marginal effect depends on comparison design
 
