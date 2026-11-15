@@ -1,6 +1,6 @@
 # Core literature review
 
-**15 completed, core-related reviews.** Target: approximately 20-25 relevant papers, with deep reading of the closest 5-8 methods. The number is a planning target, not proof of completeness.
+**19 completed, core-related reviews.** Target: approximately 20-25 relevant papers, with deep reading of the closest 5-8 methods. The number is a planning target, not proof of completeness.
 
 ## Review register
 
@@ -21,6 +21,10 @@
 | 13 | [Priority-based Fair Scheduling in Edge Computing](reviews/Priority-based%20Fair%20Scheduling%20in%20Edge%20Computing.md) | 2020 | Closest historical class/client fairness method | Job-count shares; similar runtimes; Hybrid class/client intersection needs clarification |
 | 14 | [Dynamic priority-based task scheduling and adaptive resource allocation algorithms for efficient edge computing in healthcare systems](reviews/Dynamic%20priority-based%20task%20scheduling%20and%20adaptive%20resource%20allocation%20algorithms%20for%20efficient%20edge%20computing%20in%20healthcare%20systems.md) | 2025 | Urgency, age/deadline and load with routine offloading | Coupled placement/resources; score ordering, units and overload path unclear |
 | 15 | [Priority based Adaptive Scheduling Algorithm for IoT Sensor Systems](reviews/Priority%20based%20Adaptive%20Scheduling%20Algorithm%20for%20IoT%20Sensor%20Systems.md) | 2019 | Traffic-class slot scheduling and adaptive sensor sleep | MAC/source-control model; buffer proxy; no class deadline/tail evidence |
+| 16 | [An Approach to Scheduling Bursty Traffic](reviews/An%20Approach%20to%20Scheduling%20Bursty%20Traffic.md) | 2014 | Foundational backlog-weighted burst/rate fairness | Fluid/policed flows; burst gains raise regular-flow delay; conditional proofs |
+| 17 | [Reliability-Aware Admission Threshold Selection for IoT Gateway–Cloud Systems: Trade-Off-Driven and Constraint-Based Approaches](reviews/Reliability-Aware%20Admission%20Threshold%20Selection%20for%20IoT%20Gateway-Cloud%20Systems%20-%20Trade-Off-Driven%20and%20Constraint-Based%20Approaches.md) | 2026 | Finite-buffer admission under service interruptions | Stationary class-neutral model; moving congestion metric; no task deadlines |
+| 18 | [QoS-Aware Priority-Based Task Offloading for Deep Learning Services at the Edge](reviews/QoS-Aware%20Priority-Based%20Task%20Offloading%20for%20Deep%20Learning%20Services%20at%20the%20Edge.md) | 2022 | Priority-aware assignment and partial-QoS admission | Unlimited cloud model; served-not-satisfied differs from successful timely service |
+| 19 | [Optimal Control of Wireless Networks With Finite Buffers](reviews/Optimal%20Control%20of%20Wireless%20Networks%20With%20Finite%20Buffers.md) | 2012 | Foundational finite-buffer admission/routing control | Finite internal queues with unlimited source reservoirs; conditional utility/backlog bounds |
 
 ## Reading workflow
 
@@ -29,11 +33,11 @@
 3. Write a [critical review](review-template.md) with source locations and limitations.
 4. Update the [comparison matrix](synthesis/comparison.csv) and [synthesis](synthesis/findings.md).
 
-[Reference metadata](references.json) contains exactly these fifteen active papers. Prior supporting/excluded notes and unreviewed catalog items are preserved in the [earlier Git snapshot](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/tree/938a07f828909bb2d8f31e271a0b479dd117f562/literature), outside the active list.
+[Reference metadata](references.json) contains exactly these nineteen active papers. Prior supporting/excluded notes and unreviewed catalog items are preserved in the [earlier Git snapshot](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/tree/938a07f828909bb2d8f31e271a0b479dd117f562/literature), outside the active list.
 
 ## File naming and order
 
-Use the full paper title plus `.md`; replace unsafe punctuation such as a colon with a readable hyphen. Numbers belong in this register and metadata, not filenames. Use encoded destinations for Markdown links containing spaces. Retain internal reference keys/DOIs for identity; current visible serials are consecutive 01-15.
+Use the full paper title plus `.md`; replace unsafe punctuation such as a colon with a readable hyphen. Numbers belong in this register and metadata, not filenames. Use encoded destinations for Markdown links containing spaces. Retain internal reference keys/DOIs for identity; current visible serials are consecutive 01-19.
 
 ## Research boundary
 

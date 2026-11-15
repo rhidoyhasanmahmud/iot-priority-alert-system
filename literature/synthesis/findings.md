@@ -1,6 +1,6 @@
-# Synthesis of the fifteen core papers
+# Synthesis of the nineteen core papers
 
-This active synthesis uses the retained full-text reviews. It is a focused literature assessment, not an exhaustive SLR or independent replication. R15-R24 were checked against supplied full texts and official publisher identities (R16/R19/R21/R23/R24 use indexed official metadata where direct HTML retrieval was blocked or rate-limited; R22 also matches institutional proceedings records and reviews a separately identified arXiv v1); the earlier five reviews retain their verification provenance. Review numbers are navigation; internal reference keys remain stable.
+This active synthesis uses the retained full-text reviews. It is a focused literature assessment, not an exhaustive SLR or full independent replication. R15-R28 were checked against supplied full texts and official publisher identities (R16/R19/R21/R23/R24 use indexed official metadata where direct HTML retrieval was blocked or rate-limited; R22 also matches institutional proceedings records and reviews a separately identified arXiv v1); the earlier five reviews retain their verification provenance. R25 also matches indexed publisher identity; R27 matches Kentucky/NSF records and R28 matches the MIT-hosted journal publication and institutional author lists. R26 includes a limited independent baseline stationary calculation, not a replication of all figures. Review numbers are navigation; internal reference keys remain stable.
 
 ## Priority messaging already exists
 
@@ -80,22 +80,43 @@ Its author-reported gains concern a coupled resource framework, not isolated que
 
 The reported NS2 evidence concerns aggregate delivery, loss, energy and throughput. It does not establish class deadlines or routine maximum waiting. The two-flow throughput endpoint favors EE-CATS (0.29 versus PASA's 0.272 Mb/s), so a uniform superiority claim is unsupported. Priority, transmission opportunity and sleep control change together; population and energy accounting matter before interpreting downstream delay gains.
 
+## Burst compensation is distinct from rate fairness and job waiting
+
+[RBSS](../reviews/An%20Approach%20to%20Scheduling%20Bursty%20Traffic.md) already uses capped, ceiling-quantized queue-dependent weights in a fluid scheduler. It distinguishes rate-normalized service fairness from compensation for unused service when a burst appears. An infinite TCS for GPS means failure of that catch-up objective, not starvation or infinite packet delay.
+
+Its Table 2 preserves a material contrary outcome: configuring both bursty flows in S4 reduces their mean delays from 510/1829 to 294/741 microseconds while raising the representative uniform flow from 125 to 542. Policing, traffic contracts, fluid packetization and proof conditions matter. This is strong prior art against novelty based solely on backlog-driven weight boosts, with limited numerical evidence beyond the illustrative example.
+
+## Admission, internal overflow and offered-task success use different boundaries
+
+[RAAC](../reviews/Reliability-Aware%20Admission%20Threshold%20Selection%20for%20IoT%20Gateway-Cloud%20Systems%20-%20Trade-Off-Driven%20and%20Constraint-Based%20Approaches.md) explicitly separates offered arrivals from admitted/completed work under finite buffering and Markovian service interruptions. Its moving-threshold congestion-regime probability is control activity, not congestion at a common physical queue level. A limited independent 84-state baseline calculation reproduces weighted threshold 15 and largest feasible threshold 18; it does not validate nonstationary bursts, deadlines or an online controller.
+
+[Finite-buffer wireless network control](../reviews/Optimal%20Control%20of%20Wireless%20Networks%20With%20Finite%20Buffers.md) proves conditional internal no-overflow and utility/backlog results while source reservoirs remain unlimited. Source retention and immediate admission rejection are different loss/wait semantics. Internal occupancy bounds, stationary mean free space and per-job timely service are separate claims. The 2012 journal version must also be distinguished from its 2010 conference precursor.
+
+Both studies sharpen the comparison boundary: report source-offered, admitted, retained upstream, intentionally rejected, eventually completed and timely completed work. The finite-buffer journal's underloaded results also show larger queues than its comparator in some settings; finite capacity does not guarantee every average delay improves.
+
+## Partial-quality service changes the meaning of fewer drops
+
+[PGUS](../reviews/QoS-Aware%20Priority-Based%20Task%20Offloading%20for%20Deep%20Learning%20Services%20at%20the%20Edge.md) performs priority-first server/model assignment, with a utility combining accuracy and preferred completion time. Its three outcomes are satisfied service, unsatisfied service and drop. GUS rejects unmet requirements whereas PGUS can serve unsatisfied tasks, so fewer drops alone do not demonstrate more deadline successes.
+
+The small-instance ILP comparison reports roughly 80% of optimal GoS; that is an empirical observation, not an approximation theorem. Prototype feasibility does not remove the unlimited-cloud mathematical assumption, batching wait, stale metadata or acceptance-semantics differences. Compare these populations before attributing gains solely to urgency ranking.
+
 ## Questions to challenge with more core literature
 
 | Candidate question | Why these papers motivate it | Evidence still needed |
 | --- | --- | --- |
-| Which methods balance urgent failures with routine tail waiting under bursts? | TRIAGE/4 fairness scope; FEF thresholds; topic feedback; FTS-Hybrid mix regressions; EFS class/client accounting; WTI tradeoff | Close deadline/aging/fair-queue approaches, contrary results and matched objective definitions |
+| Which methods balance urgent failures with routine tail waiting under bursts? | TRIAGE/4 fairness scope; FEF thresholds; topic feedback; FTS-Hybrid mix regressions; EFS class/client accounting; WTI tradeoff; RBSS regular-flow penalty | Close deadline/aging/fair-queue approaches, contrary results and matched objective definitions |
 | How do source controls distinguish urgent bursts from rate anomalies? | R15 frequency proxy and startup-rate trust; TRIAGE/4 semantic labels and admission | Methods evaluating legitimate bursts, anomaly errors and class outcomes under matched offered load |
 | Which mechanisms tolerate imperfect urgency/value classification? | PR-MQTT learned min/max and routine filtering; R15 rate proxy | Evidence on drift, initial-sample bias, false alarms, missed urgency and receiver freshness |
-| Which latency improvements persist under equal transport, resources and offered populations? | PrioMQTT transport change; TRIAGE/4 admission; PR-MQTT suppression; disaster/DPTARA migration; PASA source activity | Comparable evaluations isolating the intervention and reporting loss |
+| Which latency improvements persist under equal transport, resources and offered populations? | PrioMQTT transport change; TRIAGE/4 admission; PR-MQTT suppression; disaster/DPTARA migration; PASA source activity | Comparable evaluations isolating the intervention and reporting loss; PGUS satisfied/unsatisfied distinctions |
 | How do control location and service assumptions change routine protection? | FTS-Hybrid emission batches; non-preemptive healthcare servers; DRA divisible flows | Comparable offered-load outcomes, batch flush/downstream effects, finite buffers and preemption boundaries |
+| Which guarantee survives the complete admission/storage boundary? | RAAC immediate rejection and stationary saturation; finite-buffer control with unlimited source reservoirs; PGUS partial-QoS service | Finite source storage, class-specific offered-task outcomes, transient recovery and explicit waiting/deadline definitions |
 | When is model-training or adaptation cost justified? | WTI transition information; FEF ANN/history; EFS history-query cost; DPTARA forecast feedback | Workload-shift/model-error/overhead studies under comparable information budgets |
 
 These are reading questions, not demonstrated field-wide gaps or selected contributions.
 
 ## Next step
 
-Screen new papers for an explicit scheduling/admission mechanism relevant to urgency, deadlines, routine protection or overload. Review only those that materially inform this question. Continue toward 20-25 core-relevant reviews before choosing the idea and designing experiments.
+Screen new papers for an explicit scheduling/admission mechanism relevant to urgency, deadlines, routine protection or overload. Review only those that materially inform this question. The active set now has 19 reviews. Prioritize the closest remaining deadline/fair-queue or aging methods and compare assumptions/contrary outcomes before deciding whether the 20-25-paper working target is sufficient. Do not fill the target with architecture-only papers or treat reaching it as evidence of novelty.
 
 The [previous synthesis](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/blob/938a07f828909bb2d8f31e271a0b479dd117f562/literature/synthesis/findings.md) remains accessible for historical context. Supporting/excluded material is not part of this active synthesis.
 
