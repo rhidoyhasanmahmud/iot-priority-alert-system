@@ -2,7 +2,7 @@
 
 Literature-first investigation of urgent/routine service, deadlines, fairness and burst/overload handling in IoT messaging.
 
-**Current progress: 19 core-related full-text reviews.** The working target of 20-25 relevant papers guides coverage; candidate research-question selection now draws on the 19 reviews and targeted novelty checks. Work continues through December 2026; no algorithm or simulation protocol is currently selected.
+**Current progress: 19 core-related full-text reviews.** The working target of 20-25 relevant papers guides coverage; RQ-A is the selected research direction, with a closest-theory novelty check pending. Work continues through December 2026; no algorithm or simulation protocol is currently selected.
 
 ## Read in this order
 
@@ -10,7 +10,7 @@ Literature-first investigation of urgent/routine service, deadlines, fairness an
 2. [Paper register and individual reviews](literature/README.md)
 3. [Cross-paper comparison](literature/synthesis/comparison.csv)
 4. [Cross-paper evidence synthesis](literature/synthesis/findings.md)
-5. [Candidate research questions and selection rationale](literature/synthesis/research-questions.md)
+5. [Research questions and selected direction](literature/synthesis/research-questions.md)
 
 [Critical-review template](literature/review-template.md) · [Reference metadata](literature/references.json)
 

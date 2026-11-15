@@ -37,7 +37,7 @@ Read the closest 5-8 methods deeply. Stop broad collection when decisions are we
 
 ## Gate before implementation
 
-Compare 2-3 candidate research questions on importance, existing overlap, falsifiability, fair evaluation and feasibility. The current [candidate decision note](synthesis/research-questions.md) records three questions, a provisional investigation order and unresolved novelty checks. Select an idea only after the review supports that choice. Plan experiments around the question, not around proving the archived code successful.
+Compare 2-3 candidate research questions on importance, existing overlap, falsifiability, fair evaluation and feasibility. The current [decision note](synthesis/research-questions.md) selects RQ-A as the research direction and retains B/C as alternatives. Resolve the closest-theory novelty checks before selecting an algorithm or asserting a new contribution. Plan experiments around the question, not around proving the archived code successful.
 
 ## Active-set policy - 15 November 2026
 

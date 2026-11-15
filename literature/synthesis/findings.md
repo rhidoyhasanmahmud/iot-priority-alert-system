@@ -116,7 +116,7 @@ These are reading questions, not demonstrated field-wide gaps or selected contri
 
 ## Next step
 
-Use the [candidate research-question decision note](research-questions.md) to compare three directions: service accounting under heterogeneous bursts, admission/dispatch interaction, and label robustness. RQ-A is the provisional first investigation, with a direct fair-queue/latency-theory overlap check still pending; no gap, algorithm or final protocol is selected.
+The [research-question decision note](research-questions.md) selects RQ-A: routine-service protection under heterogeneous bursts, with offered urgent deadline failures constrained by an application-backed budget. Count-based versus work-based protection is the first mechanism comparison, not the novelty claim. Admission/dispatch interaction (B) is parked and label robustness (C) deferred. A direct fair-queue/latency-theory overlap check is still pending; no gap, algorithm or final protocol is established.
 
 The active set remains 19 completed reviews. The bounded [search log](../search-log.csv) records targeted novelty/identity checks; the two primary-source leads in the decision note are not counted as full-text reviews. Prioritize those closest checks and application-backed requirements before broad collection or implementation. The 20-25-paper working target is a coverage guide, not evidence of novelty or a mandatory count before synthesis.
 

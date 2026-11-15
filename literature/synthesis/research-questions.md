@@ -1,10 +1,37 @@
-# Candidate research questions and selection rationale
+# Research questions and selected direction
 
-**Status:** working decision note, version 0.1, 15 November 2026. Based on the 19 retained reviews at main commit `95330fe36cd0579d4a1bbbc97dcc0e5eb008afbf`. The questions below are candidates, not established literature gaps or selected algorithms. This is a literature-synthesis note; no new algorithm or final experiment matrix is selected.
+**Status:** decision note, version 0.2, 15 November 2026. **RQ-A is selected as the research direction**, based on the 19 retained reviews and synthesis at main commit `5fe80d23c949cbe5fe0ef6d1691715aad93386a5`. B/C remain documented alternatives. The selection does not establish a literature gap, a new algorithm or a finalized experiment matrix.
 
-**Recommendation:** investigate **RQ-A first**, keep **RQ-B as the alternative**, and defer **RQ-C** unless realistic urgency-label evidence becomes available. RQ-A currently offers the clearest controlled comparison and the smallest implementation scope. Its originality remains unresolved: classical fair queueing already handles variable work sizes, and the targeted search below found directly relevant fairness/latency theory. A useful contribution must go beyond comparing message counts with work counts or renaming an existing scheduler.
+**Selection:** pursue **RQ-A**; park **RQ-B** and defer **RQ-C**. This is a reviewer judgment about the clearest route to an important, testable contribution with the available project scope, not an estimated probability of winning an award. RQ-A offers a controlled urgent/routine trade-off question and a manageable first model. Its originality remains unresolved: classical fair queueing already handles variable work sizes, and the targeted search below found directly relevant fairness/latency theory. A useful contribution must go beyond comparing message counts with work counts or renaming an existing scheduler.
 
 **বাংলা reading guide:** প্রথমে A/B/C-এর comparison ও recommendation পড়ুন। তারপর closest-paper table এবং প্রতিটি question-এর falsification condition দেখুন। এখানে কোনো algorithm-কে নতুন বা কোনো gap-কে confirmed বলা হয়নি।
+
+## Selected question and contribution objective
+
+> Under what burst and service-demand conditions can routine-service protection improve routine access within a declared waiting budget while keeping offered urgent-task deadline failures within a predeclared acceptable budget at a finite-capacity, non-preemptive IoT processing queue?
+
+This refines RQ-A around the application outcome. Count-based versus consumed-work-based protection remains the first mechanism comparison, not the claimed novelty. The acceptable urgent-failure budget and routine waiting budget require application evidence and must be fixed before held-out evaluation; no numerical target is chosen here.
+
+**Working descriptive title:** *Routine-Service Protection Under Bursty IoT Alerts: Deadline Trade-offs with Variable Service Times*. This describes the direction without claiming a new or superior algorithm.
+
+### Why this direction is selected
+
+| Consideration | Rationale for RQ-A | What must still be earned |
+| --- | --- | --- |
+| Problem significance | Urgent completion and routine observability compete for the same finite service resource | A credible alert application and justified timing/service requirements |
+| Scientific depth | Can expose feasibility limits and explain how service-size/burst structure changes the outcome frontier | A new, defensible insight beyond existing fair-queue/DRR bounds |
+| Causal clarity | One stage, trusted labels and equal resources allow the service-accounting effect to be isolated | Matched admission, information, tuning and overhead; no favorable-only workload selection |
+| Feasibility | Does not initially require outage modeling or an independently validated urgency classifier | Reproducible relevant comparators and a tractable analytical/evaluation scope |
+
+B remains scientifically plausible, but adds admission-by-dispatch interactions and a failure model while overlapping TRIAGE/4 and TSN admission work. C needs credible ground truth and label-error mechanisms, and risks becoming a different classification/security project. These are scope/readiness reasons for parking them, not evidence that they could not produce stronger results elsewhere.
+
+### Evidence ambition and stop rule
+
+Aim for one explanatory result that survives strong conventional comparators: a conditional feasibility/trade-off characterization, or a reproducible failure regime with a justified remedy. A later evaluation should connect that result to offered urgent deadline failures, routine access/waiting, rejected/unfinished work and decision cost. An implementation artifact or small prototype can strengthen deployment evidence if needed after the novelty check; neither is started by this decision.
+
+A new scheduler is justified only if the identified limitation requires one and the evidence supports it. If existing packetized fair-queue/deadline theory or a faithful conventional comparator already answers the selected question, revise the contribution or stop that claim. Do not rescue it with an arbitrary weighted score, extra capacity, oracle metadata or post-hoc workload selection.
+
+**Award ambition:** develop an important, original and convincing paper. No target conference, competing submission set or calibrated award-probability model is available, so neither this selection nor any numerical improvement can promise a Best Paper award. RQ selection is a commitment to a question; novelty, correctness and useful evidence remain requirements to demonstrate.
 
 ## 1. What the existing evidence rules out
 
@@ -31,8 +58,8 @@ These are qualitative reviewer judgments from the retained evidence and bounded 
 
 | Candidate | Main scientific question | Potential value if supported | Largest overlap/novelty risk | Feasibility and decision |
 | --- | --- | --- | --- | --- |
-| **RQ-A: service accounting** | How does count-based versus work-based routine protection change the urgent-deadline/routine-waiting trade-off under heterogeneous bursts? | Explain a reproducible failure region or derive a scoped trade-off/bound that guides policy choice | DRR/fair-queue latency theory, RBSS, EFS, FEF, FTS-Hybrid and DRA already cover substantial parts | **First investigation.** A constrained single-stage model is manageable; read the closest missing theory before selecting a method. |
-| **RQ-B: admission and dispatch** | When does urgency-aware admission add value over class-neutral admission during service interruption, after holding dispatch fixed? | Explain whether benefits come from rejection, dispatch, or their interaction on the full offered population | TRIAGE/4 already couples alarms and admission; TSN deadline-aware admission has strong prior art | **Alternative.** More policy interactions and calibration; justify the outage model and check feasibility first. |
+| **RQ-A: service accounting** | How does count-based versus work-based routine protection change the urgent-deadline/routine-waiting trade-off under heterogeneous bursts? | Explain a reproducible failure region or derive a scoped trade-off/bound that guides policy choice | DRR/fair-queue latency theory, RBSS, EFS, FEF, FTS-Hybrid and DRA already cover substantial parts | **Selected direction.** A constrained single-stage model is manageable; read the closest missing theory before selecting a method. |
+| **RQ-B: admission and dispatch** | When does urgency-aware admission add value over class-neutral admission during service interruption, after holding dispatch fixed? | Explain whether benefits come from rejection, dispatch, or their interaction on the full offered population | TRIAGE/4 already couples alarms and admission; TSN deadline-aware admission has strong prior art | **Parked alternative.** More policy interactions and calibration; justify the outage model and check feasibility before any promotion. |
 | **RQ-C: label robustness** | How do wrong urgency labels and legitimate rate surges change the effectiveness of priority/routine-protection policies? | Identify sensitivity and observable limits; test a mitigation without oracle urgency | Security/classification work and robust scheduling need broader coverage; a synthetic noise sweep alone is weak | **Defer.** Ground-truth labels, realistic error mechanisms and system observability are unresolved. |
 
 ### RQ-A: the unit of routine protection under variable service demand
@@ -137,10 +164,10 @@ Suggested follow-up query families are **not yet executed searches**: `non-preem
 
 1. Deep-read G01, then the closest deadline/fair-queue work it leads to. Write down whether RQ-A survives with a meaningful contribution beyond known DRR/latency behavior.
 2. Specify an application-backed problem boundary and outcome definitions. Keep RQ-A narrow: trusted labels, one stage and no outages initially. RQ-B/C are separate alternatives/extensions, not extra dimensions to pack into one conference paper.
-3. Update this same note with the novelty decision and a concise selected-RQ statement if the evidence supports one. If A is already answered, reframe or assess B; do not preserve A solely because archived implementation exists.
+3. Update this same note with the novelty decision and precise contribution claim. RQ-A is selected, but if it is already answered, reframe or assess B; do not preserve a novelty claim solely because archived implementation exists.
 4. Only then finalize an analytical/evaluation plan and begin implementation. The 20-25-paper target can guide effort but is not a mandatory stopping rule or evidence of conference readiness.
 
-**Decision at version 0.1:** RQ-A is the preferred investigation direction, conditional on the missing-theory check. No algorithm, parameter values, deployment promise or award prediction is selected.
+**Decision at version 0.2:** RQ-A is the selected research direction. The next concrete task is the closest-theory/full-text novelty check, followed by application-backed requirements. B is parked and C deferred. No algorithm, parameter values, deployment promise or award outcome is asserted.
 
 ## 8. Update discipline
 
