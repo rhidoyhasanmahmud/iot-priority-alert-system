@@ -45,4 +45,6 @@ Only completed, core-related full-text reviews belong in the active register, re
 
 If a paper is supporting-only or unrelated, give a short reason to the user and do not add a long active review. Catalog-only candidates are not counted or added as reviewed papers. Keep a conceptually close method despite buffer/network differences when it genuinely informs urgency, routine protection, deadlines or congestion; disclose those differences.
 
-Relevance is separate from quality and comparator fidelity. The active register currently contains five papers, not a claim that five algorithms are ready for implementation.
+Relevance is separate from quality and comparator fidelity. The register and reference metadata track the current completed set; inclusion does not mean a method is ready for implementation.
+
+A topic-related paper may be held outside the active evidence set when publication identity is unverified or unresolved fundamental method/evidence problems prevent dependable use. State that reason explicitly; do not label it unrelated. For supplied batches, keep brief screening decisions in the review PR description rather than creating detailed active reviews for rejected items.

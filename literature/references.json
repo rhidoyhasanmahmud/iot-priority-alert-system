@@ -1,6 +1,6 @@
 {
   "scope": "Active core literature for urgent/routine IoT message scheduling; only completed, scope-relevant reviews are retained",
-  "source": "Existing source-verified reviews plus a newly supplied full-text review (R15); R15 publisher identity verified on 15 November 2026. No independent replication.",
+  "source": "Five earlier source-verified reviews plus supplied full-text reviews R15-R18 with publisher identity checked on 15 November 2026; R16 uses indexed official publisher metadata because direct HTML retrieval was rate-limited. No independent replication.",
   "papers": [
     {
       "id": "R01",
@@ -121,6 +121,70 @@
       "reading_status": "full_text_reviewed_not_replicated",
       "review": "reviews/A New Back-off Algorithm with Priority Scheduling for MQTT Protocol and IoT Protocols.md",
       "review_number": 6,
+      "selection_status": "core_related",
+      "counts_toward_relevant_review_target": true
+    },
+    {
+      "id": "R16",
+      "title": "An Adaptive Emergency First Intelligent Scheduling Algorithm for Efficient Task Management and Scheduling in Hybrid of Hard Real-Time and Soft Real-Time Embedded IoT Systems",
+      "authors": [
+        "Sehrish Malik",
+        "Shabir Ahmad",
+        "Israr Ullah",
+        "Dong Hwan Park",
+        "DoHyeun Kim"
+      ],
+      "year": 2019,
+      "venue": "Sustainability, 11(8), article 2192",
+      "publisher": "MDPI",
+      "doi": "10.3390/su11082192",
+      "publisher_url": "https://www.mdpi.com/2071-1050/11/8/2192",
+      "reviewed_version": "Supplied published PDF; 21 pages; visible page numbers match PDF pages. Duplicated/proof extraction layers; key method/results checked visually.",
+      "source_sha256": "6868a34beeb144f53a6b6e3e75b520901c00f13ae58ba01597dfa5b2714fd01c",
+      "review": "reviews/An Adaptive Emergency First Intelligent Scheduling Algorithm for Efficient Task Management and Scheduling in Hybrid of Hard Real-Time and Soft Real-Time Embedded IoT Systems.md",
+      "review_number": 7,
+      "reading_status": "full_text_reviewed_not_replicated",
+      "selection_status": "core_related",
+      "counts_toward_relevant_review_target": true
+    },
+    {
+      "id": "R17",
+      "title": "PR-MQTT: a novel approach for traffic reduction and message prioritisation in IoT applications",
+      "authors": [
+        "Jiby J. Puthiyidam",
+        "Shelbi Joseph"
+      ],
+      "year": 2024,
+      "venue": "International Journal of Web Engineering and Technology, 19(1), 44-66",
+      "publisher": "Inderscience Enterprises Ltd.",
+      "doi": "10.1504/IJWET.2024.138096",
+      "publisher_url": "https://www.inderscience.com/info/inarticle.php?artid=138096",
+      "reviewed_version": "Supplied published PDF; 23 pages; printed page = PDF page + 43. Key method/results checked visually because extraction includes proof-layer text.",
+      "source_sha256": "182be371f4534318b496f0da3ffdfc42c684e94b93bccb45467258620e41e07a",
+      "review": "reviews/PR-MQTT - a novel approach for traffic reduction and message prioritisation in IoT applications.md",
+      "review_number": 8,
+      "reading_status": "full_text_reviewed_not_replicated",
+      "selection_status": "core_related",
+      "counts_toward_relevant_review_target": true
+    },
+    {
+      "id": "R18",
+      "title": "Design of topic priority based on industrial publish-subscribe system",
+      "authors": [
+        "Dejian Chen",
+        "Dong Li",
+        "Renchun Guo"
+      ],
+      "year": 2022,
+      "venue": "Frontiers in Energy Research, 10, article 979174",
+      "publisher": "Frontiers Media SA",
+      "doi": "10.3389/fenrg.2022.979174",
+      "publisher_url": "https://www.frontiersin.org/journals/energy-research/articles/10.3389/fenrg.2022.979174/full",
+      "reviewed_version": "Supplied published PDF; 10 pages; printed page numbers match PDF pages; method/results on pp. 5-8 checked visually.",
+      "source_sha256": "fbfcdc6fb20af85420e0e874179c3cd27a2d09fc7a801ec6686b1310f41dec00",
+      "review": "reviews/Design of topic priority based on industrial publish-subscribe system.md",
+      "review_number": 9,
+      "reading_status": "full_text_reviewed_not_replicated",
       "selection_status": "core_related",
       "counts_toward_relevant_review_target": true
     }
