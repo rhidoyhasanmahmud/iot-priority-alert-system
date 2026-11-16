@@ -1,0 +1,42 @@
+{
+  "admitted": 49,
+  "calibration_status": "NOT VALIDATED; lifecycle ledger alone is not representative workload evidence",
+  "callback_to_offer_p95_ns": 62464,
+  "commit_to_completion_p95_ns": 8576,
+  "db_backup_sha256": "fde007718b84a5f9f469dedfbc6bc4e064ee2deeea134205713cecfa00f1191a",
+  "db_handler_service_p50_ns": 749900,
+  "db_handler_service_p95_ns": 1126857,
+  "db_independently_reopened": true,
+  "db_rows_independently_matched": 49,
+  "delivery_attempts": 65,
+  "duplicates": 4,
+  "invalid_attempts": 1,
+  "measured_completed_service_n": 49,
+  "offer_to_start_p95_ns": 1988570,
+  "offered_unique": 60,
+  "policy_id": "fifo",
+  "published_ids_without_callback": 0,
+  "published_unique": 60,
+  "publisher_log_complete": true,
+  "receiver_capture_complete": true,
+  "rejected": 11,
+  "routine_timely_start_R_bounds": {
+    "denominator": 45,
+    "exact": 0.8444444444444444,
+    "lower": 0.8444444444444444,
+    "upper": 0.8444444444444444
+  },
+  "run_id": "s5h-83e6b8cb334f40",
+  "scope": "SYNTHETIC single-host MQTT/SQLite lab only; no field / novel policy / SLA sign-off",
+  "shape": "burst",
+  "stage": "5H",
+  "synthetic_fixture_verified": true,
+  "transport": "mqtt",
+  "unresolved_offers": 0,
+  "urgent_failure_U_bounds": {
+    "denominator": 15,
+    "exact": 0.26666666666666666,
+    "lower": 0.26666666666666666,
+    "upper": 0.26666666666666666
+  }
+}
