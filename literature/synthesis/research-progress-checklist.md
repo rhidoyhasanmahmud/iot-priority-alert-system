@@ -10,7 +10,7 @@
 | 2. Core literature review | **19 completed retained notes** | [Register](../README.md), [matrix](comparison.csv), [synthesis](findings.md) | More papers only when a specific gap requires them |
 | 3. Adversarial novelty screening | **Completed as a focused audit; NOT novelty-certified** | [Independent audit](novelty-assessment.md), [search log](../search-log.csv) | N01 directly challenges the broad claim |
 | 4. Closest theory and database coverage | **Stage 4A complete; Stage 4B targeted analytical decision complete; FINAL sign-off pending** | [Model-equivalence crosswalk](closest-paper-model-crosswalk.md), [Stage 4B novelty decision](novelty-decision-stage4b.md) | New N09 threat; N01/N03/N06/N09 authorized full text, independent database/citation chasing and supervisor approval |
-| 5. Application and measurable requirements | **Stage 5A provisional measurement contract drafted; evidence validation PENDING** | [Stage 5A application boundary/evidence register](application-boundary-stage5a.md) | Deployment relevance, real/calibrated traces, epsilon/tau/gamma/K, service distribution, supervisor acceptance |
+| 5. Application and measurable requirements | **5A provisional contract + 5B archived evidence audit DONE; new RQ evidence PENDING** | [5A application boundary](application-boundary-stage5a.md), [5B archive evidence suitability](archived-evidence-audit-stage5b.md) | Real/calibrated trace or approved synthetic-only scope, two-class finite-K U/R(tau) measurements, thresholds and supervisor acceptance |
 | 6. Evaluation pre-registration | **Pending** | Signed protocol | Faithful baselines, acceptance rules, workloads and statistics |
 | 7. Implementation and result validation | **Not started in this literature-only main branch** | Reproducible code/results | Invariants, independent traces, held-out results |
 | 8. Contribution, manuscript and review | **Not started** | Supervisor go/no-go + submission draft | Confirm novelty and venue fit |
@@ -113,6 +113,20 @@ For **N02–N06**:
 
 **Stage 5A checklist outcome:** *Provisional document complete; final requirements and metrics NOT frozen. Stage 6 implementation/evaluation remains blocked by evidence and sign-off.*
 
+### Stage 5B — Source-level archived evidence audit (LIMITED CHECK COMPLETE)
+
+- [x] Identify immutable archived source, actually committed pilot metrics and local MQTT smoke evidence.
+- [x] Recompute archived pilot summary arithmetic: 90 rate/seed/policy groups, 270 class rows and 27/27 p95 aggregates agree.
+- [x] Check live smoke count partitions: 8 runs × 40 planned offers = 320 policy-event records; 192 completed/128 dropped across those runs, **one seed**, not 320 independent real sensor events.
+- [x] Compare current RQ with archive: old pilot had **unbounded** queue, 3 classes and constant 10 ms; archived MQTT worker used synthetic sleep, not measured enrichment.
+- [x] Identify callback-entry versus post-validation **offer boundary mismatch**, old 1pp-relative versus new absolute epsilon, and generator-controlled burst/load confound.
+- [x] Define nine source/metrics/protocol acceptance tests for new two-class, finite-K, offered-population traces.
+- [ ] Run archival raw evidence verifier / decompress published raw bundles independently.
+- [ ] Collect or execute a new two-class, finite-K **U and R(tau)** evidence packet with correctly reconciled offered arrivals.
+- [ ] Validate service-time assumptions, epsilon/tau/gamma/K and synthetic-only scope with professor.
+
+**Stage 5B checklist outcome:** *Existing engineering evidence FOUND and bounded arithmetic verified; current conference RQ empirical evidence NOT validated. See [source-by-source audit](archived-evidence-audit-stage5b.md).*
+
 ## Step 6 — Design the evaluation before coding
 
 - [ ] Freeze exact baseline descriptions and information availability (FIFO, priority, EDF+FIFO, aging, DRR, applicable N01 adaptation). If task sizes are unknown before service, label completion-accounted DRR-like variants as *adaptations*; never give them actual future durations.
@@ -153,5 +167,6 @@ For **N02–N06**:
 | 2026-11-16 | Stage 4A: inspected Gonthier first-party slides/ACM text, Hajek–Seri author-hosted paper and RTAS original text; added formal objective counterexample, risk crosswalk and reading-level limitations. | Stage 4B: authorized full N01/N03/N06 text, theory reductions, database/citation checks, domain budgets. |
 | 2026-11-16 | Stage 4B: derived ex-post routine-start/variable-service completion-deadline identity; elementary finite-K and blocking conditions; checked N07–N10 publisher sources; issued **REVISE/NARROW** claim-by-claim verdict. | Complete restricted full-text/theory/database coverage and supervisor sign-off. Begin Stage 5 application trace + budget provenance, not algorithm design. |
 | 2026-11-16 | Stage 5A: recovered archived synthetic MQTT security-event enrichment scenario; provisionally narrowed urgent/routine classes; defined local measurement boundary, lifecycle trace schema and evidence register; historical budgets explicitly **not validated**. | Stage 5B trace/calibration, threshold validation, operator/supervisor acceptance, Stage 4 full sign-off. |
+| 2026-11-16 | Stage 5B archival audit: identified actual 90-run unbounded pilot and one-seed 8-policy AMQTT smoke; independently checked saved CSV/JSON group/count arithmetic; mapped 11 incompatibilities with new RQ and 9 evidence acceptance tests. | New two-class finite-K offered-population trace/metric evidence, real service-time calibration or approved synthetic-only scope, professor sign-off. |
 
 **Rules for future updates:** Update the date and dashboard; check only completed, traceable work; add evidence links; do not report preliminary models/claims as validated findings; preserve the current RQ text unless a new reasoned team decision supersedes it.
