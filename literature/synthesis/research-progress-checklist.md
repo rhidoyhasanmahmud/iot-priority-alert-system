@@ -10,7 +10,7 @@
 | 2. Core literature review | **19 completed retained notes** | [Register](../README.md), [matrix](comparison.csv), [synthesis](findings.md) | More papers only when a specific gap requires them |
 | 3. Adversarial novelty screening | **Completed as a focused audit; NOT novelty-certified** | [Independent audit](novelty-assessment.md), [search log](../search-log.csv) | N01 directly challenges the broad claim |
 | 4. Closest theory and database coverage | **Stage 4A complete; Stage 4B targeted analytical decision complete; FINAL sign-off pending** | [Model-equivalence crosswalk](closest-paper-model-crosswalk.md), [Stage 4B novelty decision](novelty-decision-stage4b.md) | New N09 threat; N01/N03/N06/N09 authorized full text, independent database/citation chasing and supervisor approval |
-| 5. Application and measurable requirements | **5A–5F contracts and lab transport checks done; 5G mock SQLite handler audited; OPERATIONAL VALIDITY OPEN** | [5F verified MQTT](mqtt-measurement-pilot-stage5f.md), [5G provisional service probe](application-handler-calibration-stage5g.md) | Actual device/handler workload, owner-backed deadlines and resource capacity, professor sign-off |
+| 5. Application and measurable requirements | **5A–5H provisional contracts and lab pipeline; 5H in-process joint SQLite audited; broker CI pending; OPERATIONAL VALIDITY OPEN** | [5F verified MQTT](mqtt-measurement-pilot-stage5f.md), [5G service probe](application-handler-calibration-stage5g.md), [5H joint audit](joint-mqtt-sqlite-stage5h.md) | Actual device/handler workload, owner-backed deadlines and resource capacity, professor sign-off |
 | 6. Evaluation pre-registration | **Pending** | Signed protocol | Faithful baselines, acceptance rules, workloads and statistics |
 | 7. Implementation and result validation | **Not started in this literature-only main branch** | Reproducible code/results | Invariants, independent traces, held-out results |
 | 8. Contribution, manuscript and review | **Not started** | Supervisor go/no-go + submission draft | Confirm novelty and venue fit |
@@ -98,7 +98,7 @@ For **N02–N06**:
 - [ ] Predeclare epsilon, tau, gamma, K and sensitivity ranges before tuning.
 - [ ] Document offered job count, offered **work** and queue occupancy; avoid hidden upstream rate-limiting.
 
-**Checklist outcome:** *Application boundary has a documented fictional candidate; Stage 5F broker transport and Stage 5G mock SQLite handler smoke PASS, but field/service realism and numerically approved operating requirements remain PENDING. Historic K=1000, D=100/500/2000 ms, 10 ms synthetic handler and a 1pp relative tolerance remain archived only, **not validated absolute targets**.* Evidence: [Stage 5A](application-boundary-stage5a.md), [Stage 5F](mqtt-measurement-pilot-stage5f.md), [Stage 5G](application-handler-calibration-stage5g.md).
+**Checklist outcome:** *Application boundary has a documented fictional candidate; Stage 5F broker transport, Stage 5G mock SQLite handler and Stage 5H combined in-process SQLite smoke PASS, but field/service realism and numerically approved operating requirements remain PENDING. Historic K=1000, D=100/500/2000 ms, 10 ms synthetic handler and a 1pp relative tolerance remain archived only, **not validated absolute targets**.* Evidence: [Stage 5A](application-boundary-stage5a.md), [Stage 5F](mqtt-measurement-pilot-stage5f.md), [Stage 5G](application-handler-calibration-stage5g.md), [Stage 5H](joint-mqtt-sqlite-stage5h.md).
 
 ### Stage 5A — Application boundary and provenance (provisional design complete)
 
@@ -184,6 +184,19 @@ For **N02–N06**:
 
 **Stage 5G checklist outcome:** *Mock application handler, transaction and timing accounting PASS in a reproducible laboratory; real IoT source/handler service distribution, durability under failure, operational deadlines, confidence bounds and method novelty NOT ESTABLISHED. See [Stage 5G report](application-handler-calibration-stage5g.md), [emitter](../validation/stage5g_reference_handler.py), [independent auditor](../validation/stage5g_service_audit.py).*
 
+### Stage 5H — Integrated MQTT + finite-K + SQLite commit contract (IN-PROCESS PASS; BROKER CI PENDING)
+
+- [x] Reuse the validated Stage 5E/F MQTT publisher and one-worker class-neutral FIFO finite-K gateway with Stage 5G fictional transaction handler.
+- [x] Record receiver callback, post-validation offer, admission snapshot, service start, SQLite handler start, commit return and completion as separate local lifecycle fields.
+- [x] Test six in-process joint load/capacity combinations, independent source/schedule/SQL rule and exact admitted-versus-persisted-row checks.
+- [x] Commit an in-process golden diagnostic JSONL plus separate SHA-256-backed SQLite backup encoded as base64 for CI re-audit.
+- [x] Reject 13 corrupted ledger cases, in-process-at-MQTT gate and real SQLite row tampering.
+- [x] Add a GitHub Actions workflow for 3 real broker-backed MQTT→SQLite scenarios with separate actual SQLite backup verification.
+- [ ] Verify new Stage 5H workflow to **SUCCESS** on PR, inspect logs, record three CI case results and broker artifact.
+- [ ] Obtain device/handler trace representativeness, production failure semantics and an owner-approved D_u/epsilon/tau/gamma/K; require supervisor Stage 4B novelty sign-off before Stage 6.
+
+**Stage 5H checklist outcome:** *In-process joint code plus independent persisted-row audit PASS; real MQTT transport CI and research external validity still pending. See [Stage 5H report](joint-mqtt-sqlite-stage5h.md). This is **not** a new scheduling algorithm or conference experiment.*
+
 ## Step 6 — Design the evaluation before coding
 
 - [ ] Freeze exact baseline descriptions and information availability (FIFO, priority, EDF+FIFO, aging, DRR, applicable N01 adaptation). If task sizes are unknown before service, label completion-accounted DRR-like variants as *adaptations*; never give them actual future durations.
@@ -232,5 +245,7 @@ For **N02–N06**:
 | 2026-11-16 | Stage 5E: runnable FIFO gateway with two classes, finite waiting K, post-dedup local offer and actual synthetic CPU work; 6/6 in-process smoke cases and one retained independent-audit fixture passed. | Real Mosquitto/Paho integration and representative handler/source calibration pending. |
 | 2026-11-16 | Stage 5F: PR #47 merged into main after #46 feature-branch merge mismatch. Verified [broker-backed run #43870469820](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43870469820) with 3/3 ledger audits; retained three raw synthetic JSONLs and hash provenance. | Operational field/worker calibration, professor numerical/synthetic-only and Stage 4B novelty decisions; no conference result inferred. |
 | 2026-11-16 | Stage 5G: fictional device context/rule/SQLite WAL/FULL commit worker specified; self-tests and 6/6 negative audit pass; three 120-event seed traces retained. Verified [Stage 5G CI #43873927699](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43873927699) and [Stage 5F regression #43873927339](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43873927339) both successful. | Obtain real application semantics/arrival evidence or professor-approved synthetic-only scope, validate numerical SLA and Stage 4B originality before Stage 6. |
+
+| 2026-11-16 | Stage 5H: joint in-process MQTT-compatible finite-K gateway + SQLite transaction worker. Six positive combinations, independent saved-row DB audit, 13 malformed ledger negatives + transport/SQLite tamper negative checks; new real-broker CI workflow created. | MQTT 3-shape CI **pending verification**; field source/service timing, operator-approved thresholds, resilience, and Stage 4B novelty sign-off still unavailable. |
 
 **Rules for future updates:** Update the date and dashboard; check only completed, traceable work; add evidence links; do not report preliminary models/claims as validated findings; preserve the current RQ text unless a new reasoned team decision supersedes it.
