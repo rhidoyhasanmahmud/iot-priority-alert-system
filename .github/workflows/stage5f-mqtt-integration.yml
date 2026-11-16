@@ -27,7 +27,7 @@ jobs:
           sudo apt-get install -y mosquitto
           python -m pip install 'paho-mqtt>=2,<3'
           python -c 'import importlib.metadata as m; print("paho-mqtt", m.version("paho-mqtt"))'
-          mosquitto -h
+          dpkg-query -W mosquitto
 
       - name: Start loopback MQTT broker
         run: |
