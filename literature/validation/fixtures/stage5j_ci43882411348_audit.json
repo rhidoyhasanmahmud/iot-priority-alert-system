@@ -1,0 +1,222 @@
+{
+  "capacities_K": [
+    0,
+    3
+  ],
+  "field_calibration": "NOT_AVAILABLE",
+  "matched_base_burst_horizon_per_seed": true,
+  "novel_policy_evaluation": "NOT_PERFORMED",
+  "per_run_diagnostics": [
+    {
+      "K": 0,
+      "committed": 37,
+      "observed_offer_span_ns": 432684842,
+      "offered": 60,
+      "planned_horizon_ns": 472000000,
+      "rejected": 23,
+      "seed": 101,
+      "service_p95_ns": 933462,
+      "shape": "burst"
+    },
+    {
+      "K": 3,
+      "committed": 47,
+      "observed_offer_span_ns": 433257430,
+      "offered": 60,
+      "planned_horizon_ns": 472000000,
+      "rejected": 13,
+      "seed": 303,
+      "service_p95_ns": 686677,
+      "shape": "burst"
+    },
+    {
+      "K": 0,
+      "committed": 41,
+      "observed_offer_span_ns": 432433022,
+      "offered": 60,
+      "planned_horizon_ns": 472000000,
+      "rejected": 19,
+      "seed": 202,
+      "service_p95_ns": 621018,
+      "shape": "burst"
+    },
+    {
+      "K": 0,
+      "committed": 13,
+      "observed_offer_span_ns": 9759879,
+      "offered": 60,
+      "planned_horizon_ns": 0,
+      "rejected": 47,
+      "seed": 101,
+      "service_p95_ns": 1679198,
+      "shape": "overload"
+    },
+    {
+      "K": 3,
+      "committed": 47,
+      "observed_offer_span_ns": 432037676,
+      "offered": 60,
+      "planned_horizon_ns": 472000000,
+      "rejected": 13,
+      "seed": 101,
+      "service_p95_ns": 705266,
+      "shape": "burst"
+    },
+    {
+      "K": 3,
+      "committed": 58,
+      "observed_offer_span_ns": 432414880,
+      "offered": 60,
+      "planned_horizon_ns": 472000000,
+      "rejected": 2,
+      "seed": 303,
+      "service_p95_ns": 788056,
+      "shape": "base"
+    },
+    {
+      "K": 3,
+      "committed": 18,
+      "observed_offer_span_ns": 8859841,
+      "offered": 60,
+      "planned_horizon_ns": 0,
+      "rejected": 42,
+      "seed": 202,
+      "service_p95_ns": 1596877,
+      "shape": "overload"
+    },
+    {
+      "K": 3,
+      "committed": 58,
+      "observed_offer_span_ns": 432269812,
+      "offered": 60,
+      "planned_horizon_ns": 472000000,
+      "rejected": 2,
+      "seed": 101,
+      "service_p95_ns": 793324,
+      "shape": "base"
+    },
+    {
+      "K": 0,
+      "committed": 55,
+      "observed_offer_span_ns": 431644537,
+      "offered": 60,
+      "planned_horizon_ns": 472000000,
+      "rejected": 5,
+      "seed": 101,
+      "service_p95_ns": 719266,
+      "shape": "base"
+    },
+    {
+      "K": 3,
+      "committed": 58,
+      "observed_offer_span_ns": 432444336,
+      "offered": 60,
+      "planned_horizon_ns": 472000000,
+      "rejected": 2,
+      "seed": 202,
+      "service_p95_ns": 681395,
+      "shape": "base"
+    },
+    {
+      "K": 0,
+      "committed": 13,
+      "observed_offer_span_ns": 9710544,
+      "offered": 60,
+      "planned_horizon_ns": 0,
+      "rejected": 47,
+      "seed": 303,
+      "service_p95_ns": 1264815,
+      "shape": "overload"
+    },
+    {
+      "K": 3,
+      "committed": 46,
+      "observed_offer_span_ns": 432723419,
+      "offered": 60,
+      "planned_horizon_ns": 472000000,
+      "rejected": 14,
+      "seed": 202,
+      "service_p95_ns": 700859,
+      "shape": "burst"
+    },
+    {
+      "K": 0,
+      "committed": 12,
+      "observed_offer_span_ns": 9295112,
+      "offered": 60,
+      "planned_horizon_ns": 0,
+      "rejected": 48,
+      "seed": 202,
+      "service_p95_ns": 2054173,
+      "shape": "overload"
+    },
+    {
+      "K": 3,
+      "committed": 22,
+      "observed_offer_span_ns": 10376028,
+      "offered": 60,
+      "planned_horizon_ns": 0,
+      "rejected": 38,
+      "seed": 101,
+      "service_p95_ns": 1142979,
+      "shape": "overload"
+    },
+    {
+      "K": 0,
+      "committed": 40,
+      "observed_offer_span_ns": 432106671,
+      "offered": 60,
+      "planned_horizon_ns": 472000000,
+      "rejected": 20,
+      "seed": 303,
+      "service_p95_ns": 724632,
+      "shape": "burst"
+    },
+    {
+      "K": 0,
+      "committed": 55,
+      "observed_offer_span_ns": 432225557,
+      "offered": 60,
+      "planned_horizon_ns": 472000000,
+      "rejected": 5,
+      "seed": 303,
+      "service_p95_ns": 669020,
+      "shape": "base"
+    },
+    {
+      "K": 3,
+      "committed": 22,
+      "observed_offer_span_ns": 10419706,
+      "offered": 60,
+      "planned_horizon_ns": 0,
+      "rejected": 38,
+      "seed": 303,
+      "service_p95_ns": 1139353,
+      "shape": "overload"
+    },
+    {
+      "K": 0,
+      "committed": 55,
+      "observed_offer_span_ns": 432893952,
+      "offered": 60,
+      "planned_horizon_ns": 472000000,
+      "rejected": 5,
+      "seed": 202,
+      "service_p95_ns": 688050,
+      "shape": "base"
+    }
+  ],
+  "runs_audited": 18,
+  "scientific_inference": "NOT_AUTHORIZED: correlated synthetic events, tiny lab service and unapproved targets",
+  "seeds": [
+    101,
+    202,
+    303
+  ],
+  "stage": "5J",
+  "technical_audit": "PASS",
+  "total_committed_lab_sqlite_rows": 697,
+  "total_full_buffer_rejects": 383,
+  "total_synthetic_offers": 1080,
+  "transport": "mqtt"
+}
