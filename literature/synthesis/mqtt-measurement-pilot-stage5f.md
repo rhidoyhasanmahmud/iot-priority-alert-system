@@ -33,7 +33,7 @@ The gate reports **descriptive** callback-to-offer, validation-end-to-offer, que
 
 ## Step 5F.2 — Prepare a versioned, locally isolated broker run
 
-The [GitHub Actions workflow](../../.github/workflows/stage5f-mqtt-integration.yml) proposes a Linux/ Python 3.12 laboratory job:
+The [GitHub Actions workflow](../../.github/workflows/stage5f-mqtt-integration.yml) executes a Linux/Python 3.12 laboratory job:
 
 1. Install a local Mosquitto broker and `paho-mqtt>=2,<3` in the ephemeral GitHub runner; record the installed client and broker versions. The broker binds to loopback, not a publicly accessible listener. [Eclipse Paho Python documentation](https://eclipse.dev/paho/clients/python/docs/) and [Mosquitto Docker/configuration documentation](https://github.com/eclipse-mosquitto/mosquitto/blob/master/docker/generic/README.md) are the vendor references.
 2. Run independent Stage 5D and Stage 5F self-checks and the Stage 5E in-process smoke (separately labelled).
@@ -51,7 +51,7 @@ The workflow is enabled for pull requests affecting the research validation path
 
 ## Step 5F.3 — What a passing lab result still would not establish
 
-Even if all three broker-backed shapes pass, the result establishes only **functional pipeline/accounting feasibility on a single-machine local MQTT testbed**. It does not give an application SLA, an empirical arrival distribution from IoT devices, a representative handler-service distribution, reliable source-to-callback timing, a statistically supported scheduling improvement, or novel algorithm proof.
+All three broker-backed shapes passed the functional gate (Step 5F.4), establishing only **functional pipeline/accounting feasibility on a single-machine local MQTT testbed**. This does not give an application SLA, an empirical arrival distribution from IoT devices, a representative handler-service distribution, reliable source-to-callback timing, a statistically supported scheduling improvement, or novel algorithm proof.
 
 The processing job is still PBKDF2 and in-memory JSON serialization, **not** real enrichment/rule database persistence. The scheduler remains FIFO only. The original paper candidate's novelty statement remains **Stage 4B REVISE/NARROW**, with authorized full-text/database/theorem/supervisor sign-off outstanding. Domain-derived numerical `D_u`, absolute `epsilon`, routine `tau`, `gamma`, `K` and sensitivity/held-out split are not approved. Do not promote the debug 50 ms threshold, small K, 25% urgent mix or workload timing to realistic application requirements.
 
