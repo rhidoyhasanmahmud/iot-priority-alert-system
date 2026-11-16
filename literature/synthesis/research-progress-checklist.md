@@ -9,13 +9,13 @@
 | 1. Topic, review scope and research question | **Completed for current iteration** | [RQ v1.0](research-questions.md) | Domain-derived numeric service budgets still needed |
 | 2. Core literature review | **19 completed retained notes** | [Register](../README.md), [matrix](comparison.csv), [synthesis](findings.md) | More papers only when a specific gap requires them |
 | 3. Adversarial novelty screening | **Completed as a focused audit; NOT novelty-certified** | [Independent audit](novelty-assessment.md), [search log](../search-log.csv) | N01 directly challenges the broad claim |
-| 4. Closest theory and database coverage | **Stage 4A source crosswalk done; 4B sign-off pending** | [Model-equivalence crosswalk](closest-paper-model-crosswalk.md) | N01/N03/N06 complete authorized text, theorem reduction, citation chasing |
+| 4. Closest theory and database coverage | **Stage 4A complete; Stage 4B targeted analytical decision complete; FINAL sign-off pending** | [Model-equivalence crosswalk](closest-paper-model-crosswalk.md), [Stage 4B novelty decision](novelty-decision-stage4b.md) | New N09 threat; N01/N03/N06/N09 authorized full text, independent database/citation chasing and supervisor approval |
 | 5. Application and measurable requirements | **Pending** | Domain/trace provenance + budget memo | Epsilon, tau, gamma, K, service distribution, deadlines |
 | 6. Evaluation pre-registration | **Pending** | Signed protocol | Faithful baselines, acceptance rules, workloads and statistics |
 | 7. Implementation and result validation | **Not started in this literature-only main branch** | Reproducible code/results | Invariants, independent traces, held-out results |
 | 8. Contribution, manuscript and review | **Not started** | Supervisor go/no-go + submission draft | Confirm novelty and venue fit |
 
-**Current gate:** close Stage **4** before committing to a new scheduler design. The existing implementation is archived; this tracker does not claim it has been reproduced or benchmarked.
+**Current gate:** Stage **4B's targeted analysis is done with an explicit REVISE/NARROW verdict, but definitive novelty clearance remains open**. Stage 5 application provenance can be prepared while authorized full-text/database checks and supervisor approval continue; do **not** claim algorithm novelty or commit to a new scheduler design. The existing implementation is archived; this tracker does not claim it has been reproduced or benchmarked.
 
 ## Step 1 — Research questions and scope
 
@@ -51,7 +51,7 @@
 
 **Checklist outcome:** *Focused audit done. Verdict: promising testable framing, severe overlap, originality NOT established.* Evidence: [novelty-assessment.md](novelty-assessment.md).
 
-## Step 4 — Closest-paper/model equivalence (IN PROGRESS)
+## Step 4 — Closest-paper/model equivalence (4B analytic audit done; SIGN-OFF OPEN)
 
 For **N01 Gonthier et al.**:
 - [ ] Obtain and read the complete publisher/authors' paper, including the algorithms and experiments.
@@ -69,10 +69,26 @@ For **N02–N06**:
 - [ ] Obtain N03 full text and complete N05 proof/variable-size applicability review.
 - [ ] Obtain complete N06 online hard-deadline admission analysis.
 - [x] Keep N04 as a documented boundary/limitation; do not claim estimator-error novelty.
+- [x] Carry out additional targeted public publisher/web searches and retain query provenance **without** claiming exhaustive database coverage.
+- [x] Verify N07 finite-input-buffer optimization, N08 non-preemptive mixed-criticality scheduling, N09 finite-buffer deadline losses and N10 multi-priority waiting cancellations at their stated reading levels.
+- [x] Prove the conditional ex-post routine-start-to-completion-deadline identity, distinguishing unknown pre-service sizes from online-available deadlines.
+- [x] Record elementary finite-K admission and non-preemptive blocking bounds as sanity checks, **not original theorems**.
+- [x] Produce a precise **REVISE/NARROW, not novelty-cleared** analytic decision memo and falsification criteria.
 - [ ] Conduct reproducible independent database searches (e.g., Scopus/IEEE/ACM) and citation chasing; log dates, strings, result counts, exclusions and full-text limits.
 - [ ] Present a 1–2 page novelty-go/no-go memo to the supervisor, with a precise **not-yet-published substantive claim** or a decision to reframe.
 
-**Checklist outcome:** *Stage 4A COMPLETE at stated primary-source reading levels; Stage 4B PENDING for definitive theory/novelty sign-off.* See [source-specific model crosswalk](closest-paper-model-crosswalk.md). This is a research validity gate, not a coding task.
+**Checklist outcome:** *Stage 4A model crosswalk COMPLETE; Stage 4B targeted mathematical/publisher audit and REVISE/NARROW memo COMPLETE; definitive 4B full-text/database/theorem/supervisor sign-off remains OPEN.* See [source-specific model crosswalk](closest-paper-model-crosswalk.md) and [Stage 4B decision memo](novelty-decision-stage4b.md). This is a research validity gate, not a coding task.
+
+### Step 4B — Go/Revise/No-Go record and evidence gate
+
+- [x] Explicitly reject broad novelty of priority+routine fairness, start thresholds, finite buffer dropping, and simple deadline/blocking capacity facts.
+- [x] Separate equivalence of **per-job outcome metrics** from equivalence of **online scheduling objectives/algorithms**.
+- [x] Keep RQ v1.0 unchanged pending professor decision; recommended contribution is conditional empirical operating-region analysis.
+- [ ] Obtain complete authorized N01/N03/N06/N09 methods/theorems; make exact applicability notes.
+- [ ] Complete separately accessible Scopus, IEEE Xplore and ACM DL searches with result counts and citation trails.
+- [ ] Discuss [the Stage 4B decision](novelty-decision-stage4b.md) with supervisor; record dated Go / Revise / No-Go sign-off.
+
+**Checklist outcome:** *Targeted academic-review decision DONE, novelty certified NOT DONE. Stage 5 evidence gathering can proceed; method novelty cannot be claimed.*
 
 ## Step 5 — Application and experimental targets
 
@@ -122,5 +138,6 @@ For **N02–N06**:
 | --- | --- | --- |
 | 2026-11-16 | Captured RQ v1.0 current main-branch decision; independently checked closer primary sources, documented overlap/novelty risks and an experimental-gate design. | Complete closest theory/model equivalence and supervisor go/no-go before selecting an algorithm. |
 | 2026-11-16 | Stage 4A: inspected Gonthier first-party slides/ACM text, Hajek–Seri author-hosted paper and RTAS original text; added formal objective counterexample, risk crosswalk and reading-level limitations. | Stage 4B: authorized full N01/N03/N06 text, theory reductions, database/citation checks, domain budgets. |
+| 2026-11-16 | Stage 4B: derived ex-post routine-start/variable-service completion-deadline identity; elementary finite-K and blocking conditions; checked N07–N10 publisher sources; issued **REVISE/NARROW** claim-by-claim verdict. | Complete restricted full-text/theory/database coverage and supervisor sign-off. Begin Stage 5 application trace + budget provenance, not algorithm design. |
 
 **Rules for future updates:** Update the date and dashboard; check only completed, traceable work; add evidence links; do not report preliminary models/claims as validated findings; preserve the current RQ text unless a new reasoned team decision supersedes it.
