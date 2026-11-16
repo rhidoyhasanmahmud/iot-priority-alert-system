@@ -10,7 +10,7 @@
 | 2. Core literature review | **19 completed retained notes** | [Register](../README.md), [matrix](comparison.csv), [synthesis](findings.md) | More papers only when a specific gap requires them |
 | 3. Adversarial novelty screening | **Completed as a focused audit; NOT novelty-certified** | [Independent audit](novelty-assessment.md), [search log](../search-log.csv) | N01 directly challenges the broad claim |
 | 4. Closest theory and database coverage | **Stage 4A complete; Stage 4B targeted analytical decision complete; FINAL sign-off pending** | [Model-equivalence crosswalk](closest-paper-model-crosswalk.md), [Stage 4B novelty decision](novelty-decision-stage4b.md) | New N09 threat; N01/N03/N06/N09 authorized full text, independent database/citation chasing and supervisor approval |
-| 5. Application and measurable requirements | **5A contract + 5B archive audit + 5C metric oracle + 5D local lifecycle contract DONE at declared scope; actual MQTT/worker evidence PENDING** | [5A boundary](application-boundary-stage5a.md), [5B archive](archived-evidence-audit-stage5b.md), [5C oracle](two-class-metric-validation-stage5c.md), [5D lifecycle/calibration gate](workload-measurement-calibration-stage5d.md) | Actual post-validation MQTT offers, service and source calibration, epsilon/tau/gamma/K and supervisor sign-off |
+| 5. Application and measurable requirements | **5A–5D contracts/metric validation done; 5E in-process gateway test done; 5F broker-backed CI gate prepared, actual MQTT results pending** | [5D contract](workload-measurement-calibration-stage5d.md), [5E in-process pilot](mqtt-measurement-pilot-stage5e.md), [5F MQTT gate](mqtt-measurement-pilot-stage5f.md) | Broker-backed run and independent audit, actual application service/source calibration, numeric budgets and professor sign-off |
 | 6. Evaluation pre-registration | **Pending** | Signed protocol | Faithful baselines, acceptance rules, workloads and statistics |
 | 7. Implementation and result validation | **Not started in this literature-only main branch** | Reproducible code/results | Invariants, independent traces, held-out results |
 | 8. Contribution, manuscript and review | **Not started** | Supervisor go/no-go + submission draft | Confirm novelty and venue fit |
@@ -153,6 +153,24 @@ For **N02–N06**:
 
 **Stage 5D checklist outcome:** *Boundary and offline audit tooling PASS on invented data; operational realism/calibration/requirements and real MQTT trace verification are NOT COMPLETE. See [Stage 5D evidence plan](workload-measurement-calibration-stage5d.md) and [offline ledger auditor](../validation/stage5d_lifecycle_audit.py). Next: Stage 5E measurement feasibility pilot or supervisor-approved synthetic-only scope; no full experiment yet.*
 
+### Stage 5E — Two-class instrumented gateway pilot (IN-PROCESS ENGINEERING VALIDATION)
+- [x] Implement and locally run a bounded FIFO gateway with one nonpreemptive CPU-work worker, post-validation/dedup offer boundary and full offered-event accounting.
+- [x] Execute six (K=0/3 × base/burst/overload) in-process smoke cases and independently audit their complete lifecycle traces with Stage 5D.
+- [x] Preserve a small auditable 36-offer in-process debug JSONL with checksum; warn that runtime-dependent figures vary even with the same source schedule.
+- [x] Implement an optional Paho MQTT 2.x integration path, with QoS1 publisher readiness and capture-completeness guard; **no MQTT run was executed in the original Stage 5E environment**.
+- [ ] Run and audit actual broker-backed MQTT input; replace synthetic CPU surrogate with a declared measured handler or obtain synthetic-only supervisor approval.
+
+**Stage 5E checklist outcome:** *Local in-process validation PASS; actual MQTT transport and field/service realism NOT established.* [Stage 5E report](mqtt-measurement-pilot-stage5e.md) · [gateway code](../validation/stage5e_gateway_pilot.py) · [debug sample](../validation/fixtures/stage5e_inproc_burst_k3_debug.jsonl).
+
+### Stage 5F — Independent broker-backed MQTT audit gate (PREPARED; RUN PENDING)
+- [x] Make a main-targeted corrective PR containing the Stage 5E files previously merged only to a feature branch.
+- [x] Implement a strict Stage 5F offline gate requiring source-ID/callback/offer reconciliation and rejecting incomplete or in-process-only traces mislabelled as MQTT.
+- [x] Run the gate's local positive and negative self-checks; validate an isolated broker/Paho GitHub Actions workflow YAML syntax and test plan.
+- [ ] Observe GitHub Actions Mosquitto/Paho execution result and inspect actual broker logs, version details and diagnostic JSONL artifacts.
+- [ ] Repeat realistic source/worker calibration, freeze D_u/epsilon/tau/gamma/K and complete Stage 4B professor novelty sign-off before Stage 6.
+
+**Stage 5F checklist outcome:** *Reproducible lab CI and acceptance gates authored; broker-backed execution/evidence NOT YET VERIFIED. [Stage 5F protocol](mqtt-measurement-pilot-stage5f.md) · [offline gate](../validation/stage5f_mqtt_gate.py).*
+
 ## Step 6 — Design the evaluation before coding
 
 - [ ] Freeze exact baseline descriptions and information availability (FIFO, priority, EDF+FIFO, aging, DRR, applicable N01 adaptation). If task sizes are unknown before service, label completion-accounted DRR-like variants as *adaptations*; never give them actual future durations.
@@ -197,5 +215,8 @@ For **N02–N06**:
 | 2026-11-16 | Stage 5C metric validation: independent FIFO/priority golden oracle, 9/9 fixed cases and 48/48 paired synthetic smoke runs, exact same repeat output; pure methodological verifier only. | Real/MQTT boundary reconciliation, representative application service/workload, budget values and Stage 4 sign-off before Stage 6 formal protocol. |
 
 | 2026-11-16 | Stage 5D: verified archived callback-entry mismatch; specified post-validation offer ledger; implemented independent Python JSONL audit with fictional positive/negative/unfinished cases and reproducible double run; drafted calibration/parameter evidence gates. | Capture two-class finite-K MQTT ledger with measured or explicitly synthetic handler; validate source/service and epsilon/tau/gamma/K with supervisor. |
+
+| 2026-11-16 | Stage 5E: runnable FIFO gateway with two classes, finite waiting K, post-dedup local offer and actual synthetic CPU work; 6/6 in-process smoke cases and one retained independent-audit fixture passed. | Real Mosquitto/Paho integration and representative handler/source calibration pending. |
+| 2026-11-16 | Stage 5F preparation: discovered #46 merged to a feature branch, not main; created corrective main-targeted update plus strict MQTT ledger gate and loopback-Mosquitto GitHub Actions workflow. | Verify actual CI broker runs/artifacts and require supervisor numerical/application/novelty sign-offs before full evaluation. |
 
 **Rules for future updates:** Update the date and dashboard; check only completed, traceable work; add evidence links; do not report preliminary models/claims as validated findings; preserve the current RQ text unless a new reasoned team decision supersedes it.
