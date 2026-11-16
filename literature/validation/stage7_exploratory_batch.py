@@ -29,7 +29,7 @@ SCENARIOS = {
     "intense": {"shape": "smooth", "dispersion": "flat", "horizon_ns": 500_000_000},
     "variable": {"shape": "smooth", "dispersion": "variable", "horizon_ns": 1_000_000_000},
 }
-POLICIES = ("fifo", "strict_urgent_first")
+POLICIES = ("fifo", "strict_urgent_first", "routine_wait_guard")
 
 
 def sha256(path: Path) -> str:

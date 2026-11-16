@@ -71,7 +71,7 @@ jobs:
           else:
               raise SystemExit('Mosquitto not ready')
           PY
-      - name: Execute 48 randomized artificial source-policy pairs with actual MQTT/SQLite
+      - name: Execute 72 randomized artificial source-policy triples with actual MQTT/SQLite
         run: |
           python literature/validation/stage7_exploratory_batch.py \
             --output-dir stage7-mqtt-artifacts --transport mqtt \
@@ -88,11 +88,11 @@ jobs:
           result = json.loads(Path('stage7-mqtt-independently-audited.json').read_text())
           assert result['status'] == 'PASS_EXPLORATORY_SYNTHETIC_BATCH_RAW_EVIDENCE_ONLY'
           assert result['transport'] == 'mqtt'
-          assert result['trials_independently_audited'] == 48
-          assert result['policy_pairs'] == 24
+          assert result['trials_independently_audited'] == 72
+          assert result['policy_triplets'] == 24
           assert result['field_calibrated'] is False
           assert result['scientific_inference_allowed'] is False
-          print('PASS 48/48 *fictional* real MQTT-to-SQLite runs; NO scientific claim')
+          print('PASS 72/72 *fictional* real MQTT-to-SQLite runs; NO scientific claim')
           PY
       - name: Upload raw artificial provenance; never represent as a publishable study
         if: always()

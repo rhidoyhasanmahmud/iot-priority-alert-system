@@ -8,9 +8,9 @@
 
 - **Workload generator (existing):** One byte-identical, seed-addressed offer/hidden-work pair per scenario. Every synthetic offered ID—including future rejects—has an ex-ante *fictional* work requirement. The online dispatcher receives only validated arrivals/classes. Initial candidate shape levels are smooth, concentrated-burst and higher-intensity (halved planned horizon), plus a same-mean work-dispersion contrast.
 - **Host-only service characterization:** `stage7_calibration_probe.py` executes PBKDF2 SHA-256 work levels 1/4/7 followed by a real context lookup/rule/transaction/SQLite WAL+FULL commit. All raw intervals, SQLite rows and hashes are checked by a **separate** `stage7_calibration_audit.py`. This measures only the runner's artificial handler behavior and **cannot** justify any field arrival rate or deadline.
-- **Conventional online baselines:** `stage7_controlled_replay.py` implements the same class-neutral admission/full-buffer rule and one non-preemptive SQLite worker with `K` *waiting* plus at most one active job. FIFO and strict-urgent-first select exclusively from already waiting, validated arrivals; synthetic work units are consumed by the worker **only after** dispatch. Neither policy is a proposed novel contribution.
+- **Two conventional online baselines plus one unvalidated research candidate:** `stage7_controlled_replay.py` implements the same class-neutral admission/full-buffer rule and one non-preemptive SQLite worker with `K` *waiting* plus at most one active job. FIFO and strict-urgent-first select exclusively from already waiting, validated arrivals. The provisional `routine_wait_guard` first selects the oldest queued routine job **if its measured age is at least half the configured routine start target** (`age >= τ/2`); otherwise it selects the first urgent job, or FIFO if none. Synthetic work units are consumed by the worker **only after** dispatch. The candidate is an ordinary age-based guard idea, **not verified as novel or scientifically final**.
 - **Real transport path:** Stage 7 uses existing Paho/QoS1 loopback Mosquitto publisher/receiver and Stage 5G SQLite WAL/FULL handler; inprocess transport is a distinct smoke mode, never mislabeled MQTT.
-- **Independent result gate:** `stage7_independent_replay_audit.py` checks source payloads/schedule, content hashes (not cryptographic signatures), offer/attempt/duplicate lifecycle, policy decisions, full- versus rejected-work separation, CPU/SQLite timing order, post-commit results and **actual independently reopened SQLite** backup. `stage7_independent_batch_audit.py` rehashes every run and source pair before reproducing *descriptive-only* paired differences.
+- **Independent result gate:** `stage7_independent_replay_audit.py` checks source payloads/schedule, content hashes (not cryptographic signatures), offer/attempt/duplicate lifecycle, **all three policies' online decisions** (including observable wait-age threshold), full- versus rejected-work separation, CPU/SQLite timing order, post-commit results and **actual independently reopened SQLite** backup. `stage7_independent_batch_audit.py` rehashes every run and source triple before reproducing *descriptive-only* paired differences.
 - **Negative regressions:** `test_stage7_controlled_replay.py` covers forged source provenance, policy snapshot, hidden-work leak, CPU iterations, SQLite rule/result, missing offers, tampered backup and fake MQTT transport, as well as positive real-SQLite cases.
 
 ## 2. Demonstrated outcomes so far
@@ -18,10 +18,11 @@
 | Execution / audit | Observation | Meaning |
 | --- | --- | --- |
 | Local calibration probe | 36 artificial samples: 12 each at work units 1, 4, 7; SQLite reopen and independent calibration audit **PASS** | Lab host CPU+SQLite profile only, not a field service model |
-| Local policy unit / negative tests | **13/13 PASS** | Contract, decision and evidence corruption checks |
-| Local paired source replay | **16/16 inprocess trials** (2 synthetic seeds × 4 scenarios × 2 policies at `K=3`) | Fresh SQLite+worker process per run; **not MQTT**, 2 seeds inadequate for inference |
-| Independent local batch audit | **16/16 PASS**, 8 matched baseline pairs, source/hidden file hashes matched | Engineering lifecycle and raw evidence consistency only |
-| Real loopback MQTT CI | **48/48 synthetic trials PASS**, independently re-audited; 24 source-matched FIFO/urgent-first pairs across 3 seeds, 4 scenarios and K=0/3 | Actual loopback Mosquitto/Paho QoS1 transport and SQLite; **engineering only**, not a preregistered scientific result |
+| Local policy unit / negative tests | **16/16 Stage 7 PASS**; **38/38 combined** with Stage 5K.2 | Contract, online guard decision and evidence corruption checks |
+| Local source replay | **24/24 inprocess trials** (2 synthetic seeds × 4 scenarios × 3 policies at `K=3`) | Fresh SQLite+worker process per run; **not MQTT**, 2 seeds inadequate for inference |
+| Independent local batch audit | **24/24 PASS**, 8 matched three-policy blocks, source/hidden file hashes matched | Engineering lifecycle and raw evidence consistency only |
+| Real loopback MQTT CI, previously verified code revision | **48/48 synthetic trials PASS** for FIFO/strict-urgent-first at commit `ea529f6` | Actual Mosquitto/Paho QoS1 plus SQLite; **does not test the newly added guard candidate** |
+| Updated three-policy real MQTT CI | **Pending new CI run**: 72 synthetic trials expected (3 seeds × 2 K × 4 scenarios × 3 policies) | Requires independent audit after code revision; not publishable results |
 
 For this local host, illustrative *work-level 4* had a CPU+SQLite combined median around **6.8 ms** in 12 standalone executions. This is a **descriptive one-host pilot**, not an accepted service-time distribution, operational constraint or externally sampled data.
 
@@ -39,11 +40,13 @@ For a real broker, the reproducible CI workflow starts Mosquitto locally, instal
 
 ### GitHub Actions verification record
 
-The current PR-head commit `ea529f6dc8c3e8c5db1151dd2e2103f361738419` passed both jobs in [Stage 7 workflow run #2](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43899100129) on 16 November 2026:
+The two-baseline code revision `ea529f6dc8c3e8c5db1151dd2e2103f361738419` passed both jobs in [Stage 7 workflow run #2](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43899100129) on 16 November 2026:
 
 - `inprocess-sqlite-regression`: **PASS** (positive/negative actual-SQLite tests and 16 paired synthetic inprocess runs with independent audit).
 - `real-loopback-mqtt-and-sqlite`: **PASS** (48/48 synthetic Mosquitto/Paho-to-SQLite executions; the independent per-run and per-batch auditor completed successfully).
 - The runner uploaded artifact `stage7-fictional-real-mqtt-sqlite-not-science` (GitHub Actions artifact ID `14239563556`, SHA-256 archive digest `ecb29fb4005af2bf2f08bc1f045c5af6fd018d89bdbcf6e9c6fdc0dbfeede4b4`) and an inprocess artifact. Both expire **30 November 2026**; preserve them separately if the study later needs reproducible historical evidence. The artifact archive digest is a transfer integrity indicator, not proof of scientific validity.
+
+**This historic run predates the routine-guard candidate.** The next three-policy GitHub Actions run is a separate verification and must pass before reporting its MQTT results. Any favorable policy contrast is exploratory debugging, not statistical evidence.
 
 These results verify software execution and internal accounting under wholly *artificial* input and local runner conditions. There are still **no validated production arrival/service samples, approved SLOs, final novel algorithm or controlled scientific findings**. The recorded `U_debug`/`R_debug` and paired differences are exploratory diagnostics only.
 
@@ -51,7 +54,7 @@ These results verify software execution and internal accounting under wholly *ar
 
 **Workload calibration — NOT complete for research:** No owner-backed deadline `D_u`, routine threshold `τ`, constraints `ε/γ`, actual arrival/severity mixes, representative service demand for all offered jobs, or external workload rights/provenance. The artificial 60 IDs/seed, 15 urgent, K=0/3, 1s/0.5s planned horizons and 20ms debug thresholds are *demonstration settings only*. CPU/RAM quotas, real producer availability and field station topology are not independently anchored.
 
-**Final algorithm and fair scientific comparison — NOT complete:** Two conventional policies are available for engine testing. Stage 4B identifies serious novelty risks; a proposed algorithm cannot honestly be called novel/final without full-text comparison (especially N01/N09) and professor approval. Additional faithful EDF/aging/DRR or direct prior-work comparator implementation requires agreed model and matching online knowledge; no comparator shopping after seeing results.
+**Final algorithm and fair scientific comparison — NOT complete:** Two conventional baselines and an **illustrative age-guard research candidate** are available for engine testing. Stage 4B identifies serious novelty risks; the candidate cannot honestly be called novel/final without full-text comparison (especially N01/N09), faithful closest-prior-work comparator and professor approval. The `τ/2` guard is arbitrary without owner-approved targets; it cannot be tuned post-hoc to make a favorable result. Additional faithful EDF/aging/DRR or direct prior-work comparator implementation requires agreed model and matching online knowledge; no comparator shopping after seeing results.
 
 **Scientific experiments — NOT complete:** The exploratory pilot is neither preregistered nor approved. No declared primary operating points, threshold tie/expiry rules, confidence/precision target, independently replicated held-out source seeds, matched host-resource controls, power/instrumentation overhead plan, or statistical family-wise error plan has been signed. Do **not** promote any `U_debug`, `R_debug`, medians, figures or favorable treatment differences to an IEEE paper's Results or Abstract.
 

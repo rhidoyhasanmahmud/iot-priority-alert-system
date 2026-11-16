@@ -2,7 +2,7 @@
 """Fail-closed independent Stage 7 *fictional* replay and SQLite evidence gate.
 
 Does not import the Stage 7 emitter or live scheduling implementation.
-Validates the full offered population, per-ID hidden work pairing, conventional
+Validates the full offered population, per-ID hidden work pairing, exploratory
 policy decisions, clock/lifecycle ordering, and actual exported SQLite rows.
 Not a validator of real-world workload/SLA representativeness or novelty.
 """
@@ -41,7 +41,12 @@ def audit_run(rows: list[dict], sqlite_path: Path, fixture_dir: Path,
     base = lifecycle_audit(rows)
     m = next(item for item in rows if item["type"] == "manifest")
     policy = m["policy_id"]
-    require(policy in {"fifo", "strict_urgent_first"}, "Only conventional candidate baselines allowed")
+    require(policy in {"fifo", "strict_urgent_first", "routine_wait_guard"},
+            "Unsupported exploratory policy")
+    required_rule = ("OLDEST_ROUTINE_WHEN_WAIT_GE_TAU_HALF_ELSE_URGENT_FIRST"
+                     if policy == "routine_wait_guard" else "NOT_APPLICABLE")
+    require(m.get("routine_guard_rule") == required_rule,
+            "Incorrect predeclared online routine-guard rule")
     transport = m.get("scenario_id", "").removeprefix("stage7_exploratory_")
     require(transport in {"mqtt", "inproc"}, "Unsupported or undeclared transport")
     if require_mqtt:
@@ -148,10 +153,22 @@ def audit_run(rows: list[dict], sqlite_path: Path, fixture_dir: Path,
             expected_snapshot = [{"event_id": item["event_id"],
                                   "trusted_class": item["trusted_class"]} for item in waiting]
             require(snapshot == expected_snapshot, "Decision snapshot differs from actual waiting jobs")
-            chosen = (snapshot[0] if policy == "fifo" else
-                      next((item for item in snapshot if item["trusted_class"] == "URGENT"),
-                           snapshot[0]))
-            require(chosen["event_id"] == eid, "Policy choice was not FIFO/strict urgent-first")
+            if policy == "fifo":
+                chosen = snapshot[0]
+            elif policy == "strict_urgent_first":
+                chosen = next((item for item in snapshot
+                               if item["trusted_class"] == "URGENT"), snapshot[0])
+            else:
+                offers_by_id = {row["event_id"]: row for row in actual_offers}
+                guard_ns = m["routine_tau_ns"] // 2
+                guarded_routine = next((item for item in snapshot
+                                        if item["trusted_class"] == "ROUTINE" and
+                                        decision_ns - offers_by_id[item["event_id"]]["offer_ns"]
+                                        >= guard_ns), None)
+                chosen = (guarded_routine if guarded_routine is not None else
+                          next((item for item in snapshot
+                                if item["trusted_class"] == "URGENT"), snapshot[0]))
+            require(chosen["event_id"] == eid, "Policy choice differs from independently recomputed rule")
 
     require(len(expected_db) == base["admitted"] == m.get("db_rows_reopened"),
             "Reopened database admission count differs")

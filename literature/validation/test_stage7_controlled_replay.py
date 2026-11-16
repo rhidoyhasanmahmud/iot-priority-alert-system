@@ -4,16 +4,18 @@
 from __future__ import annotations
 
 import copy
+from collections import deque
 import json
 from pathlib import Path
 import tempfile
+import time
 import unittest
 
 from stage5d_lifecycle_audit import AuditError
 from stage5k2_workload_fixture import save_fixture
 from stage7_calibration_audit import CalibrationError, audit as audit_calibration
 from stage7_calibration_probe import run_probe
-from stage7_controlled_replay import run_case
+from stage7_controlled_replay import PolicyGateway, run_case
 from stage7_independent_replay_audit import audit_run
 
 
@@ -26,7 +28,7 @@ class Stage7IndependentReplayTests(unittest.TestCase):
         save_fixture(cls.fixture, seed=71, count=20, urgent_count=5,
                      horizon_ns=100_000_000, shape="clustered", dispersion="variable")
         cls.examples = {}
-        for policy in ("fifo", "strict_urgent_first"):
+        for policy in ("fifo", "strict_urgent_first", "routine_wait_guard"):
             db = cls.root / f"{policy}.sqlite"
             records, _ = run_case(fixture_dir=cls.fixture, transport="inproc", policy=policy,
                                   K=2, iterations_per_unit=5000,
@@ -48,6 +50,34 @@ class Stage7IndependentReplayTests(unittest.TestCase):
         rows, db = self.examples["strict_urgent_first"]
         found = audit_run(rows, db, self.fixture)
         self.assertEqual(found["policy"], "strict_urgent_first")
+
+    def test_guard_candidate_accounting_and_real_sqlite_pass(self) -> None:
+        rows, db = self.examples["routine_wait_guard"]
+        found = audit_run(rows, db, self.fixture)
+        self.assertEqual(found["policy"], "routine_wait_guard")
+        self.assertEqual(found["committed"] + found["rejected"], 20)
+
+    def test_routine_wait_guard_is_online_and_uses_elapsed_offer_age_only(self) -> None:
+        gateway = object.__new__(PolicyGateway)
+        gateway.policy = "routine_wait_guard"
+        gateway.tau_ns = 20_000_000
+        current = time.monotonic_ns()
+        gateway.waiting = deque([
+            ({"event_id": "routine", "trusted_class": "ROUTINE",
+              "offer_ns": current - 15_000_000}, {}),
+            ({"event_id": "urgent", "trusted_class": "URGENT",
+              "offer_ns": current - 3_000_000}, {}),
+        ])
+        chosen, _ = gateway._select_next()
+        self.assertEqual(chosen["event_id"], "routine")
+        self.assertEqual(len(gateway.waiting), 1)
+
+    def test_guard_misrepresented_rule_is_rejected(self) -> None:
+        rows, db = self.examples["routine_wait_guard"]
+        forged = copy.deepcopy(rows)
+        forged[0]["routine_guard_rule"] = "WE_LOOK_AT_FUTURE_WORK"
+        with self.assertRaisesRegex(AuditError, "routine-guard rule"):
+            audit_run(forged, db, self.fixture)
 
     def test_only_executed_jobs_gain_hidden_work_information(self) -> None:
         rows, _ = self.examples["fifo"]

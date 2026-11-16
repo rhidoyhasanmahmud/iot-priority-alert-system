@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Stage 7 exploratory *fictional* workload replay, MQTT/inproc -> SQLite.
 
-Candidate conventional FIFO/strict-urgent-first policies share the same
+Candidate FIFO/strict-urgent-first/routine-guard policies share the same
 post-validation admission rule, source payloads, hidden ex-ante work per event,
 single worker, K-waiting capacity, and SQLite WAL/FULL handler. Actual CPU work
 is injected BEFORE the SQLite handler, AFTER a policy has selected a job.
@@ -28,7 +28,7 @@ from stage5h_joint_gateway import JointGateway
 from stage5k2_independent_audit import audit as fixture_audit
 
 
-POLICIES = {"fifo", "strict_urgent_first"}
+POLICIES = {"fifo", "strict_urgent_first", "routine_wait_guard"}
 
 
 def source_payload(offer: dict) -> dict:
@@ -49,7 +49,7 @@ class PolicyGateway(JointGateway):
                  policy: str, hidden_work: list[dict], iterations_per_unit: int,
                  urgent_deadline_ns: int, routine_tau_ns: int):
         if policy not in POLICIES or not 1 <= iterations_per_unit <= 1_000_000:
-            raise ValueError("Invalid conventional policy or synthetic work scaling")
+            raise ValueError("Invalid exploratory policy or synthetic work scaling")
         self.policy = policy
         self.iterations_per_unit = iterations_per_unit
         self.synthetic_work_by_id = {
@@ -63,16 +63,28 @@ class PolicyGateway(JointGateway):
         """Called only after completion, under the queue lock. Never reads work."""
         snapshot = [{"event_id": row["event_id"], "trusted_class": row["trusted_class"]}
                     for row, _ in self.waiting]
+        decision_ns = now()
         if self.policy == "fifo":
             index = 0
-        else:
+        elif self.policy == "strict_urgent_first":
             index = next((i for i, row in enumerate(snapshot)
                           if row["trusted_class"] == "URGENT"), 0)
+        else:
+            # *Unvalidated* age guard: oldest routine receives service after
+            # >= tau/2 waiting; otherwise strict urgency. The dispatcher sees
+            # classes and elapsed observed queue wait only, not hidden work.
+            guard = self.tau_ns // 2
+            waiting_routine = next((i for i, (row, _) in enumerate(self.waiting)
+                                    if row["trusted_class"] == "ROUTINE" and
+                                    decision_ns - row["offer_ns"] >= guard), None)
+            index = (waiting_routine if waiting_routine is not None else
+                     next((i for i, row in enumerate(snapshot)
+                           if row["trusted_class"] == "URGENT"), 0))
         selected = self.waiting[index]
         del self.waiting[index]
         selected[0]["dispatch_snapshot"] = snapshot
         selected[0]["dispatch_reason"] = "queued_policy_selection"
-        selected[0]["dispatch_choice_ns"] = now()
+        selected[0]["dispatch_choice_ns"] = decision_ns
         return selected
 
     def _serve(self):
@@ -204,6 +216,8 @@ def run_case(*, fixture_dir: Path, transport: str, policy: str, K: int,
         "fixture_id": offers[0]["fixture_id"],
         "planned_source_horizon_ns": offsets[-1] - offsets[0],
         "synthetic_iterations_per_work_unit": iterations_per_unit,
+        "routine_guard_rule": "OLDEST_ROUTINE_WHEN_WAIT_GE_TAU_HALF_ELSE_URGENT_FIRST"
+        if policy == "routine_wait_guard" else "NOT_APPLICABLE",
         "work_model": "PBKDF2_SHA256_ILLUSTRATIVE_CPU_PLUS_SQLITE_WAL_FULL",
         "study_status": "ENGINEERING_PILOT_UNREGISTERED_NOT_SCIENTIFIC_RESULTS",
         "planned_unique": len(source), "K": K,

@@ -55,7 +55,8 @@ def audit_batch(root: Path, *, require_mqtt: bool = False) -> dict:
     seeds = batch.get("seeds")
     capacities = batch.get("capacity_K")
     scenarios = batch.get("scenario_contract")
-    check(policies == ["fifo", "strict_urgent_first"], "Wrong conventional policy set")
+    check(policies == ["fifo", "strict_urgent_first", "routine_wait_guard"],
+          "Wrong exploratory baseline/candidate set")
     check(isinstance(seeds, list) and len(seeds) >= 2 and len(set(seeds)) == len(seeds),
           "Bad seed population")
     check(isinstance(capacities, list) and len(capacities) > 0 and
@@ -128,27 +129,37 @@ def audit_batch(root: Path, *, require_mqtt: bool = False) -> dict:
               "Emitter claimed counts/fractions differ from independent reconstruction")
         blocks.setdefault(key[:3], {})[key[3]] = audited
     check(len(seen) == expected and all(set(x) == set(policies) for x in blocks.values()),
-          "One conventional policy missing in matched seed/K/scenario block")
+          "One exploratory policy missing in matched seed/K/scenario block")
 
     descriptive = {}
     for scenario in scenarios:
-        effects_u, effects_r = [], []
+        effects_u, effects_r, guarded_u, guarded_r, guarded_vs_priority_u, guarded_vs_priority_r = (
+            [], [], [], [], [], [])
         for (seed, K, key_scenario), block in blocks.items():
             if key_scenario != scenario:
                 continue
-            baseline, candidate = block["fifo"], block["strict_urgent_first"]
-            effects_u.append(candidate["U_artificial_debug_only"] - baseline["U_artificial_debug_only"])
-            effects_r.append(candidate["R_artificial_debug_only"] - baseline["R_artificial_debug_only"])
+            baseline, priority, guard = (block["fifo"], block["strict_urgent_first"],
+                                         block["routine_wait_guard"])
+            effects_u.append(priority["U_artificial_debug_only"] - baseline["U_artificial_debug_only"])
+            effects_r.append(priority["R_artificial_debug_only"] - baseline["R_artificial_debug_only"])
+            guarded_u.append(guard["U_artificial_debug_only"] - baseline["U_artificial_debug_only"])
+            guarded_r.append(guard["R_artificial_debug_only"] - baseline["R_artificial_debug_only"])
+            guarded_vs_priority_u.append(guard["U_artificial_debug_only"] - priority["U_artificial_debug_only"])
+            guarded_vs_priority_r.append(guard["R_artificial_debug_only"] - priority["R_artificial_debug_only"])
         descriptive[scenario] = {
             "paired_blocks_including_K_and_seed": len(effects_u),
             "U_difference_priority_minus_fifo_median_debug": statistics.median(effects_u),
             "R_difference_priority_minus_fifo_median_debug": statistics.median(effects_r),
+            "U_difference_guard_minus_fifo_median_debug": statistics.median(guarded_u),
+            "R_difference_guard_minus_fifo_median_debug": statistics.median(guarded_r),
+            "U_difference_guard_minus_priority_median_debug": statistics.median(guarded_vs_priority_u),
+            "R_difference_guard_minus_priority_median_debug": statistics.median(guarded_vs_priority_r),
         }
     return {
         "status": "PASS_EXPLORATORY_SYNTHETIC_BATCH_RAW_EVIDENCE_ONLY",
         "transport": transport, "independent_seeds": len(seeds),
         "trials_independently_audited": len(runs),
-        "policy_pairs": len(blocks), "all_scenarios": sorted(scenarios),
+        "policy_triplets": len(blocks), "all_scenarios": sorted(scenarios),
         "field_calibrated": False, "scientific_inference_allowed": False,
         "effects": descriptive, "effect_warning": "DESCRIPTIVE DEBUG; NO SIGNED PROTOCOL / NO INFERENCE",
     }
