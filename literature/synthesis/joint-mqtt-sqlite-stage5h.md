@@ -1,7 +1,7 @@
 # Stage 5H — Joint MQTT gateway + SQLite handler; independently auditable lab pipeline
 
 **Date:** 16 November 2026  
-**Status:** **IN-PROCESS JOINT SMOKE PASS; BROKER-BACKED CI RUN PENDING AT INITIAL PR. SYNTHETIC ONLY; NO EXPERIMENTAL/SLA SIGN-OFF.**  
+**Status:** **IN-PROCESS + REAL BROKER-TRANSPORT CI ENGINEERING PASS; INDEPENDENT SQLITE ARTIFACT AUDIT PASS. SYNTHETIC ONLY; NO EXPERIMENTAL/SLA SIGN-OFF.**  
 **Research question:** [RQ v1.0](research-questions.md) · **Upstream evidence:** [Stage 5D lifecycle contract](workload-measurement-calibration-stage5d.md), [Stage 5F real-broker MQTT smoke](mqtt-measurement-pilot-stage5f.md), [Stage 5G mock SQLite handler](application-handler-calibration-stage5g.md).  
 **Purpose:** Close the missing **engineering integration** between the MQTT finite-`K` offer/queue model and the reference application handler, without designing or evaluating a new scheduling algorithm.
 
@@ -67,17 +67,39 @@ These are **non-independent single-host smoke counts**, not stable measurements 
 - [ ] Test process crash between INSERT/commit and after commit; prove recovery/dedup policy under redelivery if that is part of real requirements.
 - [ ] Measure logging, validation, backup, WAL checkpoint and resource overhead separately.
 
-## 5H.3 — Real broker-backed CI evidence (pending verification)
+## 5H.3 — Real broker-backed CI evidence (independently verified)
 
-The [Stage 5H GitHub Actions workflow](../../.github/workflows/stage5h-joint-mqtt.yml) installs local Mosquitto and Eclipse Paho 2.x on Ubuntu/Python 3.12, executes prior Stage 5D/5G regression self-tests, the new six-shape smoke and full independent positive/negative audit, **decodes and re-audits the committed in-process fixture**, and conducts three real broker-backed MQTT→SQLite runs (`base`, `burst`, `overload`, **60 synthetic unique messages per run**, `K=3`, seed 101). It captures a complete JSONL callback/offer/commit ledger, per-run post-run SQLite backup, independent gate JSON and broker log in a short-lived GitHub Actions artifact. The audit requires `--require-mqtt` for these three broker-backed runs.
+The [Stage 5H GitHub Actions workflow](../../.github/workflows/stage5h-joint-mqtt.yml) installs local Mosquitto and Eclipse Paho 2.x on Ubuntu/Python 3.12, executes prior Stage 5D/5G regression self-tests, the new six-shape smoke and full independent positive/negative audit, **decodes and re-audits the committed in-process fixture**, and conducts three real broker-backed MQTT→SQLite runs (`base`, `burst`, `overload`, **60 synthetic unique messages per run**, `K=3`, seed 101). It captures a complete JSONL callback/offer/commit ledger, per-run post-run SQLite backup, independent gate JSON and broker log. The audit requires `--require-mqtt` for all three broker-backed runs.
+
+On [PR #49](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/pull/49), **[Stage 5H CI run #43877369913](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43877369913) succeeded**. The actual Ubuntu job installed/started the broker, ran the expected positive/negative checks, published through Paho, independently audited all three source/offer/SQL backups and uploaded [artifact #14230686972](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43877369913/artifacts/14230686972) (temporary GitHub retention through approximately **30 November 2026**). The earlier [Stage 5F MQTT regression run #43877369587](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43877369587) also succeeded. I **downloaded the complete 19-file Stage 5H CI artifact** and re-executed `stage5h_joint_audit.py ... --require-mqtt` against all three saved JSONL + SQLite pairs in a separate workspace; **3/3 passed**.
+
+| **One CI execution only** | Published/offered unique | Duplicates / malformed | SQLite committed = independently saved | Full-buffer rejects | Unresolved | Independent audit |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| MQTT `base` | 60 / 60 | 4 / 1 | 58 = 58 | 2 | 0 | PASS |
+| MQTT `burst` | 60 / 60 | 4 / 1 | 49 = 49 | 11 | 0 | PASS |
+| MQTT `overload` | 60 / 60 | 4 / 1 | 24 = 24 | 36 | 0 | PASS |
+
+These acceptance counts are **observations from a single shared GitHub runner**, not repeatability statistics, scheduling benefits, throughput or deadline evidence. For example, overload's stronger rejection is a synthetic source-pacing consequence; it cannot establish any desired `U`/`R(tau)` operating point for a real IoT system. All 180 intended unique synthetic events reached gateway offers; all 131 admitted events committed one row; 49 offers were rejected by the finite queue; the three runs logged 12 duplicate callback attempts and three malformed callbacks in addition to their 180 offers.
+
+For evidence beyond the artifact's 14-day lifetime, the exact MQTT JSONLs, SQLite backups (base64 text) and gate JSON were archived per shape:
+
+| Shape | Saved raw ledger / DB snapshot / gate | JSONL SHA-256 | Decoded DB SHA-256 |
+| --- | --- | --- | --- |
+| `base` | [`base` records](../validation/fixtures/stage5h_mqtt_base_ci43877369913.jsonl) · [SQLite backup](../validation/fixtures/stage5h_mqtt_base_ci43877369913.sqlite.b64) · [gate result](../validation/fixtures/stage5h_mqtt_base_ci43877369913.gate.json) | `eed8279c467d8aeb6c3eceb508a646a51b74d0903d1df5f489b84d6282545456` | `f8523c9dc4a1391a8720a5d57a3dfa8132a87b920be454180f1c93b163de34df` |
+| `burst` | [`burst` records](../validation/fixtures/stage5h_mqtt_burst_ci43877369913.jsonl) · [SQLite backup](../validation/fixtures/stage5h_mqtt_burst_ci43877369913.sqlite.b64) · [gate result](../validation/fixtures/stage5h_mqtt_burst_ci43877369913.gate.json) | `722b943200938b7376e20de96e3b684c91c80b7dca15aeb9c047aafe0cdf7471` | `fde007718b84a5f9f469dedfbc6bc4e064ee2deeea134205713cecfa00f1191a` |
+| `overload` | [`overload` records](../validation/fixtures/stage5h_mqtt_overload_ci43877369913.jsonl) · [SQLite backup](../validation/fixtures/stage5h_mqtt_overload_ci43877369913.sqlite.b64) · [gate result](../validation/fixtures/stage5h_mqtt_overload_ci43877369913.gate.json) | `9cf5f2bea4453f067ec9690d8484e036a66473bcd62d4e72c24f3553ddd53fa1` | `475428efa4058c25d2a6bf85284c6fe0f9ec7b990b6b37c2b3c598d73db1bffc` |
+
+The workflow has been extended to **re-audit all three archived broker datasets** before producing new cases on future PR runs. This tests stable accounting, not unstable real-time duration thresholds. The original Mosquitto log SHA-256 was `a80b38a630dfe554f2f017bb35a612052e81b72fe9f3fb84c24b00a52c0fdbc4` and remains in the downloadable CI artifact. The following checks are therefore verified against **CI run #43877369913**; reruns after evidence/documentation commits are separate runs and should be inspected independently.
 
 **Transport caveat:** the manifest's `scenario_id=stage5h_mqtt_*` is a claimed mode and is not cryptographic proof of MQTT; it is corroborated by the actual checked-out runner command and broker log. QoS 1 may redeliver; repeated callbacks are deduplicated, so audit uses minimum intended duplicate count rather than an exact callback count. No end-to-end device-to-effect timestamp is asserted, and an ACK'd publisher alone would not prove all receiver offers.
 
 **Checklist — 5H.3**
 - [x] Provide repeatable local broker-backed integration CI workflow and short-lived raw capture artifact.
-- [ ] Verify workflow **actually ran to SUCCESS** on the Stage 5H PR, including broker-backed runs and independent SQLite checks.
-- [ ] Inspect CI logs/DB evidence, save run link, exact case summaries and any observed source/tracing limitations.
-- [ ] Ensure earlier Stage 5F/5G regression checks remain green on PR.
+- [x] Verify workflow **actually ran to SUCCESS** on the Stage 5H PR, including broker-backed runs and independent SQLite checks.
+- [x] Download/replay CI JSONLs + actual SQLite backups, save run/artifact links and exact per-shape accounting; retain source and DB hashes.
+- [x] Archive broker-backed raw evidence for future independent re-audit after GitHub artifact expiry.
+- [x] Verify prior Stage 5F MQTT regression remains green; Stage 5G self-tests passed within the Stage 5H job.
+- [ ] Verify the new workflow revision also re-audits the archived broker snapshots on its subsequent PR run.
 
 ## 5H.4 — Decision gate for conference work
 
@@ -116,6 +138,13 @@ python3 literature/validation/stage5h_joint_gateway.py \
   --output scratch-5h-mqtt.jsonl --sqlite-output scratch-5h-mqtt.sqlite
 python3 literature/validation/stage5h_joint_audit.py \
   scratch-5h-mqtt.jsonl --sqlite scratch-5h-mqtt.sqlite --require-mqtt
+
+# Independently replay permanently archived broker records (example: base)
+base64 --decode literature/validation/fixtures/stage5h_mqtt_base_ci43877369913.sqlite.b64 \
+  > scratch-5h-archived-base.sqlite
+python3 literature/validation/stage5h_joint_audit.py \
+  literature/validation/fixtures/stage5h_mqtt_base_ci43877369913.jsonl \
+  --sqlite scratch-5h-archived-base.sqlite --require-mqtt
 ```
 
 **Stage 5H provisional verdict:** The joint MQTT+SQLite experiment is a **verification and instrumentation milestone**, not evidence of an IoT-specific scheduling contribution. Gate remains **closed** to real-world service calibration and all conference result claims until independent, representative data and a supervisor-approved novelty/evaluation plan exist.
