@@ -10,7 +10,7 @@
 | 2. Core literature review | **19 completed retained notes** | [Register](../README.md), [matrix](comparison.csv), [synthesis](findings.md) | More papers only when a specific gap requires them |
 | 3. Adversarial novelty screening | **Completed as a focused audit; NOT novelty-certified** | [Independent audit](novelty-assessment.md), [search log](../search-log.csv) | N01 directly challenges the broad claim |
 | 4. Closest theory and database coverage | **Stage 4A complete; Stage 4B targeted analytical decision complete; FINAL sign-off pending** | [Model-equivalence crosswalk](closest-paper-model-crosswalk.md), [Stage 4B novelty decision](novelty-decision-stage4b.md) | New N09 threat; N01/N03/N06/N09 authorized full text, independent database/citation chasing and supervisor approval |
-| 5. Application and measurable requirements | **Pending** | Domain/trace provenance + budget memo | Epsilon, tau, gamma, K, service distribution, deadlines |
+| 5. Application and measurable requirements | **Stage 5A provisional measurement contract drafted; evidence validation PENDING** | [Stage 5A application boundary/evidence register](application-boundary-stage5a.md) | Deployment relevance, real/calibrated traces, epsilon/tau/gamma/K, service distribution, supervisor acceptance |
 | 6. Evaluation pre-registration | **Pending** | Signed protocol | Faithful baselines, acceptance rules, workloads and statistics |
 | 7. Implementation and result validation | **Not started in this literature-only main branch** | Reproducible code/results | Invariants, independent traces, held-out results |
 | 8. Contribution, manuscript and review | **Not started** | Supervisor go/no-go + submission draft | Confirm novelty and venue fit |
@@ -92,13 +92,26 @@ For **N02–N06**:
 
 ## Step 5 — Application and experimental targets
 
-- [ ] Specify where a job enters the **local processing** boundary and what constitutes service start/completion.
+- [x] **Provisionally** specify MQTT gateway local offer, processing start and processing completion boundaries for the archived synthetic demonstrator. This is **not** a validated deployed-system boundary; see [Stage 5A](application-boundary-stage5a.md).
 - [ ] Collect or justify a source for real arrival bursts, per-job service demand and class mix.
 - [ ] Explain actual urgency/deadline requirements and use plausible non-sensitive traces.
 - [ ] Predeclare epsilon, tau, gamma, K and sensitivity ranges before tuning.
 - [ ] Document offered job count, offered **work** and queue occupancy; avoid hidden upstream rate-limiting.
 
-**Checklist outcome:** *PENDING. Any chosen thresholds without evidence must be labeled illustrative, not validated.*
+**Checklist outcome:** *Stage 5A application contract and evidence register DRAFTED; Stage 5B empirical validation PENDING. Historic K=1000, D=100/500/2000 ms, 10 ms synthetic handler time and a 1 percentage-point relative tolerance remain archived illustrative settings, **not validated absolute targets**.* Evidence: [Stage 5A](application-boundary-stage5a.md).
+
+### Stage 5A — Application boundary and provenance (provisional design complete)
+
+- [x] Recover the archive's MQTT security-event enrichment demonstrator with exact source link.
+- [x] Map tampering events to urgent and routine device-health events to routine; exclude former medium class from the primary two-class RQ.
+- [x] Describe publisher, broker, callback, trusted classification/dedup, local offering, queue, single worker and completed effect separately.
+- [x] Define event-level timing fields, disjoint lifecycle categories and a reproducibility/invariant checklist.
+- [x] Build an evidence register that flags historic constants as **illustrative** and exposes absent operator/trace justification.
+- [ ] Obtain real/calibrated service-time and workload evidence or approve a **synthetic-only** conference contribution.
+- [ ] Validate actual deadlines, tau, gamma, absolute offered urgent epsilon and queue K before any held-out tests.
+- [ ] Confirm provisional application model and Stage 4B research positioning with supervisor.
+
+**Stage 5A checklist outcome:** *Provisional document complete; final requirements and metrics NOT frozen. Stage 6 implementation/evaluation remains blocked by evidence and sign-off.*
 
 ## Step 6 — Design the evaluation before coding
 
@@ -139,5 +152,6 @@ For **N02–N06**:
 | 2026-11-16 | Captured RQ v1.0 current main-branch decision; independently checked closer primary sources, documented overlap/novelty risks and an experimental-gate design. | Complete closest theory/model equivalence and supervisor go/no-go before selecting an algorithm. |
 | 2026-11-16 | Stage 4A: inspected Gonthier first-party slides/ACM text, Hajek–Seri author-hosted paper and RTAS original text; added formal objective counterexample, risk crosswalk and reading-level limitations. | Stage 4B: authorized full N01/N03/N06 text, theory reductions, database/citation checks, domain budgets. |
 | 2026-11-16 | Stage 4B: derived ex-post routine-start/variable-service completion-deadline identity; elementary finite-K and blocking conditions; checked N07–N10 publisher sources; issued **REVISE/NARROW** claim-by-claim verdict. | Complete restricted full-text/theory/database coverage and supervisor sign-off. Begin Stage 5 application trace + budget provenance, not algorithm design. |
+| 2026-11-16 | Stage 5A: recovered archived synthetic MQTT security-event enrichment scenario; provisionally narrowed urgent/routine classes; defined local measurement boundary, lifecycle trace schema and evidence register; historical budgets explicitly **not validated**. | Stage 5B trace/calibration, threshold validation, operator/supervisor acceptance, Stage 4 full sign-off. |
 
 **Rules for future updates:** Update the date and dashboard; check only completed, traceable work; add evidence links; do not report preliminary models/claims as validated findings; preserve the current RQ text unless a new reasoned team decision supersedes it.
