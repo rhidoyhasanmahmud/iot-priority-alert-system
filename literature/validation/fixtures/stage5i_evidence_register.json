@@ -1,0 +1,32 @@
+{
+  "schema_version": "stage5i.v1",
+  "packet_id": "stage5i-2026-11-16-provisional-stage5h-synthetic-reference",
+  "capture_origin": "synthetic_lab",
+  "capture_scope": "Stage 5H one-machine fictional 16-device tamper/health MQTT gateway + SQLite worker. Intended for instrumentation and negative-gate demonstrations only; not a representative deployed IoT population.",
+  "evidence": {
+    "application_owner_approval": null,
+    "privacy_authorization": null,
+    "device_source_provenance": null,
+    "source_sampling_design": null,
+    "source_capture_completeness": null,
+    "pre_gateway_drop_accounting": null,
+    "trusted_class_mapping": null,
+    "clock_boundary_validation": null,
+    "real_handler_design": null,
+    "effect_commit_verification": null,
+    "handler_resource_profile": null,
+    "service_sampling_design": null,
+    "incident_failure_model": null,
+    "operator_threshold_decision": null,
+    "stage4b_novelty_signoff": null,
+    "stage6_preregistration": null
+  },
+  "parameter_proposals": {
+    "urgent_deadline_ms": null,
+    "epsilon_absolute": null,
+    "routine_tau_ms": null,
+    "gamma_minimum": null,
+    "waiting_capacity_K": null,
+    "deadline_origin": "local_offer"
+  }
+}

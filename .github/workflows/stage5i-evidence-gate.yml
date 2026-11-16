@@ -1,0 +1,67 @@
+name: Stage 5I research evidence readiness gate
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/stage5i-evidence-gate.yml
+      - literature/validation/stage5i_**
+      - literature/validation/fixtures/stage5i_**
+      - literature/synthesis/workload-evidence-calibration-stage5i.md
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  research-readiness-negative-gate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Source and evidence validator regression
+        run: |
+          python -m py_compile literature/validation/stage5i_evidence_gate.py
+          python literature/validation/stage5i_evidence_gate.py --self-test
+
+      - name: Replay three independently auditable Stage 5H broker cases but reject field-calibration claim
+        run: |
+          mkdir -p stage5i-results
+          for shape in base burst overload; do
+            base64 --decode \
+              "literature/validation/fixtures/stage5h_mqtt_${shape}_ci43877369913.sqlite.b64" \
+              > "stage5i-results/${shape}.sqlite"
+            python literature/validation/stage5i_evidence_gate.py \
+              --packet literature/validation/fixtures/stage5i_evidence_register.json \
+              --ledger "literature/validation/fixtures/stage5h_mqtt_${shape}_ci43877369913.jsonl" \
+              --sqlite "stage5i-results/${shape}.sqlite" \
+              --output "stage5i-results/${shape}_readiness.json"
+            python - "$shape" <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+          shape = sys.argv[1]
+          result = json.loads((Path('stage5i-results') / f'{shape}_readiness.json').read_text())
+          assert result['technical_audit_passed']
+          assert result['technical_audit_level'] == 'STAGE5H_SQLITE_SOURCE_AND_LIFECYCLE_VERIFIED'
+          assert result['verdict'] == 'NOT_READY'
+          assert result['stage6_permission'] == 'NEVER_AUTOMATIC_HUMAN_SIGNOFF_REQUIRED'
+          assert 'origin_is_synthetic_lab' in result['blockers']
+          assert 'stage5h_manifest_is_deterministic_synthetic_fixture' in result['blockers']
+          assert result['independently_matched_db_rows'] == result['admitted']
+          assert result['offered_unique'] == 60
+          print('PASS independently validated synthetic', shape,
+                '- research NOT READY, committed', result['admitted'])
+          PY
+          done
+
+      - name: Preserve only readiness diagnostics (NOT research approval)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage5i-readiness-not-ready-evidence
+          path: stage5i-results/*_readiness.json
+          retention-days: 14
+          if-no-files-found: warn
