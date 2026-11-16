@@ -10,8 +10,8 @@
 | 2. Core literature review | **19 completed retained notes** | [Register](../README.md), [matrix](comparison.csv), [synthesis](findings.md) | More papers only when a specific gap requires them |
 | 3. Adversarial novelty screening | **Completed as a focused audit; NOT novelty-certified** | [Independent audit](novelty-assessment.md), [search log](../search-log.csv) | N01 directly challenges the broad claim |
 | 4. Closest theory and database coverage | **Stage 4A complete; Stage 4B targeted analytical decision complete; FINAL sign-off pending** | [Model-equivalence crosswalk](closest-paper-model-crosswalk.md), [Stage 4B novelty decision](novelty-decision-stage4b.md) | New N09 threat; N01/N03/N06/N09 authorized full text, independent database/citation chasing and supervisor approval |
-| 5. Application and measurable requirements | **5A–5J engineering controls; Stage 5J 18/18 real-broker synthetic controlled-lab cases PASS; FIELD VALIDITY OPEN** | [5F verified MQTT](mqtt-measurement-pilot-stage5f.md), [5G service probe](application-handler-calibration-stage5g.md), [5H joint audit](joint-mqtt-sqlite-stage5h.md), [5I evidence gate](workload-evidence-calibration-stage5i.md), [5J controlled testbed](controlled-testbed-stage5j.md) | Actual device/handler workload, owner-backed deadlines and resource capacity, professor sign-off |
-| 6. Evaluation pre-registration | **Pending** | Signed protocol | Faithful baselines, acceptance rules, workloads and statistics |
+| 5. Application and measurable requirements | **5A–5J lab controls PASS; Stage 5K.1 audited, 5K.2 synthetic design DRAFT; calibration NOT ESTABLISHED** | [5F verified MQTT](mqtt-measurement-pilot-stage5f.md), [5G service probe](application-handler-calibration-stage5g.md), [5H joint audit](joint-mqtt-sqlite-stage5h.md), [5I evidence gate](workload-evidence-calibration-stage5i.md), [5J controlled testbed](controlled-testbed-stage5j.md), [5K evidence profile](workload-calibration-stage5k.md) | Actual device/handler workload, owner-backed deadlines and resource capacity, professor sign-off |
+| 6. Evaluation pre-registration | **Draft written; NOT signed or frozen** | [Draft protocol](experimental-protocol-stage6-draft.md) | Faithful baselines, acceptance rules, workloads, independent repetitions and statistics TBD |
 | 7. Implementation and result validation | **Research candidate implementation not started; synthetic lab harness only** | Reproducible code/results | Invariants, independent traces, held-out results |
 | 8. Contribution, manuscript and review | **Not started** | Supervisor go/no-go + submission draft | Confirm novelty and venue fit |
 
@@ -229,8 +229,34 @@ For **N02–N06**:
 
 **Stage 5J checklist outcome:** *Controlled experimental **engineering infrastructure is broker-verified** in one synthetic-input CI environment (18/18), not a new scheduling method or conference paper result. [CI batch manifest](../validation/fixtures/stage5j_ci43882411348_batch.json) and [independent audit summary](../validation/fixtures/stage5j_ci43882411348_audit.json) are archived, but neither substitutes for the expiring raw artifact. Next gates: independent realistic handler/source evidence, approved thresholds, credible novelty and scientific protocol. See [Stage 5J methodology](controlled-testbed-stage5j.md).*
 
+### Stage 5K — Controlled workload/handler calibration (DESCRIPTIVE EVIDENCE PASS; CALIBRATION OPEN)
+
+- [x] Reuse the **entire** Stage 5J 18-run broker artifact, including each raw JSONL/SQLite/log SHA, through the independent Stage 5J gate before profiling service durations.
+- [x] Publish [machine-readable audited Stage 5K descriptive profile](../validation/fixtures/stage5k_stage5j_ci43882411348_profile.json) tied to original [CI #43882411348](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43882411348): 1,080 synthetic offered, 697 fictional SQLite committed, 383 rejected, 18 run-level completed-service descriptive p95s.
+- [x] Record **unobservable service demand for rejected offers**, admitted-only selection bias, fixed fictional 1:3 classes and artificial 50 ms/K; no observational calibration or new policy efficacy.
+- [x] Implement [Stage 5K profile gate](../validation/stage5k_workload_profile.py), a **12-run in-process smoke**, and 3 negative controls (fake field provenance, forged commit count, tampered ledger).
+- [x] Document Stage 6 decision sheet and supervisor questions in [Stage 5K research memo](workload-calibration-stage5k.md).
+- [x] Observe [Stage 5K 18-case real-broker CI #43890764107](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43890764107) **SUCCESS** and [Stage 5F regression #43890764152](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43890764152) **SUCCESS**. Download [raw evidence #14236307628](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43890764107/artifacts/14236307628) and recompute the **exact saved profile** from all 18 raw ledgers/SQLite; 1,080 offers = 694 commits + 386 rejects (independent from the original 697/383 CI).
+- [ ] Obtain supervisor agreement on synthetic-only scope and novelty position, defensible generation/service-demand model (including *all* offered jobs), allowed parameter ranges and pinned hardware.
+- [ ] Predeclare held-out independent replications, strong matched baselines and statistical protocol before inferential Stage 6/7 work.
+
+**Stage 5K checklist outcome:** *Raw evidence can be described faithfully and independently audited; Stage 5K broker-backed CI PASS and downloaded raw evidence independently reprofiled. A proposed [5K.2 design contract](workload-design-stage5k2-draft.md), [Stage 6 draft](experimental-protocol-stage6-draft.md) and [professor decision brief](supervisor-decision-brief-stage4b5k.md) now exist, but are **not approved**. Workload/service calibration is NOT established. Stage 4B remains REVISE/NARROW.*
+
+### Stage 5K.2 + Stage 4B decision + Stage 6 preparation — bundled drafts only
+
+- [x] Write [Stage 5K.2 candidate source/work contract](workload-design-stage5k2-draft.md), separating arrival-visible fields from ex-ante **hidden synthetic service work for every offered ID** and from measured admitted-only handler timing.
+- [x] Specify confound separation (burst concentration vs rate, fixed offered mean work vs dispersion, class mix vs policy, K waiting vs physical capacity); preserve all numeric factor levels as **TBD**.
+- [x] Create [professor's compact scope/novelty decision brief](supervisor-decision-brief-stage4b5k.md) with verified primary prior-art threats N01/N09 and three **unanswered** scope/contribution/threshold decisions.
+- [x] Create [Stage 6 experimental-protocol draft](experimental-protocol-stage6-draft.md) with RQ1–RQ3, offered-population metrics, candidate comparators, hidden-work firewall, paired run-level experimental units and preregistration prerequisites.
+- [ ] Receive supervisor decision on synthetic-only versus externally anchored workload, actual contribution, novel prior-art gap and evaluation authorization.
+- [ ] Implement/test a **frozen**, independently auditable generator/model for all offered work only after assumptions are chosen; avoid interpreting our current fictional SQLite service times as calibrated input.
+- [ ] Freeze exact baselines, thresholds, run count, held-out split, information visibility, hardware and statistics with dated sign-off. **No Stage 6 preregistration exists yet.**
+
+**Bundle checkpoint:** *Three reviewable documents delivered together. No scientific prerequisites have been waived or declared completed by producing a draft.*
+
 ## Step 6 — Design the evaluation before coding
 
+- [x] Prepare an explicitly **unapproved protocol draft** mapping RQ1–RQ3 to candidate controls, baselines, sample unit, information constraints and falsification: [Stage 6 draft](experimental-protocol-stage6-draft.md).
 - [ ] Freeze exact baseline descriptions and information availability (FIFO, priority, EDF+FIFO, aging, DRR, applicable N01 adaptation). If task sizes are unknown before service, label completion-accounted DRR-like variants as *adaptations*; never give them actual future durations.
 - [ ] Separate count-based from measured consumed-work policies; prohibit uncharged oracle durations.
 - [ ] Fix workload grid, matched offered traces, independent replication and held-out split.
@@ -238,7 +264,7 @@ For **N02–N06**:
 - [ ] Define invariants: conservation, finite waiting capacity, non-preemption, deadline bookkeeping and deterministic tie rules.
 - [ ] Review the protocol with professor/research team.
 
-**Checklist outcome:** *PENDING. No implementation recommendation is final until this step.*
+**Checklist outcome:** *Draft prepared, but all scientific design/sign-off controls PENDING. No implementation recommendation is final until this step.*
 
 ## Step 7 — Execute, verify and analyze
 
@@ -283,5 +309,9 @@ For **N02–N06**:
 | 2026-11-16 | Stage 5I: 16-field external-evidence register, blank operational parameters, independent lifecycle/SQLite-backed fail-closed readiness gate and nine defensive self-test cases; archived synthetic Stage5H base trace produces 23 blocker `NOT_READY` diagnosis. | Stage 5I [CI #43880322439](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43880322439) SUCCESS and Stage 5F regression SUCCESS; actual rights-cleared device/handler service evidence, application-owner requirements and supervisor Stage4B novelty decision not available. |
 
 | 2026-11-16 | Stage 5J: Controlled Testbed. 12-case inproc + 9 negative tests PASS; [broker CI #43882411348](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43882411348) **18/18 PASS**; downloaded entire artifact and re-ran independent SQLite/JSONL batch audit (exit 0). Synthetic offers 1,080 = committed 697 + finite-buffer rejects 383; [manifest](../validation/fixtures/stage5j_ci43882411348_batch.json) and [audit snapshot](../validation/fixtures/stage5j_ci43882411348_audit.json) saved. [Stage 5F PR regression #43882411135](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43882411135) SUCCESS. | CI raw archive expires after 14 days; no field calibration or operator timing/capacity approval; Stage 4B novelty and Stage 6 independent evaluation protocol remain OPEN. |
+
+| 2026-11-16 | Stage 5K.1: re-audited the full Stage5J 18-case MQTT artifact and produced committed-only class-wise service diagnostics with explicit rejection selection bias, stored [descriptive profile](../validation/fixtures/stage5k_stage5j_ci43882411348_profile.json), 12-case inproc positive and 3 negative tests; created broker CI workflow. | CI [#43890764107](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43890764107) **SUCCESS**; downloaded 18-case raw evidence independently reprofiled (1,080 offers, 694 commits, 386 rejects) to exactly match CI, vs 697/383 earlier; scientific source/handler calibration, professor synthetic-only and novelty decision still required before Stage 6. |
+
+| 2026-11-16 | Bundled Stage 5K.2/4B/6 **drafts**: versioned synthetic visible/hidden service-work contract, professor decision brief and proposed matched-baseline/preregistration protocol. All numeric values, scope and statistical assumptions explicitly TBD; no new algorithm or results. | Supervisor decision on controlled synthetic-only claim, defensible model, Stage 4B novelty and formally frozen Stage 6 plan. |
 
 **Rules for future updates:** Update the date and dashboard; check only completed, traceable work; add evidence links; do not report preliminary models/claims as validated findings; preserve the current RQ text unless a new reasoned team decision supersedes it.

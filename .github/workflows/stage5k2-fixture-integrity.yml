@@ -1,0 +1,52 @@
+name: Stage 5K.2 candidate fixture integrity (NOT calibration or research results)
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/stage5k2-fixture-integrity.yml
+      - literature/validation/stage5k2_**
+      - literature/validation/test_stage5k2_workload_fixture.py
+      - literature/validation/test_stage5k2_baseline_sandbox.py
+      - literature/synthesis/stage5k2_fixture_pilot.md
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  candidate-fixture-contract-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Bytecode and fail-closed independent unit checks
+        run: |
+          python -m py_compile literature/validation/stage5k2_workload_fixture.py literature/validation/stage5k2_independent_audit.py literature/validation/stage5k2_baseline_sandbox.py
+          python literature/validation/test_stage5k2_workload_fixture.py
+          python literature/validation/test_stage5k2_baseline_sandbox.py
+      - name: Generate four declared *fictional* factor-isolation fixtures
+        run: |
+          python literature/validation/stage5k2_workload_fixture.py --out-dir stage5k2-artifacts/smooth > /dev/null
+          python literature/validation/stage5k2_workload_fixture.py --out-dir stage5k2-artifacts/burst --shape clustered > /dev/null
+          python literature/validation/stage5k2_workload_fixture.py --out-dir stage5k2-artifacts/intense --horizon-ns 500000000 > /dev/null
+          python literature/validation/stage5k2_workload_fixture.py --out-dir stage5k2-artifacts/variable --dispersion variable > /dev/null
+      - name: Independently verify each raw fixture and matched-factor contrasts
+        run: |
+          python literature/validation/stage5k2_independent_audit.py stage5k2-artifacts/smooth
+          python literature/validation/stage5k2_independent_audit.py stage5k2-artifacts/burst
+          python literature/validation/stage5k2_independent_audit.py stage5k2-artifacts/intense
+          python literature/validation/stage5k2_independent_audit.py stage5k2-artifacts/variable
+          python literature/validation/stage5k2_independent_audit.py stage5k2-artifacts/smooth --pair-with stage5k2-artifacts/burst --axis burst_shape
+          python literature/validation/stage5k2_independent_audit.py stage5k2-artifacts/smooth --pair-with stage5k2-artifacts/intense --axis intensity
+          python literature/validation/stage5k2_independent_audit.py stage5k2-artifacts/smooth --pair-with stage5k2-artifacts/variable --axis work_dispersion
+      - name: Upload candidate source fixtures for inspection; NOT scientific outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage5k2-artificial-fixture-contract
+          path: stage5k2-artifacts/
+          if-no-files-found: warn
+          retention-days: 14
