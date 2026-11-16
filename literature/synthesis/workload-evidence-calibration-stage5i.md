@@ -91,12 +91,14 @@ The built-in local Python 3.12 self-test passed one positive **technical** SQLit
 
 The actual checked-in [`stage5i_synthetic_readiness.json`](../validation/fixtures/stage5i_synthetic_readiness.json) stores this **blocked diagnostic**, rather than a misleading certification. An accompanying [Stage 5I CI workflow](../../.github/workflows/stage5i-evidence-gate.yml) replays all three archived real-broker Stage 5H cases through the readiness gate and **requires** `NOT_READY`. This is a regression to catch an accidental upgrade of synthetic measurements into field evidence.
 
+**Verified GitHub Actions evidence:** [Stage 5I run #43880322439](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43880322439) completed **SUCCESS** on [PR #50](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/pull/50). The Ubuntu/Python 3.12 job passed all nine safety cases, independently decoded and checked each archived MQTT+SQLite pair, and explicitly asserted all three diagnoses remain `NOT_READY`: `base` 58 committed, `burst` 49 committed, `overload` 24 committed, all three with 60 source/offer records and **23 blockers each**. The complete three machine-readable diagnoses are in short-lived [Actions artifact #14232810316](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43880322439/artifacts/14232810316). The existing [Stage 5F real-broker regression #43880322206](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43880322206) also completed **SUCCESS**. These checks verify methodology guardrails, **not** workload representativeness.
+
 **Checklist — 5I.4**
 - [x] Implement fail-closed evidence register, parameter typing and independent stage-specific trace verification.
 - [x] Run a positive technical verification and nine safety cases, including forged source metadata, and keep research-ready status false.
 - [x] Record a reproducible 23-blocker diagnosis for a valid Stage 5H synthetic MQTT+SQLite trace.
 - [x] Add CI regression of **all three archived** broker-backed Stage 5H traces, asserting technical PASS and research `NOT_READY`.
-- [ ] Confirm new CI workflow actually completes successfully on the Stage 5I PR; inspect job logs and links.
+- [x] Confirm new [Stage 5I CI #43880322439](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43880322439) and [Stage 5F regression #43880322206](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43880322206) actually complete successfully; inspect three archived cases and store run/artifact links.
 - [ ] Independently review real external document contents before marking any evidence reference complete.
 
 ## 5I.5 — What must happen before Stage 6
