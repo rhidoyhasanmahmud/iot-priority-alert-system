@@ -1,0 +1,86 @@
+name: Stage 5H joint MQTT-to-SQLite lifecycle smoke
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/stage5h-joint-mqtt.yml
+      - literature/validation/stage5h_**
+      - literature/validation/fixtures/stage5h_**
+      - literature/synthesis/joint-mqtt-sqlite-stage5h.md
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  joint-mqtt-sqlite:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Eclipse Paho and loopback Mosquitto
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y mosquitto
+          python -m pip install 'paho-mqtt>=2,<3'
+          python -c 'import importlib.metadata as m; print("paho-mqtt", m.version("paho-mqtt"))'
+          dpkg-query -W mosquitto
+
+      - name: Start local MQTT broker
+        run: |
+          mkdir -p stage5h-results
+          sudo systemctl stop mosquitto || true
+          mosquitto -p 1883 -v > stage5h-results/mosquitto.log 2>&1 &
+          python - <<'PY'
+          import socket
+          import time
+          for _ in range(50):
+              try:
+                  with socket.create_connection(('127.0.0.1', 1883), timeout=.2):
+                      break
+              except OSError:
+                  time.sleep(.1)
+          else:
+              raise SystemExit('loopback MQTT broker not listening')
+          print('PASS broker TCP ready; end-to-end MQTT next')
+          PY
+
+      - name: Check prior lifecycle, handler and joint negative cases
+        run: |
+          python -m py_compile literature/validation/stage5h_joint_gateway.py literature/validation/stage5h_joint_audit.py
+          python literature/validation/stage5d_lifecycle_audit.py --self-test
+          python literature/validation/stage5g_reference_handler.py --self-test
+          python literature/validation/stage5h_joint_gateway.py --self-test
+          python literature/validation/stage5h_joint_audit.py --self-test
+          base64 --decode literature/validation/fixtures/stage5h_inproc_debug.sqlite.b64 \
+            > stage5h-results/inproc-debug.sqlite
+          python literature/validation/stage5h_joint_audit.py --self-test \
+            --test-fixture literature/validation/fixtures/stage5h_inproc_debug.jsonl \
+            --sqlite stage5h-results/inproc-debug.sqlite
+
+      - name: Run three real broker-backed synthetic MQTT -> SQLite cases
+        run: |
+          for shape in base burst overload; do
+            python literature/validation/stage5h_joint_gateway.py \
+              --transport mqtt --host 127.0.0.1 --port 1883 \
+              --shape "$shape" --events 60 --seed 101 --queue-capacity 3 \
+              --timeout-s 25 --output "stage5h-results/${shape}.jsonl" \
+              --sqlite-output "stage5h-results/${shape}.sqlite"
+            python literature/validation/stage5h_joint_audit.py \
+              "stage5h-results/${shape}.jsonl" \
+              --sqlite "stage5h-results/${shape}.sqlite" --require-mqtt \
+              | tee "stage5h-results/${shape}_gate.json"
+          done
+
+      - name: Preserve only synthetic engineering audit artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage5h-joint-mqtt-sqlite-evidence
+          path: stage5h-results/
+          if-no-files-found: warn
+          retention-days: 14
