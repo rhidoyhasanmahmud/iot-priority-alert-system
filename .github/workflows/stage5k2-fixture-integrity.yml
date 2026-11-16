@@ -6,6 +6,7 @@ on:
       - .github/workflows/stage5k2-fixture-integrity.yml
       - literature/validation/stage5k2_**
       - literature/validation/test_stage5k2_workload_fixture.py
+      - literature/validation/test_stage5k2_baseline_sandbox.py
       - literature/synthesis/stage5k2_fixture_pilot.md
   workflow_dispatch:
 
@@ -23,8 +24,9 @@ jobs:
           python-version: '3.12'
       - name: Bytecode and fail-closed independent unit checks
         run: |
-          python -m py_compile literature/validation/stage5k2_workload_fixture.py literature/validation/stage5k2_independent_audit.py
+          python -m py_compile literature/validation/stage5k2_workload_fixture.py literature/validation/stage5k2_independent_audit.py literature/validation/stage5k2_baseline_sandbox.py
           python literature/validation/test_stage5k2_workload_fixture.py
+          python literature/validation/test_stage5k2_baseline_sandbox.py
       - name: Generate four declared *fictional* factor-isolation fixtures
         run: |
           python literature/validation/stage5k2_workload_fixture.py --out-dir stage5k2-artifacts/smooth > /dev/null
