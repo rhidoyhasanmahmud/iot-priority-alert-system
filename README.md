@@ -22,6 +22,7 @@ Literature-first investigation of urgent/routine service, deadlines, fairness an
 14. [Stage 5E: instrumented two-class gateway pilot (in-process smoke)](literature/synthesis/mqtt-measurement-pilot-stage5e.md)
 15. [Stage 5F: verified broker-backed MQTT integration smoke and raw audit evidence](literature/synthesis/mqtt-measurement-pilot-stage5f.md)
 16. [Stage 5G: provisional SQLite application handler and synthetic-only service calibration](literature/synthesis/application-handler-calibration-stage5g.md)
+17. [Stage 5H: joint broker-backed MQTT to SQLite gateway evidence and independent post-run database audit](literature/synthesis/joint-mqtt-sqlite-stage5h.md)
 
 [Critical-review template](literature/review-template.md) · [Reference metadata](literature/references.json)
 
