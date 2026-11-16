@@ -25,6 +25,7 @@ Literature-first investigation of urgent/routine service, deadlines, fairness an
 17. [Stage 5H: joint broker-backed MQTT to SQLite gateway evidence and independent post-run database audit](literature/synthesis/joint-mqtt-sqlite-stage5h.md)
 18. [Stage 5I: fail-closed workload evidence intake and operational parameter decision protocol](literature/synthesis/workload-evidence-calibration-stage5i.md)
 19. [Stage 5J: controlled synthetic MQTT/SQLite testbed and independently audited paired factorial pilot](literature/synthesis/controlled-testbed-stage5j.md)
+20. [Stage 5K: controlled workload/handler descriptive evidence profile, calibration decision card and Stage 6 blockers](literature/synthesis/workload-calibration-stage5k.md)
 
 [Critical-review template](literature/review-template.md) · [Reference metadata](literature/references.json)
 
