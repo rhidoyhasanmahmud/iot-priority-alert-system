@@ -21,7 +21,7 @@
 | Local policy unit / negative tests | **13/13 PASS** | Contract, decision and evidence corruption checks |
 | Local paired source replay | **16/16 inprocess trials** (2 synthetic seeds × 4 scenarios × 2 policies at `K=3`) | Fresh SQLite+worker process per run; **not MQTT**, 2 seeds inadequate for inference |
 | Independent local batch audit | **16/16 PASS**, 8 matched baseline pairs, source/hidden file hashes matched | Engineering lifecycle and raw evidence consistency only |
-| Real loopback MQTT CI | **Pending until GitHub Actions run is independently verified** | Do not invent successful broker data |
+| Real loopback MQTT CI | **48/48 synthetic trials PASS**, independently re-audited; 24 source-matched FIFO/urgent-first pairs across 3 seeds, 4 scenarios and K=0/3 | Actual loopback Mosquitto/Paho QoS1 transport and SQLite; **engineering only**, not a preregistered scientific result |
 
 For this local host, illustrative *work-level 4* had a CPU+SQLite combined median around **6.8 ms** in 12 standalone executions. This is a **descriptive one-host pilot**, not an accepted service-time distribution, operational constraint or externally sampled data.
 
@@ -36,6 +36,16 @@ python literature/validation/stage7_independent_batch_audit.py --batch-dir /tmp/
 ```
 
 For a real broker, the reproducible CI workflow starts Mosquitto locally, installs Paho and runs the *same* source/worker/SQLite code with `--transport mqtt`. CI artifacts have a 14-day retention and must be archived under the approved evidence plan if later needed for scientific replication.
+
+### GitHub Actions verification record
+
+The current PR-head commit `ea529f6dc8c3e8c5db1151dd2e2103f361738419` passed both jobs in [Stage 7 workflow run #2](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43899100129) on 16 November 2026:
+
+- `inprocess-sqlite-regression`: **PASS** (positive/negative actual-SQLite tests and 16 paired synthetic inprocess runs with independent audit).
+- `real-loopback-mqtt-and-sqlite`: **PASS** (48/48 synthetic Mosquitto/Paho-to-SQLite executions; the independent per-run and per-batch auditor completed successfully).
+- The runner uploaded artifact `stage7-fictional-real-mqtt-sqlite-not-science` (GitHub Actions artifact ID `14239563556`, SHA-256 archive digest `ecb29fb4005af2bf2f08bc1f045c5af6fd018d89bdbcf6e9c6fdc0dbfeede4b4`) and an inprocess artifact. Both expire **30 November 2026**; preserve them separately if the study later needs reproducible historical evidence. The artifact archive digest is a transfer integrity indicator, not proof of scientific validity.
+
+These results verify software execution and internal accounting under wholly *artificial* input and local runner conditions. There are still **no validated production arrival/service samples, approved SLOs, final novel algorithm or controlled scientific findings**. The recorded `U_debug`/`R_debug` and paired differences are exploratory diagnostics only.
 
 ## 3. What remains genuinely uncompleted
 
