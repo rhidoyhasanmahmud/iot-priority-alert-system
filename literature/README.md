@@ -32,7 +32,7 @@
 2. Read each paper's problem, method, assumptions and evaluation.
 3. Write a [critical review](review-template.md) with source locations and limitations.
 4. Update the [comparison matrix](synthesis/comparison.csv) and [synthesis](synthesis/findings.md).
-5. Compare [candidate research questions](synthesis/research-questions.md), check overlap through [logged searches](search-log.csv), and select a contribution only when the evidence supports it.
+5. Use the [finalized main question and three sub-questions](synthesis/research-questions.md), check overlap through [logged searches](search-log.csv), and establish the contribution before selecting a method.
 
 [Reference metadata](references.json) contains exactly these nineteen active papers. Prior supporting/excluded notes and unreviewed catalog items are preserved in the [earlier Git snapshot](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/tree/938a07f828909bb2d8f31e271a0b479dd117f562/literature), outside the active list.
 
@@ -42,5 +42,5 @@ Use the full paper title plus `.md`; replace unsafe punctuation such as a colon 
 
 ## Research boundary
 
-No algorithm, comparator implementation or simulation matrix is selected. Core relevance is separate from evidence quality or baseline fidelity. Include contrary findings and close methods even when their resource model differs. Do not fill the target with generic IoT applications or loosely related theory.
+The current research frame selects routine-service protection under an urgent deadline-failure budget, with one main question and three sub-questions. Novelty and application-backed requirements remain unresolved. No algorithm, comparator implementation or simulation matrix is selected. Core relevance is separate from evidence quality or baseline fidelity. Include contrary findings and close methods even when their resource model differs. Do not fill the target with generic IoT applications or loosely related theory.
 

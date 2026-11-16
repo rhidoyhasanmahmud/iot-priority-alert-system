@@ -1,177 +1,200 @@
-# Candidate research questions and selection rationale
+# Research questions for the conference study
 
-**Status:** working decision note, version 0.1, 15 November 2026. Based on the 19 retained reviews at main commit `95330fe36cd0579d4a1bbbc97dcc0e5eb008afbf`. The questions below are candidates, not established literature gaps or selected algorithms. This is a literature-synthesis note; no new algorithm or final experiment matrix is selected.
+**Decision:** version 1.0, 16 November 2026. Finalize **one main question and three supporting sub-questions** within the former RQ-A direction. Admission/outage control and label robustness are parked. This freezes the question and initial system boundary; it does not certify novelty, select a new algorithm, or make the project submission-ready.
 
-**Recommendation:** investigate **RQ-A first**, keep **RQ-B as the alternative**, and defer **RQ-C** unless realistic urgency-label evidence becomes available. RQ-A currently offers the clearest controlled comparison and the smallest implementation scope. Its originality remains unresolved: classical fair queueing already handles variable work sizes, and the targeted search below found directly relevant fairness/latency theory. A useful contribution must go beyond comparing message counts with work counts or renaming an existing scheduler.
+**Evidence base:** the 19 retained review notes, their [comparison matrix](comparison.csv), [synthesis](findings.md), and targeted primary-source checks. This session cross-checks existing reviews; it is not a fresh full-PDF review or independent replication of all 19 papers. Newly screened leads are not counted as completed reviews.
 
-**বাংলা reading guide:** প্রথমে A/B/C-এর comparison ও recommendation পড়ুন। তারপর closest-paper table এবং প্রতিটি question-এর falsification condition দেখুন। এখানে কোনো algorithm-কে নতুন বা কোনো gap-কে confirmed বলা হয়নি।
+**বাংলা সারকথা:** জরুরি alert-এর deadline failure গ্রহণযোগ্য সীমার মধ্যে রেখে routine কাজকে কতটা সময়মতো service দেওয়া সম্ভব—কখন সম্ভব, কোন mechanism ফল বদলায়, আর বাস্তব তথ্য ও overhead ধরলে ফল কতটা টেকে। এটি একটি conference study; তিনটি আলাদা project নয়।
 
-## 1. What the existing evidence rules out
+## 1. Main research question
 
-The register contains 19 completed, core-related reviews. This note prioritizes eight anchors for the main scheduling/admission decision; supporting retained evidence for classification and system boundaries is cited separately. Review numbers are navigation, while R-keys identify sources. Complete citations appear in Section 9; linked reviews carry version/page mappings and evidence ledgers.
+> At a finite-capacity, non-preemptive IoT processing bottleneck, under what burst and service-demand conditions can an online scheduler improve routine access within a declared waiting budget while keeping the offered urgent-job deadline-failure rate within a predeclared acceptable budget?
 
-| Closest anchor | Identifiable mechanism | What our review can use | Boundary that changes the comparison |
-| --- | --- | --- | --- |
-| R08, TRIAGE/4 | Semantic alarm override, within-band device/zone fairness, admission protection | Emergency priority plus fairness/admission is existing work; admitted-alarm delay has conditional protection | Routine traffic can starve across bands; an alarm-aware comparator is needed. Review Sections 4-7; source p. 5, Eqs. 11-18. |
-| R09, WTI | Learned queue-state indices select service under bursts | Priority and instantaneous congestion are already combined; no-burst endpoints can favor strict priority | Slotted switch queues and learned transitions differ from non-preemptive application jobs. Review Sections 4-7; source Table IV. |
-| R16, FEF | Slack/prediction-based routine opportunities, reserves and threshold preemption | Urgency plus starvation relief is existing work | Preemptive CPU control and execution-time prediction are not freely available to a message worker. Review Sections 4-7; source Sections 3.3-3.4. |
-| R18, topic feedback | Emergency override plus periodic low-priority timeout/frequency feedback | Messaging work already protects delayed low-priority traffic | Exact feedback budget/trigger and waiting guarantee are underspecified. Review Sections 5-7; source pp. 5-8. |
-| R19, FTS-Hybrid | Priority queues, queue-length-sensitive batches and high/medium/low emission | Priority mix and batch size change class outcomes; some medium/low results regress | Spout emission and downstream processing are not one online worker queue. Review Sections 4-7; source Table III. |
-| R22, EFS | Historical class job-count shares plus least-served-client selection | Client fairness and class fairness are distinct; job counts are not consumed service | Similar runtimes/equal resources, a class/client intersection ambiguity and database cost matter. Review Sections 4-7; Algorithms 2-4. |
-| R25, RBSS | Capped backlog-dependent rate weights and burst-service compensation | Burst gain can increase regular-flow delay; rate fairness differs from waiting fairness | Fluid, policed flows and conditional analysis; TCS is not a packet waiting bound. Review Sections 4-7; source Table 2. |
-| R26, RAAC | Finite-buffer probabilistic admission with stationary reliability-aware threshold selection | Offered versus admitted/completed work must be separated | Single aggregate class; eventual completion is not deadline success; parameter sweeps are not online control. Review Sections 4-7. |
+**Routine access** means starting service within a waiting budget, not completing by that time. **Urgent failure** includes urgent work rejected at the declared bottleneck. “Improve” requires comparison with explicit conventional policies under matched resources and information; it is not a promised result.
 
-R21's deadline/miss-history feedback and R28's finite-internal-buffer control further prevent novelty claims based on history scores or finite buffering alone. R15/R17 motivate label/proxy questions, but their weak or ambiguous evidence cannot establish that all existing methods fail.
+**Working title:** *Routine-Service Protection Under Bursty IoT Alerts: Deadline Trade-offs and Practical Limits*.
 
-Consequently, none of the following is sufficient novelty: adding priority to MQTT; adding an age threshold; mixing priority/deadline/load in a score; giving routine work occasional service; adding finite queues; or moving a known rule to a different layer.
+This is an explanatory performance study first. A new method is justified only if an important limitation remains after checking established methods and theory.
 
-## 2. Candidate comparison
+## 2. Three sub-questions
 
-These are qualitative reviewer judgments from the retained evidence and bounded search, not measured scores or acceptance probabilities.
+### RQ1 — Operating conditions and limits
 
-| Candidate | Main scientific question | Potential value if supported | Largest overlap/novelty risk | Feasibility and decision |
-| --- | --- | --- | --- | --- |
-| **RQ-A: service accounting** | How does count-based versus work-based routine protection change the urgent-deadline/routine-waiting trade-off under heterogeneous bursts? | Explain a reproducible failure region or derive a scoped trade-off/bound that guides policy choice | DRR/fair-queue latency theory, RBSS, EFS, FEF, FTS-Hybrid and DRA already cover substantial parts | **First investigation.** A constrained single-stage model is manageable; read the closest missing theory before selecting a method. |
-| **RQ-B: admission and dispatch** | When does urgency-aware admission add value over class-neutral admission during service interruption, after holding dispatch fixed? | Explain whether benefits come from rejection, dispatch, or their interaction on the full offered population | TRIAGE/4 already couples alarms and admission; TSN deadline-aware admission has strong prior art | **Alternative.** More policy interactions and calibration; justify the outage model and check feasibility first. |
-| **RQ-C: label robustness** | How do wrong urgency labels and legitimate rate surges change the effectiveness of priority/routine-protection policies? | Identify sensitivity and observable limits; test a mitigation without oracle urgency | Security/classification work and robust scheduling need broader coverage; a synthetic noise sweep alone is weak | **Defer.** Ground-truth labels, realistic error mechanisms and system observability are unresolved. |
+> How do burst structure and service-demand variability change the routine-access versus urgent-deadline-failure trade-off, and which capacity or non-preemptive blocking conditions explain failure to meet both declared service targets?
 
-### RQ-A: the unit of routine protection under variable service demand
+**Purpose:** identify when routine protection is useful, costly or infeasible under explicit assumptions.
 
-> At a finite-capacity, non-preemptive IoT processing queue, how does the unit of routine-service protection - message count versus consumed service time - change the attainable trade-off between urgent deadline failures and routine waiting under heterogeneous, bursty workloads?
+**Evidence needed later:** controlled workload comparisons, a trade-off frontier for the evaluated policy family, and an explanation tied to offered service work, burst timing and blocking.
 
-**Motivation and overlap.** EFS accounts for job counts under similar runtimes; RBSS accounts for rate-normalized work; FTS-Hybrid accounts for emission batches; FEF and DRA already incorporate deadline/slack or deprivation feedback. The reviewed mechanisms and fairness units differ. They do not, by themselves, settle this exact controlled comparison, but that observation is not proof that nobody else has studied it.
+**Falsification and limits:** revise an explanation that fails outside its calibration cases. Failure of every tested policy does not prove that no possible policy could succeed. A frontier obtained from tested policies is empirical; universal impossibility or delay guarantees require applicable proofs. A familiar capacity/blocking observation alone is not an original contribution.
 
-**Provisional scope.** One processing bottleneck, declared finite queue capacity, two classes, trusted labels, no preemption, migration, cloud fallback, suppression or extra service capacity. Service demand varies independently of class in the first comparison; class/size correlation is a separate sensitivity. Known message bytes must not be treated as known CPU service time without a justified model. If a rule needs demand estimates, compare equal information and account for estimation error separately.
+### RQ2 — Mechanism and comparison
 
-**Testable hypothesis, not a finding.** A fixed job-count share can allocate highly variable fractions of busy time as the service-size mix changes. Work accounting may make that share less sensitive, but does not necessarily improve urgent deadlines or routine waiting: long non-preemptive jobs can block urgent work. The hypothesis of a useful QoS advantage is rejected if size-aware/deficit comparators match or dominate it after accounting for tuning, information and overhead.
+> Under matched admission rules, resources and runtime information, how do count-based and consumed-work-based routine protection compare with established urgency-, deadline- and fair-service policies, and what explains any difference?
 
-**Minimum evidence needed to choose the idea.** Locate and read the closest packetized fair-queue/deadline and DRR latency results, define the protection unit precisely, and show why the question is not answered by those results under the same assumptions. A later study would need matched offered workload, controlled service-size variation at fixed mean offered work, a load/burst sanity check, and an urgent-versus-routine outcome frontier rather than one favorable weight setting.
+**Purpose:** determine whether a result comes from service accounting or another changed control.
 
-**Possible contribution and stop condition.** A conditional analytical result or reproducible boundary explaining when a protection rule helps, hurts or cannot meet both goals. Stop or reframe if existing theory already supplies that boundary, if the apparent gain comes only from new information/rejection, or if the result is merely the known fact that packet counts differ from byte/time shares. No new score or algorithm name is proposed here.
+**Evidence needed later:** a controlled count/work comparison, strong conventional comparators, comparable tuning effort and complete offered-population outcomes.
 
-### RQ-B: separating admission effects from dispatch effects
+**Falsification and limits:** count/work comparison is diagnostic, not the novelty claim. Reject a useful-new-mechanism claim if a conventional comparator matches or dominates it at the same urgent-failure budget and comparable cost. Matching admission rules does not force identical admitted populations: dispatch changes occupancy and which arrivals encounter a full queue. Label adaptations honestly.
 
-> Under finite buffering and intermittent service unavailability, when does urgency-aware admission improve offered urgent-task deadline success relative to class-neutral admission, and what routine access/waiting cost remains after the dispatch policy is held fixed?
+### RQ3 — Available information and cost
 
-**Motivation and overlap.** RAAC configures aggregate admission under Markovian outages; TRIAGE/4 already combines semantic alarm priority with protective admission; R28 bounds internal queues while retaining traffic upstream. Deadline-aware online admission in TSN is another direct overlap warning. Adding classes to RAAC or coupling a token bucket with priority is therefore not sufficient contribution.
+> How much of any observed benefit survives when exact service times of unstarted jobs and future arrivals are unavailable, after accounting for service-time estimation error where estimates are used and for measured scheduling/accounting overhead?
 
-**Provisional scope.** A single finite gateway queue, explicit service-up/down semantics, retained admitted work, immediate rejection of non-admitted work, and trusted class/deadline metadata. If arrivals during an outage cannot reach the gateway, count them at the declared source/system boundary instead of silently removing them. Keep worker capacity, offered trace, expiry rules and source storage identical across comparisons.
+**Purpose:** determine whether the answer is usable with information the queue can obtain.
 
-**Testable hypothesis, not a finding.** Class-aware admission may reduce offered urgent deadline failures relative to occupancy-only throttling, but can penalize routine access or fail during predominantly urgent floods. Evidence must separate that trade-off from the effect of dispatch: hold dispatch fixed when comparing admission, then check the admission-by-dispatch interaction. A coupled-only comparison cannot identify the cause.
+**Evidence needed later:** declare each policy's observations; distinguish measured past service from predicted future service; examine estimation error when relevant; measure decision cost in a reproducible execution environment.
 
-**Minimum evidence needed to choose the idea.** Read the closest class-aware admission/deadline guarantees; justify an application-relevant outage model and what the controller can observe. A later controlled design must count rejection, admitted expiry, lateness and unfinished work by true class, include reliable-service and interruption conditions, and compare policies under equal parameter-estimation/tuning access. RAAC's offline stationary optimum must not be presented as an online adaptive controller.
+**Falsification and limits:** restrict or withdraw a practical claim that needs oracle durations, favorable-only error cases, extra capacity or uncharged overhead. Completed-job accounting does not reveal unstarted-job duration; bytes are not automatically processing time. Prediction is optional and no learning model is selected. Synthetic independent noise alone is not realistic prediction evidence.
 
-**Possible contribution and stop condition.** A scoped characterization of when joint control offers more than either component and where routine-access constraints become infeasible. Reframe if rejection accounts for the entire latency gain, if an established class-aware gate matches the results, or if the outage assumptions exist only to make the preferred rule win. A complete optimizer is not selected.
+The three sub-questions answer **when**, **why**, and **whether the result survives practical constraints**. They share one model and outcome definition; they do not require three new algorithms.
 
-### RQ-C: urgency labels, rate proxies and service feedback
+## 3. Initial scope
 
-> How do false-positive/false-negative urgency labels and legitimate sensor-rate surges affect priority scheduling with routine protection, and which observable feedback, if any, mitigates the resulting service harm without access to true urgency?
+| Dimension | Decision |
+| --- | --- |
+| Location | One local IoT application-processing bottleneck; distinguish broker transmission, radio access and downstream pipelines |
+| Server | One fixed-capacity worker; jobs run to completion once started, without preemption |
+| Population | Two trusted classes: urgent alerts and routine work; label generation is external |
+| Capacity | A finite number of waiting jobs, plus the one job in service; fix the capacity before evaluation and report workload/memory separately |
+| Offered boundary | Every job presented for admission to this bottleneck, including rejected jobs; local arrival-to-completion is not source-to-actuator latency |
+| Admission | Same class-neutral full-queue rejection rule across primary dispatch comparisons; no suppression, push-out, upstream reservoir or cloud service |
+| Workload | Bursts and variable service demand; measure offered work as well as counts; isolate size variability at fixed mean offered work where appropriate |
+| Information | Class, arrival/deadline metadata, current queues and measured past service; estimates only when declared and equally available |
+| Scheduling | Online decisions; no future-arrival oracle. Specify within-class order, ties and expiry before implementation |
+| Parked extensions | Outages, wrong urgency labels, adversarial floods, routing, migration, task splitting and multi-worker placement |
 
-**Motivation and overlap.** R15 uses a source-rate proxy that can conflict with genuine bursts; PR-MQTT learns value ranges and suppresses similar updates; TRIAGE/4 relies on alarm labels and protects against floods. These establish that classification/admission decisions affect the offered workload. They do not establish a verified label-robustness gap.
+The application must justify a processing bottleneck and its service requirements. Changing the layer does not establish novelty. Application choice, workload provenance, deadline values and routine requirements still need evidence.
 
-**Provisional scope.** Treat label generation as an external process initially. Keep ground-truth urgency only for evaluation; the scheduler receives observed labels and explicitly declared telemetry. Distinguish wrong labels from adversarial flooding, delayed labels and ordinary workload drift. A false-negative urgent job must remain an urgent job in the evaluation denominator.
+## 4. Outcomes and decision rule
 
-**Testable hypothesis, not a finding.** False positives can consume protected urgent capacity; false negatives can delay true emergencies. History/age feedback might restore opportunities for some mislabeled work, but a scheduler cannot identify unobserved true urgency from identical observable states. Any oracle-informed rule is a diagnostic upper-bound comparison, not a deployable baseline.
+Let `a_i` denote arrival at the stated admission boundary, `s_i` service start, `c_i` completion, and `d_i` an urgent job's absolute deadline.
 
-**Minimum evidence needed to choose the idea.** Obtain an application-grounded labeling/error process, document class prevalence and error direction/correlation, and search robust scheduling/classification-linked control beyond MQTT keywords. Independent random label flips may be a diagnostic test, but cannot stand alone as realistic deployment evidence. No classifier training or dataset is selected.
-
-**Possible contribution and stop condition.** A reproducible sensitivity/observability result or a justified feedback mechanism whose benefit persists without oracle labels. Defer if errors are arbitrary, the only result is that incorrect priorities hurt, or credible ground truth cannot be obtained. Do not turn this into a security-classifier project by accident.
-
-## 3. Outcome definitions required before any experiment
-
-The table is a validity specification, not a finalized protocol or set of numeric targets. Thresholds, deadlines and operational budgets must be justified and fixed before held-out evaluation.
-
-| Outcome | Proposed definition | Bias it prevents |
+| Quantity | Definition | Interpretation |
 | --- | --- | --- |
-| Urgent offered-task deadline failure | `1 - (true urgent tasks completed by their deadline / true urgent tasks offered)` for a fully observed cohort | Rejecting/suppressing urgent work cannot make the score look successful. Wrong labels do not alter ground truth. |
-| Routine access within a waiting budget | Fraction of offered routine tasks that start service within a predeclared tau after arrival | Dropped or still-waiting work does not disappear from a completed-only waiting statistic. This is a budget-based outcome, not a proof of starvation freedom. |
-| Routine waiting distribution | Arrival-to-start distribution, plus conditional quantiles with their admission/completion denominator disclosed | A finite run's largest observed wait is not a universal maximum-wait bound; short-job/drop selection cannot be hidden. |
-| Work and count fairness | Report service starts/completions and consumed busy time separately, with the policy's fairness unit stated | Equal counts do not imply equal consumed work, and equal work shares do not imply equal deadlines or per-job waits. |
-| Admission/lifecycle accounting | By class: offered, intentionally suppressed if allowed, rejected, admitted, on-time completed, late completed, expired/cancelled, and unfinished at observation end | Avoid overlapping terminal categories or treating upstream retained traffic as delivered/loss-free. |
-| Decision/control cost | Observed decision cost and required telemetry/model-training cost, separate from modeled execution time | A simulated free decision or unavailable metadata must not masquerade as deployable low latency. |
+| `U`: urgent offered-job failure | `1 - N_urgent_completed_by_deadline / N_urgent_offered` | Rejection, expiry and late completion cannot disappear from the denominator |
+| `R(tau)`: routine timely access | `N_routine_started_by_(arrival+tau) / N_routine_offered` | Rejected and not-yet-started work do not count as timely access |
+| Routine wait and completion | Arrival-to-start distribution, completed fraction, and arrival-to-completion where observable | Disclose conditional denominators and unresolved work; starting is not completing |
+| Count/work allocation | Starts/completions and measured consumed service by class | Equal counts, busy time and waiting are different objectives |
+| Lifecycle | `offered = rejected + admitted`; `admitted = completed + expired/cancelled + unfinished` | Use disjoint categories; split urgent completions into on-time and late |
+| Cost | Decision/accounting time, memory and any estimation/training cost | Measure actual cost; simulator execution time is not deployment scheduling overhead |
 
-A deadline failure cannot be finalized merely because a simulation ended. Observe each offered task through its deadline or mark it right-censored; specify a post-arrival drain/observation policy before measuring outcomes. Report routine unfinished/rejected mass alongside quantiles. Apply an identical lifecycle/expiry rule when isolating scheduler effects; vary it only as an explicit intervention.
+The application must justify an urgent-failure budget `epsilon`, routine waiting budget `tau`, and target routine-access fraction `gamma`. No values are invented here. Set these before held-out evaluation; sensitivity sweeps cannot retrospectively define acceptability.
 
-Unbounded urgent offered demand, finite buffers and finite service cannot guarantee every urgent deadline and every routine wait simultaneously. Any formal guarantee needs feasible arrival/service envelopes, bounded non-preemptive blocking and a precisely declared admitted population. Queue occupancy alone is not a delay theorem.
+A primary success claim requires `U <= epsilon` and `R(tau) >= gamma` under declared conditions. An improvement claim also needs comparison at the same urgent-failure budget, uncertainty and a practically meaningful effect. `epsilon` is an absolute requirement, not merely “a little worse than strict priority.”
 
-## 4. Comparison rules and faithful-baseline boundaries
+Follow urgent arrivals through their deadlines and routine arrivals through their waiting budgets, or mark unresolved outcomes as censored. Ending a run is not a failure event. Report rejected/unfinished work alongside conditional quantiles.
 
-- Hold source-offered traces, actual service demands, queue-capacity units, transport, resource budget and metadata access constant when isolating a mechanism. Compare load in required service work per unit time, not only messages/second. Report message count and workload/memory occupancy distinctly.
-- Choose a small set of relevant, reproducible comparators after the novelty check. FIFO, semantic strict priority and an appropriate fair-queue/deadline rule are possible reference families, not a selected baseline list. Parameterized policies need comparable tuning budgets and separate tuning/evaluation workloads.
-- Reuse the same offered trace per run across policies; uncertainty comes from independent trace/seed runs. Time bins or many requests within one run are not independent trial repetitions. Report adverse regimes and sensitivity rather than selecting only a winning burst mix.
-- Evaluate a family of urgent/routine trade-offs. A higher routine share with a larger urgent-failure cost is a trade-off, not universal dominance. Any acceptable-cost limit must be justified before test-set inspection.
-- EFS needs its class/client intersection clarified; FTS-Hybrid needs batching/downstream alignment. FEF requires preemption/prediction, DRA divisible flows, RBSS fluid/traffic-contract assumptions, and WTI trained transition information. Adapted variants must be named as adaptations with changed assumptions; do not attribute the originals' guarantees to them.
-- A learned or estimated-state method must not receive the held-out workload law, exact future arrivals or service demand unavailable to other policies. Separate a diagnostic oracle from a usable policy.
+Use matched offered traces across policies and independent run/trace repetitions for uncertainty. Requests or windows within one run are not independent repetitions. Separate tuning and held-out evaluation; report adverse/no-benefit regimes. Finite-run maxima or zero observed failures are not universal guarantees.
 
-## 5. Targeted novelty check performed in this session
+## 5. Literature cross-check and novelty boundary
 
-The accompanying [search log](../search-log.csv) records actual discovery/verification queries dated 15 November 2026. These were web-search-service queries, **not searches claimed to have run in Google Scholar, Scopus or IEEE Xplore's own search interface**. Search-engine coverage and results are incomplete; pooled batches do not expose reliable per-query hit attribution. Only the salient primary-source checks below support this note. No citation counts, PRISMA totals or exhaustive-coverage claims are inferred.
+Section 8 gives complete retained citations. These rows cover all 19 active reviews; source locations and qualifications remain in their review notes.
 
-| Candidate | Result of bounded checking | Consequence for selection |
+| Retained sources | Existing coverage | Consequence |
 | --- | --- | --- |
-| RQ-A | G01 below explicitly concerns DRR variable-packet fairness, exact latency/fairness bounds and implementation trade-offs. TRIAGE/4 also lists WFQ/DRR among its comparisons. | **Substantial overlap exists.** Read G01 and its closest deadline/fair-queue references before claiming a new service-accounting trade-off. This session did not establish the proposed question's novelty. |
-| RQ-B | G02 below explicitly studies deadline-aware online admission and bandwidth reallocation for event-triggered traffic using ATS/CBS and network calculus. | **Substantial overlap exists.** The research would need a defensible distinction in the actual guarantee, objective or failure model; a gateway-versus-TSN location change alone is inadequate. |
-| RQ-C | Broad MQTT/priority/error queries produced security/inference and architecture results, without a verified direct answer to this scheduling question in the salient screened hits. | **Unresolved, not evidence of absence.** Broaden terms to robust/misclassified-priority scheduling and inspect application label-generation studies before promotion. |
+| R01, R02 | MQTT/emergency priority and prototype messaging | Priority alone is insufficient; align transport and timing |
+| R08, R09, R11 | Semantic alarms, burst/congestion-aware priority, adaptive deadline/routing controls | Recognize urgency in comparators; separate training, admission and migration |
+| R15, R17, R24 | Source back-off, selective forwarding and radio activity | Lower offered work can explain delay; align populations/resources |
+| R16, R18, R19, R22 | Routine opportunities, timeout feedback, batching and historical fairness | Routine protection already exists; clarify accounting, preemption and downstream effects |
+| R20, R21, R23 | Size-sensitive service, deadline/miss-history feedback and placement/resource control | Size, age, deadlines or load in a score are insufficient novelty |
+| R25, R26, R27, R28 | Burst/rate trade-offs, finite admission, partial-quality service and internal-buffer guarantees | Report routine costs, offered failures and storage/acceptance boundaries; retain theorem assumptions |
 
-**G01 - identity and abstract checked, full text not reviewed in this session.** Luciano Lenzini; Enzo Mingozzi; Giovanni Stea. 2004. *Tradeoffs between low complexity, low latency, and fairness with deficit round-robin schedulers.* IEEE/ACM Transactions on Networking, 12(4), 681-693. IEEE. DOI: [10.1109/TNET.2004.833131](https://doi.org/10.1109/TNET.2004.833131). [Official IEEE record](https://ieeexplore.ieee.org/document/1331430/) and [University of Pisa author record](https://arpi.unipi.it/handle/11568/202043). The checked abstract establishes direct fairness/latency overlap; its particular bounds have not been adopted or independently verified here.
+### Additional primary-source checks
 
-**G02 - identity and abstract checked, full text not reviewed in this session.** Sifan Yu; Feng He; Anlan Xie; Luxi Zhao. 2025. *Efficient adaptive bandwidth allocation for deadline-aware online admission control in centralized time-sensitive networking.* Journal of Systems Architecture, 168, 103539. Elsevier. DOI: [10.1016/j.sysarc.2025.103539](https://doi.org/10.1016/j.sysarc.2025.103539). [Official article](https://www.sciencedirect.com/science/article/pii/S1383762125002115) and [indexed official authorship statement](https://www.sciencedirect.com/science/article/abs/pii/S1383762125002115). Direct HTML retrieval returned 403; verification uses indexed official title/venue/abstract/authorship. Do not substitute the different arXiv title/author list or its numerical results for this journal article.
-
-G01/G02 are targeted novelty-check leads, not completed active reviews. They are not added to the register, reference catalog or 19-review count. A discovery hit for the original DRR paper was not independently checked against its primary publication in this session and is not used as an additional verified citation here.
-
-## 6. Checks still required before selecting a contribution
-
-| Check | Required decision/evidence | Current status |
+| Lead | Evidence and reading level | Consequence |
 | --- | --- | --- |
-| Closest-theory coverage | Read G01 and trace its nearest fair-queue/deadline predecessors/successors; compare assumptions and guarantees to RQ-A | Pending; blocks a new-method novelty claim |
-| Admission overlap | Read G02 and compare with TRIAGE/4/RAAC if RQ-B is promoted | Pending; RQ-B remains an alternative |
-| Exact novelty statement | State what an existing method/theorem does not already answer under the same information and resource assumptions | Not established |
-| Application importance | Identify a credible alert workload, service-demand range, deadline rationale and routine service requirement | Not established; do not invent operational budgets |
-| Comparator fidelity | Resolve necessary ambiguity or use a fully specified comparator with an honest adaptation label | Not selected |
-| Falsifiability | Specify which outcome would reject the hypothesis, including no advantage over a strong conventional comparator | Drafted above; operational limits not fixed |
-| Scope and venue fit | Choose analytical, measurement or algorithmic contribution and match it to the eventual conference | Venue and contribution type not selected |
+| G01: Lenzini et al., 2004 | Official IEEE identity/abstract and Pisa author record checked; full-text review pending | DRR latency/fairness trade-offs already exist; a count-to-work change is insufficient |
+| G03: Tabatabaee and Le Boudec, RTAS 2021 | EPFL proceedings PDF, pp. 171-172: introduction, assumptions, Algorithm 1 and packet-to-job mapping inspected; complete proof review pending | Variable-size service and real-time jobs are explicitly covered. Compare size eligibility and arrival/service envelopes rather than dismissing this as packet-only theory |
+| G04: Dell'Amico et al., 2016 | EURECOM journal identity and author-hosted submission, Sections 1, 3 and 4 inspected; complete review pending | Estimated sizes, fairness and error sensitivity already have prior art. Preemption is a comparison boundary, not proof of a gap |
 
-Suggested follow-up query families are **not yet executed searches**: `non-preemptive deadline fair queueing variable service bounded waiting`; `deficit round robin deadline latency service time fairness`; `class-aware admission finite buffer deadline server interruption`; `misclassified priority queue robust scheduling`. Search by mechanism and follow citations, not just the IoT/MQTT label.
+**Assessment:** this direction is relevant and testable; field-wide novelty is **not established**. G03 is especially close. G04 prevents replacing a weak count/work claim with generic prediction-error sensitivity. These are bounded checks, not exhaustive searches or independent proof validation. G01/G03/G04 remain outside the 19 completed active reviews.
 
-## 7. Recommended next action
+The earlier TSN admission lead for B remains in the [search log](../search-log.csv). B is parked; C is deferred because credible label ground truth/error mechanisms are unresolved. Neither is an additional conference question.
 
-1. Deep-read G01, then the closest deadline/fair-queue work it leads to. Write down whether RQ-A survives with a meaningful contribution beyond known DRR/latency behavior.
-2. Specify an application-backed problem boundary and outcome definitions. Keep RQ-A narrow: trusted labels, one stage and no outages initially. RQ-B/C are separate alternatives/extensions, not extra dimensions to pack into one conference paper.
-3. Update this same note with the novelty decision and a concise selected-RQ statement if the evidence supports one. If A is already answered, reframe or assess B; do not preserve A solely because archived implementation exists.
-4. Only then finalize an analytical/evaluation plan and begin implementation. The 20-25-paper target can guide effort but is not a mandatory stopping rule or evidence of conference readiness.
+### Contribution objective and stop rule
 
-**Decision at version 0.1:** RQ-A is the preferred investigation direction, conditional on the missing-theory check. No algorithm, parameter values, deployment promise or award prediction is selected.
+Seek **one original explanatory result**: a useful characterization of when routine service can be protected at an explicit urgent-failure budget, beyond applicable existing theory and faithful conventional policies. A justified mechanism may follow if needed.
 
-## 8. Update discipline
+Reject or reframe the intended novelty claim if existing theory supplies the same result under matching assumptions; if the result merely restates count/work differences, familiar blocking limits or generic estimate sensitivity; or if a gain disappears with strong conventional comparators, equal information/resources or complete rejection accounting. Do not choose workloads or acceptability targets after seeing winners.
 
-Keep candidate wording, citations and status in this file. Record new executed searches in the log and completed relevant reviews in the existing register. When evidence invalidates a candidate, record why and revise the recommendation; do not convert an untested hypothesis into a finding. Numeric results quoted from reviewed papers remain author-reported unless a review explicitly marks an independent check.
+An honest negative result guides the project; it is not automatically a conference contribution. Archived code is not a reason to preserve an unsupported method.
 
-## 9. Retained references used in this note
+## 6. What is finalized and what remains
 
-These publication records inherit verification/version qualifications from their linked full-text reviews and [reference metadata](../references.json). They are complete citations to existing retained sources, not newly completed reviews. No venue indexing/quartile status is inferred.
+| Item | Status |
+| --- | --- |
+| Main question and RQ1-RQ3 | Finalized for this research stage |
+| Direction and initial boundary | Former RQ-A; scoped above |
+| Application and numeric service budgets | Pending evidence |
+| Exact original contribution | Pending closest-theory comparison |
+| Algorithm/comparator specifications | Not selected |
+| Full analytical/evaluation protocol | Pending requirements and novelty decision |
+| Target conference and venue fit | Not selected |
+| Best Paper outcome | An ambition, not a predicted or guaranteed outcome |
 
-- **R08.** João Carlos N. Bittencourt; Paulo Portugal; Francisco Vasques; Daniel G. Costa. 2026. **Multi-Tier Message Scheduling for IoT-Based Urban Emergency Systems Through Semantic Priority Override**. *IEEE Access, 14, 140988-141015*. IEEE. DOI: [10.1109/ACCESS.2026.3732592](https://doi.org/10.1109/ACCESS.2026.3732592). [Full-text review](../reviews/Multi-Tier%20Message%20Scheduling%20for%20IoT-Based%20Urban%20Emergency%20Systems%20Through%20Semantic%20Priority%20Override.md). Used for: Semantic emergency override, within-band fairness and protected admission; closest alarm/admission overlap.
+The reviewer judgment is that this direction permits clearer causal comparisons with fewer unsupported models than adding outage control or a new classifier now. It is not an estimated award probability.
 
-- **R09.** Rongping Lin; Jinpeng Zhang; Shan Luo; Jing Fu; Xiong Wang; Hui Li; Moshe Zukerman. 2025. **Real-Time Priority Queue Scheduling for Bursty Traffic**. *IEEE Internet of Things Journal, 12(24), 55883-55892*. IEEE. DOI: [10.1109/JIOT.2025.3627212](https://doi.org/10.1109/JIOT.2025.3627212). [Full-text review](../reviews/Real-Time%20Priority%20Queue%20Scheduling%20for%20Bursty%20Traffic.md). Used for: Queue-state priority under bursts and the need to account for training/model assumptions.
+## 7. Next action before implementation
 
-- **R16.** Sehrish Malik; Shabir Ahmad; Israr Ullah; Dong Hwan Park; DoHyeun Kim. 2019. **An Adaptive Emergency First Intelligent Scheduling Algorithm for Efficient Task Management and Scheduling in Hybrid of Hard Real-Time and Soft Real-Time Embedded IoT Systems**. *Sustainability, 11(8), article 2192*. MDPI. DOI: [10.3390/su11082192](https://doi.org/10.3390/su11082192). [Full-text review](../reviews/An%20Adaptive%20Emergency%20First%20Intelligent%20Scheduling%20Algorithm%20for%20Efficient%20Task%20Management%20and%20Scheduling%20in%20Hybrid%20of%20Hard%20Real-Time%20and%20Soft%20Real-Time%20Embedded%20IoT%20Systems.md). Used for: Existing urgency/slack/starvation relief, with preemption and prediction boundaries.
+1. Complete G01/G03's closest-theory review, and G04 where estimates matter; trace relevant deadline/fair-queue successors. State precisely when existing results do or do not answer the question.
+2. Choose one credible processing application and obtain measurements or a justified trace source. Explain its deadlines, `epsilon`, `tau` and `gamma`.
+3. If a meaningful contribution survives, specify the smallest fair protocol answering RQ1-RQ3, including comparator fidelity, lifecycle, tuning and uncertainty.
+4. Begin implementation after those decisions. Additional papers should resolve a concrete coverage gap; reaching 20-25 is not itself readiness.
 
-- **R18.** Dejian Chen; Dong Li; Renchun Guo. 2022. **Design of topic priority based on industrial publish-subscribe system**. *Frontiers in Energy Research, 10, article 979174*. Frontiers Media SA. DOI: [10.3389/fenrg.2022.979174](https://doi.org/10.3389/fenrg.2022.979174). [Full-text review](../reviews/Design%20of%20topic%20priority%20based%20on%20industrial%20publish-subscribe%20system.md). Used for: Emergency messaging plus low-priority service feedback; exact control rules need clarification.
+Revise this decision if contrary evidence requires it. “Finalized” means the current question and scope, not immunity to evidence.
 
-- **R19.** Faiza Akram; Peng Kang; Palden Lama; Samee U. Khan. 2024. **Data-Priority Aware Fair Task Scheduling for Stream Processing at the Edge**. *2024 IEEE Cloud Summit, 117-122*. IEEE. DOI: [10.1109/Cloud-Summit61220.2024.00026](https://doi.org/10.1109/Cloud-Summit61220.2024.00026). [Full-text review](../reviews/Data-Priority%20Aware%20Fair%20Task%20Scheduling%20for%20Stream%20Processing%20at%20the%20Edge.md). Used for: Priority-mix-sensitive batch service and downstream control-location effects.
+## 8. References and provenance
 
-- **R22.** Arkadiusz Madej; Nan Wang; Nikolaos Athanasopoulos; Rajiv Ranjan; Blesson Varghese. 2020. **Priority-based Fair Scheduling in Edge Computing**. *2020 IEEE 4th International Conference on Fog and Edge Computing (ICFEC), 39-48*. IEEE. DOI: [10.1109/ICFEC50348.2020.00012](https://doi.org/10.1109/ICFEC50348.2020.00012). [Full-text review](../reviews/Priority-based%20Fair%20Scheduling%20in%20Edge%20Computing.md). Used for: Historical client/class job-count fairness under similar-runtime assumptions.
+Retained records inherit the identity, version and verification qualifications in their reviews and [metadata](../references.json). This session does not newly verify every old publication record. No indexing, quartile or ranking is inferred.
 
-- **R25.** Mahmoud Daneshvar Farzanegan; Hossein Saidi; Mehdi Mahdavi. 2014. **An Approach to Scheduling Bursty Traffic**. *ETRI Journal, 36(1), 69-79*. Electronics and Telecommunications Research Institute (ETRI). DOI: [10.4218/etrij.14.0112.0524](https://doi.org/10.4218/etrij.14.0112.0524). [Full-text review](../reviews/An%20Approach%20to%20Scheduling%20Bursty%20Traffic.md). Used for: Capped backlog weights, burst compensation and the regular-flow delay penalty.
+- **R01.** Gaetano Patti; Luca Leonardi; Giuseppe Testa; Lucia Lo Bello. 2024. **PrioMQTT: A prioritized version of the MQTT protocol**. *Computer Communications, 220, 43-51*. Elsevier. DOI: [10.1016/j.comcom.2024.03.018](https://doi.org/10.1016/j.comcom.2024.03.018). [Review](../reviews/PrioMQTT%20-%20A%20prioritized%20version%20of%20the%20MQTT%20protocol.md).
 
-- **R26.** Shensheng Tang. 2026. **Reliability-Aware Admission Threshold Selection for IoT Gateway–Cloud Systems: Trade-Off-Driven and Constraint-Based Approaches**. *IoT, 7(3), 60*. MDPI. DOI: [10.3390/iot7030060](https://doi.org/10.3390/iot7030060). [Full-text review](../reviews/Reliability-Aware%20Admission%20Threshold%20Selection%20for%20IoT%20Gateway-Cloud%20Systems%20-%20Trade-Off-Driven%20and%20Constraint-Based%20Approaches.md). Used for: Class-neutral finite-buffer admission, offered-task deliverability and stationary failure modeling.
+- **R02.** P S Akshatha; S Divyashree; S M Dilip Kumar. 2024. **Priority-enabled MQTT: a robust approach to emergency event messaging**. *Journal of Engineering and Applied Science, 71, article 67*. Springer Nature. DOI: [10.1186/s44147-024-00400-2](https://doi.org/10.1186/s44147-024-00400-2). [Review](../reviews/Priority-enabled%20MQTT%20-%20a%20robust%20approach%20to%20emergency%20event%20messaging.md).
 
-- **R21.** Bo Shen; Naveen Chilamkurti; Ru Wang; Xingshe Zhou; Shiwei Wang; Wen Ji. 2018. **Deadline-aware rate allocation for IoT services in data center network**. *Journal of Parallel and Distributed Computing, 118, 296-306*. Elsevier Inc.. DOI: [10.1016/j.jpdc.2017.09.012](https://doi.org/10.1016/j.jpdc.2017.09.012). [Full-text review](../reviews/Deadline-aware%20rate%20allocation%20for%20IoT%20services%20in%20data%20center%20network.md). Used for: Deadline ranking with recent miss-history feedback, distinct from a per-job waiting bound.
+- **R08.** João Carlos N. Bittencourt; Paulo Portugal; Francisco Vasques; Daniel G. Costa. 2026. **Multi-Tier Message Scheduling for IoT-Based Urban Emergency Systems Through Semantic Priority Override**. *IEEE Access, 14, 140988-141015*. IEEE. DOI: [10.1109/ACCESS.2026.3732592](https://doi.org/10.1109/ACCESS.2026.3732592). [Review](../reviews/Multi-Tier%20Message%20Scheduling%20for%20IoT-Based%20Urban%20Emergency%20Systems%20Through%20Semantic%20Priority%20Override.md).
 
-- **R28.** Long Bao Le; Eytan Modiano; Ness B. Shroff. 2012. **Optimal Control of Wireless Networks With Finite Buffers**. *IEEE/ACM Transactions on Networking, 20(4), 1316-1329*. IEEE/ACM (published by IEEE). DOI: [10.1109/TNET.2011.2176140](https://doi.org/10.1109/TNET.2011.2176140). [Full-text review](../reviews/Optimal%20Control%20of%20Wireless%20Networks%20With%20Finite%20Buffers.md). Used for: Conditional internal queue/utility guarantees with unlimited upstream source storage.
+- **R09.** Rongping Lin; Jinpeng Zhang; Shan Luo; Jing Fu; Xiong Wang; Hui Li; Moshe Zukerman. 2025. **Real-Time Priority Queue Scheduling for Bursty Traffic**. *IEEE Internet of Things Journal, 12(24), 55883-55892*. IEEE. DOI: [10.1109/JIOT.2025.3627212](https://doi.org/10.1109/JIOT.2025.3627212). [Review](../reviews/Real-Time%20Priority%20Queue%20Scheduling%20for%20Bursty%20Traffic.md).
 
-- **R15.** Marwa O Al Enany; Hany M. Harb; Gamal Attiya. 2021. **A New Back-off Algorithm with Priority Scheduling for MQTT Protocol and IoT Protocols**. *International Journal of Advanced Computer Science and Applications (IJACSA), 12(11), 349-357*. The Science and Information Organization. DOI: [10.14569/IJACSA.2021.0121140](https://doi.org/10.14569/IJACSA.2021.0121140). [Full-text review](../reviews/A%20New%20Back-off%20Algorithm%20with%20Priority%20Scheduling%20for%20MQTT%20Protocol%20and%20IoT%20Protocols.md). Used for: Frequency-based priority/source back-off as a potentially imperfect urgency proxy.
+- **R11.** Marie C. Pognon; Alejandro Quintero; Samuel Pierre. 2024. **Adaptive Priority Scheduling of Internet of Things Data for Disaster Management in Smart Cities**. *IEEE Access, 12, beginning p. 83285 (end pagination not established in retained review)*. IEEE. DOI: [10.1109/ACCESS.2024.3407672](https://doi.org/10.1109/ACCESS.2024.3407672). [Review](../reviews/Adaptive%20Priority%20Scheduling%20of%20Internet%20of%20Things%20Data%20for%20Disaster%20Management%20in%20Smart%20Cities.md).
 
-- **R17.** Jiby J. Puthiyidam; Shelbi Joseph. 2024. **PR-MQTT: a novel approach for traffic reduction and message prioritisation in IoT applications**. *International Journal of Web Engineering and Technology, 19(1), 44-66*. Inderscience Enterprises Ltd.. DOI: [10.1504/IJWET.2024.138096](https://doi.org/10.1504/IJWET.2024.138096). [Full-text review](../reviews/PR-MQTT%20-%20a%20novel%20approach%20for%20traffic%20reduction%20and%20message%20prioritisation%20in%20IoT%20applications.md). Used for: Learned value-range priority and selective forwarding; suppression changes the offered/delivered population.
+- **R15.** Marwa O Al Enany; Hany M. Harb; Gamal Attiya. 2021. **A New Back-off Algorithm with Priority Scheduling for MQTT Protocol and IoT Protocols**. *International Journal of Advanced Computer Science and Applications (IJACSA), 12(11), 349-357*. The Science and Information Organization. DOI: [10.14569/IJACSA.2021.0121140](https://doi.org/10.14569/IJACSA.2021.0121140). [Review](../reviews/A%20New%20Back-off%20Algorithm%20with%20Priority%20Scheduling%20for%20MQTT%20Protocol%20and%20IoT%20Protocols.md).
 
-[Review register](../README.md) · [Cross-paper comparison](comparison.csv) · [Evidence synthesis](findings.md)
+- **R16.** Sehrish Malik; Shabir Ahmad; Israr Ullah; Dong Hwan Park; DoHyeun Kim. 2019. **An Adaptive Emergency First Intelligent Scheduling Algorithm for Efficient Task Management and Scheduling in Hybrid of Hard Real-Time and Soft Real-Time Embedded IoT Systems**. *Sustainability, 11(8), article 2192*. MDPI. DOI: [10.3390/su11082192](https://doi.org/10.3390/su11082192). [Review](../reviews/An%20Adaptive%20Emergency%20First%20Intelligent%20Scheduling%20Algorithm%20for%20Efficient%20Task%20Management%20and%20Scheduling%20in%20Hybrid%20of%20Hard%20Real-Time%20and%20Soft%20Real-Time%20Embedded%20IoT%20Systems.md).
+
+- **R17.** Jiby J. Puthiyidam; Shelbi Joseph. 2024. **PR-MQTT: a novel approach for traffic reduction and message prioritisation in IoT applications**. *International Journal of Web Engineering and Technology, 19(1), 44-66*. Inderscience Enterprises Ltd. DOI: [10.1504/IJWET.2024.138096](https://doi.org/10.1504/IJWET.2024.138096). [Review](../reviews/PR-MQTT%20-%20a%20novel%20approach%20for%20traffic%20reduction%20and%20message%20prioritisation%20in%20IoT%20applications.md).
+
+- **R18.** Dejian Chen; Dong Li; Renchun Guo. 2022. **Design of topic priority based on industrial publish-subscribe system**. *Frontiers in Energy Research, 10, article 979174*. Frontiers Media SA. DOI: [10.3389/fenrg.2022.979174](https://doi.org/10.3389/fenrg.2022.979174). [Review](../reviews/Design%20of%20topic%20priority%20based%20on%20industrial%20publish-subscribe%20system.md).
+
+- **R19.** Faiza Akram; Peng Kang; Palden Lama; Samee U. Khan. 2024. **Data-Priority Aware Fair Task Scheduling for Stream Processing at the Edge**. *2024 IEEE Cloud Summit, 117-122*. IEEE. DOI: [10.1109/Cloud-Summit61220.2024.00026](https://doi.org/10.1109/Cloud-Summit61220.2024.00026). [Review](../reviews/Data-Priority%20Aware%20Fair%20Task%20Scheduling%20for%20Stream%20Processing%20at%20the%20Edge.md).
+
+- **R20.** Barbara Kabwiga Asingwire; Louis Sibomana; Alexander Ngenzi; Charles Kabiri. 2023. **Delay and size-dependent priority-aware scheduling for IoT-based healthcare traffic using heterogeneous multi-server priority queueing system**. *IET Communications, 17(16), 1877-1887*. John Wiley & Sons Ltd on behalf of The Institution of Engineering and Technology. DOI: [10.1049/cmu2.12675](https://doi.org/10.1049/cmu2.12675). [Review](../reviews/Delay%20and%20size-dependent%20priority-aware%20scheduling%20for%20IoT-based%20healthcare%20traffic%20using%20heterogeneous%20multi-server%20priority%20queueing%20system.md).
+
+- **R21.** Bo Shen; Naveen Chilamkurti; Ru Wang; Xingshe Zhou; Shiwei Wang; Wen Ji. 2018. **Deadline-aware rate allocation for IoT services in data center network**. *Journal of Parallel and Distributed Computing, 118, 296-306*. Elsevier Inc. DOI: [10.1016/j.jpdc.2017.09.012](https://doi.org/10.1016/j.jpdc.2017.09.012). [Review](../reviews/Deadline-aware%20rate%20allocation%20for%20IoT%20services%20in%20data%20center%20network.md).
+
+- **R22.** Arkadiusz Madej; Nan Wang; Nikolaos Athanasopoulos; Rajiv Ranjan; Blesson Varghese. 2020. **Priority-based Fair Scheduling in Edge Computing**. *2020 IEEE 4th International Conference on Fog and Edge Computing (ICFEC), 39-48*. IEEE. DOI: [10.1109/ICFEC50348.2020.00012](https://doi.org/10.1109/ICFEC50348.2020.00012). [Review](../reviews/Priority-based%20Fair%20Scheduling%20in%20Edge%20Computing.md).
+
+- **R23.** J. Anand; B. Karthikeyan. 2025. **Dynamic priority-based task scheduling and adaptive resource allocation algorithms for efficient edge computing in healthcare systems**. *Results in Engineering, 25, 104342*. Elsevier B.V. DOI: [10.1016/j.rineng.2025.104342](https://doi.org/10.1016/j.rineng.2025.104342). [Review](../reviews/Dynamic%20priority-based%20task%20scheduling%20and%20adaptive%20resource%20allocation%20algorithms%20for%20efficient%20edge%20computing%20in%20healthcare%20systems.md).
+
+- **R24.** K. Kavitha; G. Suseendran. 2019. **Priority based Adaptive Scheduling Algorithm for IoT Sensor Systems**. *2019 International Conference on Automation, Computational and Technology Management (ICACTM), 361-366*. IEEE. DOI: [10.1109/ICACTM.2019.8776691](https://doi.org/10.1109/ICACTM.2019.8776691). [Review](../reviews/Priority%20based%20Adaptive%20Scheduling%20Algorithm%20for%20IoT%20Sensor%20Systems.md).
+
+- **R25.** Mahmoud Daneshvar Farzanegan; Hossein Saidi; Mehdi Mahdavi. 2014. **An Approach to Scheduling Bursty Traffic**. *ETRI Journal, 36(1), 69-79*. Electronics and Telecommunications Research Institute (ETRI). DOI: [10.4218/etrij.14.0112.0524](https://doi.org/10.4218/etrij.14.0112.0524). [Review](../reviews/An%20Approach%20to%20Scheduling%20Bursty%20Traffic.md).
+
+- **R26.** Shensheng Tang. 2026. **Reliability-Aware Admission Threshold Selection for IoT Gateway–Cloud Systems: Trade-Off-Driven and Constraint-Based Approaches**. *IoT, 7(3), 60*. MDPI. DOI: [10.3390/iot7030060](https://doi.org/10.3390/iot7030060). [Review](../reviews/Reliability-Aware%20Admission%20Threshold%20Selection%20for%20IoT%20Gateway-Cloud%20Systems%20-%20Trade-Off-Driven%20and%20Constraint-Based%20Approaches.md).
+
+- **R27.** Minoo Hosseinzadeh; Andrew Wachal; Hana Khamfroush; Daniel E. Lucani. 2022. **QoS-Aware Priority-Based Task Offloading for Deep Learning Services at the Edge**. *2022 IEEE 19th Annual Consumer Communications & Networking Conference (CCNC), 319-325*. IEEE. DOI: [10.1109/CCNC49033.2022.9700676](https://doi.org/10.1109/CCNC49033.2022.9700676). [Review](../reviews/QoS-Aware%20Priority-Based%20Task%20Offloading%20for%20Deep%20Learning%20Services%20at%20the%20Edge.md).
+
+- **R28.** Long Bao Le; Eytan Modiano; Ness B. Shroff. 2012. **Optimal Control of Wireless Networks With Finite Buffers**. *IEEE/ACM Transactions on Networking, 20(4), 1316-1329*. IEEE/ACM (published by IEEE). DOI: [10.1109/TNET.2011.2176140](https://doi.org/10.1109/TNET.2011.2176140). [Review](../reviews/Optimal%20Control%20of%20Wireless%20Networks%20With%20Finite%20Buffers.md).
+
+### Targeted leads, not completed active reviews
+
+- **G01.** Luciano Lenzini; Enzo Mingozzi; Giovanni Stea. 2004. **Tradeoffs between low complexity, low latency, and fairness with deficit round-robin schedulers**. *IEEE/ACM Transactions on Networking, 12(4), 681-693*. IEEE. DOI: [10.1109/TNET.2004.833131](https://doi.org/10.1109/TNET.2004.833131). [Official IEEE record](https://ieeexplore.ieee.org/document/1331430/) · [Pisa author record](https://arpi.unipi.it/handle/11568/202043). Identity/abstract checked; full-text review pending.
+
+- **G03.** Seyed Mohammadhossein Tabatabaee; Jean-Yves Le Boudec. 2021. **Deficit Round-Robin: A Second Network Calculus Analysis**. *2021 IEEE 27th Real-Time and Embedded Technology and Applications Symposium (RTAS), 171-183*. IEEE. DOI: [10.1109/RTAS52030.2021.00022](https://doi.org/10.1109/RTAS52030.2021.00022). [EPFL-hosted proceedings PDF](https://infoscience.epfl.ch/bitstreams/e0172e0b-b99c-43cc-9488-31afda35f1fa/download) · [Official conference program](https://2021.rtas.org/program/index.html). The DOI appears on p. 171. Reading locations above refer to this conference version, not a later journal version or revised preprint. Complete proof review pending.
+
+- **G04.** Matteo Dell'Amico; Damiano Carra; Pietro Michiardi. 2016. **PSBS: Practical Size-Based Scheduling**. *IEEE Transactions on Computers, 65(7), 2199-2212*. IEEE. DOI: [10.1109/TC.2015.2468225](https://doi.org/10.1109/TC.2015.2468225). [EURECOM journal record](https://www.eurecom.edu/en/publication/4449) · [Author-hosted submission](https://profs.sci.univr.it/~carra/downloads/carra_psbs.pdf). The author file is marked “under submission”; its sections are not journal pagination. EURECOM's DOI link resolves to IEEE article 7194777, whose direct retrieval was blocked. Complete review pending.
+
+**Search provenance:** [executed queries and screening records](../search-log.csv). This is a focused review using a web search service, not a claimed Google Scholar/Scopus systematic search. Earlier three-candidate wording remains in [version 0.1 at the reviewed main snapshot](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/blob/5fe80d23c949cbe5fe0ef6d1691715aad93386a5/literature/synthesis/research-questions.md).
+
+[Review register](../README.md) · [Comparison](comparison.csv) · [Synthesis](findings.md)
