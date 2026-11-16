@@ -16,6 +16,7 @@ Literature-first investigation of urgent/routine service, deadlines, fairness an
 8. [Stage 4A: closest-paper model-equivalence crosswalk](literature/synthesis/closest-paper-model-crosswalk.md)
 9. [Stage 4B: adversarial novelty decision, analytical reductions and conditional research gate](literature/synthesis/novelty-decision-stage4b.md)
 10. [Stage 5A: provisional application boundary, trace schema and evidence register](literature/synthesis/application-boundary-stage5a.md)
+11. [Stage 5B: archived workload evidence audit and new-data acceptance gates](literature/synthesis/archived-evidence-audit-stage5b.md)
 
 [Critical-review template](literature/review-template.md) · [Reference metadata](literature/references.json)
 
