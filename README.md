@@ -11,6 +11,8 @@ Literature-first investigation of urgent/routine service, deadlines, fairness an
 3. [Cross-paper comparison](literature/synthesis/comparison.csv)
 4. [Cross-paper evidence synthesis](literature/synthesis/findings.md)
 5. [Conference research questions and scope](literature/synthesis/research-questions.md)
+6. [Independent novelty audit and prior-art threats](literature/synthesis/novelty-assessment.md)
+7. [Research step-by-step progress checklist](literature/synthesis/research-progress-checklist.md)
 
 [Critical-review template](literature/review-template.md) · [Reference metadata](literature/references.json)
 
