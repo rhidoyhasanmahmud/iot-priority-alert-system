@@ -1,0 +1,107 @@
+name: Stage 7 synthetic controlled replay (EXPLORATORY; NO scientific claims)
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/stage7-exploratory-controlled-replay.yml
+      - literature/validation/stage7_**
+      - literature/validation/test_stage7_controlled_replay.py
+      - literature/synthesis/stage7-exploratory-testbed-report.md
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inprocess-sqlite-regression:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independently audited positive/negative real-SQLite unit tests
+        run: |
+          python -m py_compile literature/validation/stage7_*.py
+          python literature/validation/test_stage7_controlled_replay.py
+      - name: Execute a paired candidate-only inprocess pilot
+        run: |
+          python literature/validation/stage7_exploratory_batch.py \
+            --output-dir stage7-inproc-artifacts --transport inproc \
+            --seeds 101 202 --capacities 3 --events 60 --iterations-per-unit 10000
+          python literature/validation/stage7_independent_batch_audit.py \
+            --batch-dir stage7-inproc-artifacts --output stage7-inproc-audit.json
+      - name: Upload synthetic inprocess evidence with 14-day expiry
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage7-fictional-inproc-not-results
+          path: |
+            stage7-inproc-artifacts/
+            stage7-inproc-audit.json
+          if-no-files-found: warn
+          retention-days: 14
+
+  real-loopback-mqtt-and-sqlite:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Mosquitto and Paho MQTT 2.x
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y mosquitto
+          python -m pip install 'paho-mqtt>=2,<3'
+      - name: Start dedicated loopback broker
+        run: |
+          sudo systemctl stop mosquitto || true
+          mosquitto -p 1883 -v > stage7-mosquitto.log 2>&1 &
+          python - <<'PY'
+          import socket, time
+          for _ in range(50):
+              try:
+                  with socket.create_connection(('127.0.0.1', 1883), timeout=.2):
+                      break
+              except OSError:
+                  time.sleep(.1)
+          else:
+              raise SystemExit('Mosquitto not ready')
+          PY
+      - name: Execute 48 randomized artificial source-policy pairs with actual MQTT/SQLite
+        run: |
+          python literature/validation/stage7_exploratory_batch.py \
+            --output-dir stage7-mqtt-artifacts --transport mqtt \
+            --seeds 101 202 303 --capacities 0 3 --events 60 \
+            --iterations-per-unit 10000 --timeout-s 35
+      - name: Independently re-audit every raw source, decision, and SQLite row
+        run: |
+          python literature/validation/stage7_independent_batch_audit.py \
+            --batch-dir stage7-mqtt-artifacts --require-mqtt \
+            --output stage7-mqtt-independently-audited.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          result = json.loads(Path('stage7-mqtt-independently-audited.json').read_text())
+          assert result['status'] == 'PASS_EXPLORATORY_SYNTHETIC_BATCH_RAW_EVIDENCE_ONLY'
+          assert result['transport'] == 'mqtt'
+          assert result['trials_independently_audited'] == 48
+          assert result['policy_pairs'] == 24
+          assert result['field_calibrated'] is False
+          assert result['scientific_inference_allowed'] is False
+          print('PASS 48/48 *fictional* real MQTT-to-SQLite runs; NO scientific claim')
+          PY
+      - name: Upload raw artificial provenance; never represent as a publishable study
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage7-fictional-real-mqtt-sqlite-not-science
+          path: |
+            stage7-mqtt-artifacts/
+            stage7-mqtt-independently-audited.json
+            stage7-mosquitto.log
+          if-no-files-found: warn
+          retention-days: 14
