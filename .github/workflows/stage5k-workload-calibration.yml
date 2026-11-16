@@ -1,0 +1,87 @@
+name: Stage 5K synthetic workload descriptive audit (NOT calibration)
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/stage5k-workload-calibration.yml
+      - literature/validation/stage5k_workload_profile.py
+      - literature/validation/stage5j_**
+      - literature/synthesis/workload-calibration-stage5k.md
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  independently-audited-descriptive-mqtt-profile:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install synthetic-lab broker and Python MQTT client
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y mosquitto
+          python -m pip install 'paho-mqtt>=2,<3'
+          python -c 'import importlib.metadata as m; print(m.version("paho-mqtt"))'
+
+      - name: Run fail-closed positive and malformed-lab tests
+        run: |
+          python -m py_compile literature/validation/stage5k_workload_profile.py
+          python literature/validation/stage5k_workload_profile.py --self-test
+
+      - name: Start local Mosquitto (real Paho transport)
+        run: |
+          mkdir -p stage5k-artifacts
+          sudo systemctl stop mosquitto || true
+          mosquitto -p 1883 -v > stage5k-artifacts/mosquitto.log 2>&1 &
+          python - <<'PY'
+          import socket, time
+          for _ in range(50):
+              try:
+                  with socket.create_connection(('127.0.0.1', 1883), timeout=.2):
+                      break
+              except OSError:
+                  time.sleep(.1)
+          else:
+              raise SystemExit('Mosquitto not ready')
+          PY
+
+      - name: Capture and independently re-audit controlled MQTT-to-SQLite raw batch
+        run: |
+          python literature/validation/stage5j_controlled_pilot.py \
+            --transport mqtt --seeds 101 202 303 --events 60 --queue-capacities 0 3 \
+            --shuffle-seed 20261116 --timeout-s 25 \
+            --output-dir stage5k-artifacts/paired
+          python literature/validation/stage5k_workload_profile.py \
+            --batch stage5k-artifacts/paired/batch.json \
+            --output stage5k-artifacts/descriptive_profile.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x = json.loads(Path('stage5k-artifacts/descriptive_profile.json').read_text())
+          assert x['independent_raw_evidence_audit'] == 'PASS'
+          assert x['run_count'] == 18
+          assert x['input_stage5j_transport'] == 'mqtt'
+          assert x['totals_accounting_only']['offered'] == 1080
+          assert x['totals_accounting_only']['committed'] + x['totals_accounting_only']['rejected'] == 1080
+          assert len(x['by_shape_and_K_accounting_only']) == 6
+          assert x['field_representativeness'] == 'NOT_ESTABLISHED'
+          assert x['status'] == 'DESCRIPTIVE_AUDIT_ONLY_NOT_CALIBRATED'
+          assert x['stage6_research_ready'] is False
+          assert x['offered_work_demand'] == 'UNKNOWN_FOR_REJECTED_OFFERS'
+          print('PASS Stage5K 18/18 synthetic MQTT profile with independent raw gate; NOT field calibrated')
+          PY
+
+      - name: Upload expiring raw diagnostics with explicit synthetic provenance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage5k-synthetic-descriptive-mqtt-sqlite
+          path: stage5k-artifacts/
+          if-no-files-found: warn
+          retention-days: 14
