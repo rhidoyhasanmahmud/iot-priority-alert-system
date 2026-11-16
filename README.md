@@ -13,6 +13,7 @@ Literature-first investigation of urgent/routine service, deadlines, fairness an
 5. [Conference research questions and scope](literature/synthesis/research-questions.md)
 6. [Independent novelty audit and prior-art threats](literature/synthesis/novelty-assessment.md)
 7. [Research step-by-step progress checklist](literature/synthesis/research-progress-checklist.md)
+8. [Stage 4A: closest-paper model-equivalence crosswalk](literature/synthesis/closest-paper-model-crosswalk.md)
 
 [Critical-review template](literature/review-template.md) · [Reference metadata](literature/references.json)
 
