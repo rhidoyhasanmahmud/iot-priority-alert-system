@@ -62,6 +62,18 @@ jobs:
             --test-fixture literature/validation/fixtures/stage5h_inproc_debug.jsonl \
             --sqlite stage5h-results/inproc-debug.sqlite
 
+      - name: Independently replay three archived broker-backed evidence sets
+        run: |
+          for shape in base burst overload; do
+            base64 --decode \
+              "literature/validation/fixtures/stage5h_mqtt_${shape}_ci43877369913.sqlite.b64" \
+              > "stage5h-results/archived_${shape}.sqlite"
+            python literature/validation/stage5h_joint_audit.py \
+              "literature/validation/fixtures/stage5h_mqtt_${shape}_ci43877369913.jsonl" \
+              --sqlite "stage5h-results/archived_${shape}.sqlite" --require-mqtt \
+              > "stage5h-results/archived_${shape}_gate.json"
+          done
+
       - name: Run three real broker-backed synthetic MQTT -> SQLite cases
         run: |
           for shape in base burst overload; do
