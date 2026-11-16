@@ -24,6 +24,7 @@ Literature-first investigation of urgent/routine service, deadlines, fairness an
 16. [Stage 5G: provisional SQLite application handler and synthetic-only service calibration](literature/synthesis/application-handler-calibration-stage5g.md)
 17. [Stage 5H: joint broker-backed MQTT to SQLite gateway evidence and independent post-run database audit](literature/synthesis/joint-mqtt-sqlite-stage5h.md)
 18. [Stage 5I: fail-closed workload evidence intake and operational parameter decision protocol](literature/synthesis/workload-evidence-calibration-stage5i.md)
+19. [Stage 5J: controlled synthetic MQTT/SQLite testbed and independently audited paired factorial pilot](literature/synthesis/controlled-testbed-stage5j.md)
 
 [Critical-review template](literature/review-template.md) · [Reference metadata](literature/references.json)
 
