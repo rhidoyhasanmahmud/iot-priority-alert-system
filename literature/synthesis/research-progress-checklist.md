@@ -10,7 +10,7 @@
 | 2. Core literature review | **19 completed retained notes** | [Register](../README.md), [matrix](comparison.csv), [synthesis](findings.md) | More papers only when a specific gap requires them |
 | 3. Adversarial novelty screening | **Completed as a focused audit; NOT novelty-certified** | [Independent audit](novelty-assessment.md), [search log](../search-log.csv) | N01 directly challenges the broad claim |
 | 4. Closest theory and database coverage | **Stage 4A complete; Stage 4B targeted analytical decision complete; FINAL sign-off pending** | [Model-equivalence crosswalk](closest-paper-model-crosswalk.md), [Stage 4B novelty decision](novelty-decision-stage4b.md) | New N09 threat; N01/N03/N06/N09 authorized full text, independent database/citation chasing and supervisor approval |
-| 5. Application and measurable requirements | **5A provisional contract + 5B archived evidence audit DONE; new RQ evidence PENDING** | [5A application boundary](application-boundary-stage5a.md), [5B archive evidence suitability](archived-evidence-audit-stage5b.md) | Real/calibrated trace or approved synthetic-only scope, two-class finite-K U/R(tau) measurements, thresholds and supervisor acceptance |
+| 5. Application and measurable requirements | **5A contract + 5B audit + 5C synthetic metric oracle DONE at declared scope; real evidence PENDING** | [5A application boundary](application-boundary-stage5a.md), [5B archive audit](archived-evidence-audit-stage5b.md), [5C golden oracle](two-class-metric-validation-stage5c.md) | Post-dedup MQTT offer boundary, real/calibrated trace or synthetic-only approval, epsilon/tau/gamma/K and supervisor sign-off |
 | 6. Evaluation pre-registration | **Pending** | Signed protocol | Faithful baselines, acceptance rules, workloads and statistics |
 | 7. Implementation and result validation | **Not started in this literature-only main branch** | Reproducible code/results | Invariants, independent traces, held-out results |
 | 8. Contribution, manuscript and review | **Not started** | Supervisor go/no-go + submission draft | Confirm novelty and venue fit |
@@ -127,6 +127,19 @@ For **N02–N06**:
 
 **Stage 5B checklist outcome:** *Existing engineering evidence FOUND and bounded arithmetic verified; current conference RQ empirical evidence NOT validated. See [source-by-source audit](archived-evidence-audit-stage5b.md).*
 
+### Stage 5C — Two-class metric oracle and tiny synthetic smoke (ENGINEERING VALIDATION)
+
+- [x] Implement **independent** no-dependency FIFO/strict-priority reference oracle for offered urgent U and routine R(tau) with K waiting plus one worker.
+- [x] Define exact completion/admission/dispatch tie rule and class-neutral rejection; do not expose unstarted p in policy selection.
+- [x] Test overflow, nonpreemptive blocking, equality at thresholds, zero offered-class denominators and same-time release: **9/9 golden cases PASS**.
+- [x] Run **48/48** finite-K, variable synthetic-service engineering smoke cases on 6 matched trace seeds across two artificial shapes, capacities and policies.
+- [x] Repeat script; byte-identical output under Python 3.12.14. Document the code checksum and all debug-only parameters.
+- [x] Keep verifier isolated under `literature/validation/`, preserving archived full implementation and current RQ v1.0.
+- [ ] Independently compare future real MQTT/application event logs with the oracle at post-validation offer boundary.
+- [ ] Obtain or justify realistic arrival, service variability, epsilon/tau/gamma/K and professor approval; **no conference inference** from debug outputs.
+
+**Stage 5C checklist outcome:** *Two-class metric/invariant oracle PASS in synthetic ticks. The simulation is deliberately not a real trace, not a new scheduler, not a registered primary experiment, and not novelty sign-off.* Evidence: [Stage 5C report](two-class-metric-validation-stage5c.md) and [executable oracle](../validation/stage5c_golden_oracle.py).
+
 ## Step 6 — Design the evaluation before coding
 
 - [ ] Freeze exact baseline descriptions and information availability (FIFO, priority, EDF+FIFO, aging, DRR, applicable N01 adaptation). If task sizes are unknown before service, label completion-accounted DRR-like variants as *adaptations*; never give them actual future durations.
@@ -168,5 +181,6 @@ For **N02–N06**:
 | 2026-11-16 | Stage 4B: derived ex-post routine-start/variable-service completion-deadline identity; elementary finite-K and blocking conditions; checked N07–N10 publisher sources; issued **REVISE/NARROW** claim-by-claim verdict. | Complete restricted full-text/theory/database coverage and supervisor sign-off. Begin Stage 5 application trace + budget provenance, not algorithm design. |
 | 2026-11-16 | Stage 5A: recovered archived synthetic MQTT security-event enrichment scenario; provisionally narrowed urgent/routine classes; defined local measurement boundary, lifecycle trace schema and evidence register; historical budgets explicitly **not validated**. | Stage 5B trace/calibration, threshold validation, operator/supervisor acceptance, Stage 4 full sign-off. |
 | 2026-11-16 | Stage 5B archival audit: identified actual 90-run unbounded pilot and one-seed 8-policy AMQTT smoke; independently checked saved CSV/JSON group/count arithmetic; mapped 11 incompatibilities with new RQ and 9 evidence acceptance tests. | New two-class finite-K offered-population trace/metric evidence, real service-time calibration or approved synthetic-only scope, professor sign-off. |
+| 2026-11-16 | Stage 5C metric validation: independent FIFO/priority golden oracle, 9/9 fixed cases and 48/48 paired synthetic smoke runs, exact same repeat output; pure methodological verifier only. | Real/MQTT boundary reconciliation, representative application service/workload, budget values and Stage 4 sign-off before Stage 6 formal protocol. |
 
 **Rules for future updates:** Update the date and dashboard; check only completed, traceable work; add evidence links; do not report preliminary models/claims as validated findings; preserve the current RQ text unless a new reasoned team decision supersedes it.
