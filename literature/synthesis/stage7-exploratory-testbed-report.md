@@ -22,7 +22,7 @@
 | Local source replay | **24/24 inprocess trials** (2 synthetic seeds × 4 scenarios × 3 policies at `K=3`) | Fresh SQLite+worker process per run; **not MQTT**, 2 seeds inadequate for inference |
 | Independent local batch audit | **24/24 PASS**, 8 matched three-policy blocks, source/hidden file hashes matched | Engineering lifecycle and raw evidence consistency only |
 | Real loopback MQTT CI, previously verified code revision | **48/48 synthetic trials PASS** for FIFO/strict-urgent-first at commit `ea529f6` | Actual Mosquitto/Paho QoS1 plus SQLite; **does not test the newly added guard candidate** |
-| Updated three-policy real MQTT CI | **Pending new CI run**: 72 synthetic trials expected (3 seeds × 2 K × 4 scenarios × 3 policies) | Requires independent audit after code revision; not publishable results |
+| Updated three-policy real MQTT CI | **72/72 synthetic trials PASS**: 24 matched triples (3 seeds × 2 K × 4 scenarios × 3 policies), independently audited | Real Mosquitto/Paho MQTT → SQLite; engineering proof, **not** publishable scientific results |
 
 For this local host, illustrative *work-level 4* had a CPU+SQLite combined median around **6.8 ms** in 12 standalone executions. This is a **descriptive one-host pilot**, not an accepted service-time distribution, operational constraint or externally sampled data.
 
@@ -46,7 +46,15 @@ The two-baseline code revision `ea529f6dc8c3e8c5db1151dd2e2103f361738419` passed
 - `real-loopback-mqtt-and-sqlite`: **PASS** (48/48 synthetic Mosquitto/Paho-to-SQLite executions; the independent per-run and per-batch auditor completed successfully).
 - The runner uploaded artifact `stage7-fictional-real-mqtt-sqlite-not-science` (GitHub Actions artifact ID `14239563556`, SHA-256 archive digest `ecb29fb4005af2bf2f08bc1f045c5af6fd018d89bdbcf6e9c6fdc0dbfeede4b4`) and an inprocess artifact. Both expire **30 November 2026**; preserve them separately if the study later needs reproducible historical evidence. The artifact archive digest is a transfer integrity indicator, not proof of scientific validity.
 
-**This historic run predates the routine-guard candidate.** The next three-policy GitHub Actions run is a separate verification and must pass before reporting its MQTT results. Any favorable policy contrast is exploratory debugging, not statistical evidence.
+**This historic run predates the routine-guard candidate.** It is preserved here solely as an earlier independently validated software revision. Any favorable policy contrast is exploratory debugging, not statistical evidence.
+
+### Verified three-policy research-candidate run
+
+Commit `974a92ad0e2f5ebb7aa95f5e4cbda9c866d62145` passed both jobs in [Stage 7 workflow run #4](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43900333572) on 16 November 2026:
+
+- `inprocess-sqlite-regression`: **PASS** (new guard candidate, independently audited unit/negative tests and synthetic inprocess blocks).
+- `real-loopback-mqtt-and-sqlite`: **PASS** (72/72 synthetic Mosquitto/Paho-to-SQLite executions, 24 exact source-matched policy triplets, independent per-run and batch raw audit).
+- Raw evidence artifact `stage7-fictional-real-mqtt-sqlite-not-science`: GitHub Actions artifact ID `14240758334`; archive SHA-256 `9e8b980191c6bec519c805e7d2ffb489800a9f1e763f13ef90d17a1e0cebf050`; expiry **30 November 2026**. The inprocess artifact is ID `14241635962`, expiry the same date. Future study replications require independent archival/version pinning and approved protocol; these expiring artifacts are not a durable research dataset.
 
 These results verify software execution and internal accounting under wholly *artificial* input and local runner conditions. There are still **no validated production arrival/service samples, approved SLOs, final novel algorithm or controlled scientific findings**. The recorded `U_debug`/`R_debug` and paired differences are exploratory diagnostics only.
 
