@@ -1,7 +1,7 @@
 # Stage 5G — Declared application-handler contract and provisional SQLite lab measurements
 
 **Date:** 16 November 2026  
-**Status:** **REFERENCE HANDLER BUILT AND AUDITED; APPLICATION REPRESENTATIVENESS / NUMERICAL SLA CALIBRATION NOT APPROVED.**  
+**Status:** **REFERENCE HANDLER + INDEPENDENT AUDIT + CI SMOKE PASSED; APPLICATION REPRESENTATIVENESS / NUMERICAL SLA CALIBRATION NOT APPROVED.**  
 **RQ:** [Conference study v1.0](research-questions.md) · **Previous evidence:** [Stage 5D protocol](workload-measurement-calibration-stage5d.md), [Stage 5F broker-backed smoke](mqtt-measurement-pilot-stage5f.md).  
 **Boundary:** This work is **not** the conference scheduling experiment. It supplies one openly specified, reproducible **illustrative** event-processing handler and timing method to replace the old *CPU-work surrogate* in a future application testbed **if** the domain owner/supervisor finds the semantics credible.
 
@@ -75,7 +75,7 @@ The three synthetic raw JSONL ledgers are retained as reproducible fixtures:
 | M03 service profile | Three short, uncontrolled SQLite worker probes | **LAB FEASIBILITY ONLY**; field handler/hardware variability unverified |
 | M04 arrival and burst | Stage 5F generated source shapes | **SYNTHETIC ONLY**; no measured real source/horizon validation |
 | M05 operational parameters | No owner-backed `D_u`, `epsilon`, `tau`, `gamma`, `K` | **BLOCKED**; **do not** reuse the 50 ms Stage 5F debug thresholds |
-| M06 reproducibility | Script SHA, fixture hashes and independent verifier | **PARTIAL PASS** for this reference lab, not external conditions |
+| M06 reproducibility | Script SHA, fixture hashes, independent verifier and GitHub Actions rerun | **LAB REPRODUCTION PASS**; external conditions unverified |
 | M07 supervisor decision | No dated approval of measured-lab versus synthetic-only paper scope | **BLOCKED** |
 | Stage 4B novelty | Prior **REVISE/NARROW** verdict | **BLOCKED** for a novel-method or best-paper claim |
 
@@ -86,6 +86,19 @@ The three synthetic raw JSONL ledgers are retained as reproducible fixtures:
 - [ ] Acquire application source/service traces, resource limits and operational objectives; preregister all constants before study tuning.
 - [ ] Update Stage 4B novelty verdict using complete closest-work review and supervisor approval.
 - [ ] **Only then** design matched-trace baseline comparisons and Stage 6 full evaluation.
+
+## Step 5G.5 — Independent CI run and regression
+
+On pull request #48, [Stage 5G GitHub Actions run #43873927699](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43873927699) completed **SUCCESS** on Ubuntu/Python 3.12. The job compiled both scripts, passed handler rollback/reopen tests and six auditor negative cases, generated **two new CI-local 32-event traces** (seeds 11 and 22), independently audited both, and independently re-audited the **three archived 120-event JSONLs** (seeds 101, 202 and 303). No CLI benchmark acceptance threshold was applied to noisy absolute service durations; the gate is semantic and accounting-focused.
+
+The existing [Stage 5F MQTT regression run #43873927339](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43873927339) also completed **SUCCESS** on the same PR. This validates that the new Stage 5G files did not break the previous broker-backed engineering smoke, **not** that Stage 5G's SQLite handler was integrated into that MQTT gateway. The two modules are still separate.
+
+**Checklist — 5G.5**
+- [x] Confirm new Stage 5G workflow actually executed, not merely existed in YAML.
+- [x] Inspect completed Ubuntu job: handler positive/error checks and 6/6 negative auditor cases PASS.
+- [x] Independently validate two fresh CI-local traces and all three committed seed traces.
+- [x] Confirm preexisting Stage 5F MQTT regression remains green.
+- [ ] Integrate the *approved* application handler into the MQTT worker and then record **joint** offer→start→commit measurements; still blocked by application requirements.
 
 ## Reproduction
 
