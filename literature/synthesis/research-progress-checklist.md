@@ -10,7 +10,7 @@
 | 2. Core literature review | **19 completed retained notes** | [Register](../README.md), [matrix](comparison.csv), [synthesis](findings.md) | More papers only when a specific gap requires them |
 | 3. Adversarial novelty screening | **Completed as a focused audit; NOT novelty-certified** | [Independent audit](novelty-assessment.md), [search log](../search-log.csv) | N01 directly challenges the broad claim |
 | 4. Closest theory and database coverage | **Stage 4A complete; Stage 4B targeted analytical decision complete; FINAL sign-off pending** | [Model-equivalence crosswalk](closest-paper-model-crosswalk.md), [Stage 4B novelty decision](novelty-decision-stage4b.md) | New N09 threat; N01/N03/N06/N09 authorized full text, independent database/citation chasing and supervisor approval |
-| 5. Application and measurable requirements | **5A–5D contracts/metric validation done; 5E in-process gateway test done; 5F broker-backed CI gate prepared, actual MQTT results pending** | [5D contract](workload-measurement-calibration-stage5d.md), [5E in-process pilot](mqtt-measurement-pilot-stage5e.md), [5F MQTT gate](mqtt-measurement-pilot-stage5f.md) | Broker-backed run and independent audit, actual application service/source calibration, numeric budgets and professor sign-off |
+| 5. Application and measurable requirements | **5A–5F contracts and lab transport checks done; 5G mock SQLite handler audited; OPERATIONAL VALIDITY OPEN** | [5F verified MQTT](mqtt-measurement-pilot-stage5f.md), [5G provisional service probe](application-handler-calibration-stage5g.md) | Actual device/handler workload, owner-backed deadlines and resource capacity, professor sign-off |
 | 6. Evaluation pre-registration | **Pending** | Signed protocol | Faithful baselines, acceptance rules, workloads and statistics |
 | 7. Implementation and result validation | **Not started in this literature-only main branch** | Reproducible code/results | Invariants, independent traces, held-out results |
 | 8. Contribution, manuscript and review | **Not started** | Supervisor go/no-go + submission draft | Confirm novelty and venue fit |
@@ -98,7 +98,7 @@ For **N02–N06**:
 - [ ] Predeclare epsilon, tau, gamma, K and sensitivity ranges before tuning.
 - [ ] Document offered job count, offered **work** and queue occupancy; avoid hidden upstream rate-limiting.
 
-**Checklist outcome:** *Stage 5A application contract and evidence register DRAFTED; Stage 5B empirical validation PENDING. Historic K=1000, D=100/500/2000 ms, 10 ms synthetic handler time and a 1 percentage-point relative tolerance remain archived illustrative settings, **not validated absolute targets**.* Evidence: [Stage 5A](application-boundary-stage5a.md).
+**Checklist outcome:** *Application boundary has a documented fictional candidate; Stage 5F broker transport and Stage 5G mock SQLite handler smoke PASS, but field/service realism and numerically approved operating requirements remain PENDING. Historic K=1000, D=100/500/2000 ms, 10 ms synthetic handler and a 1pp relative tolerance remain archived only, **not validated absolute targets**.* Evidence: [Stage 5A](application-boundary-stage5a.md), [Stage 5F](mqtt-measurement-pilot-stage5f.md), [Stage 5G](application-handler-calibration-stage5g.md).
 
 ### Stage 5A — Application boundary and provenance (provisional design complete)
 
@@ -166,10 +166,23 @@ For **N02–N06**:
 - [x] Make a main-targeted corrective PR containing the Stage 5E files previously merged only to a feature branch.
 - [x] Implement a strict Stage 5F offline gate requiring source-ID/callback/offer reconciliation and rejecting incomplete or in-process-only traces mislabelled as MQTT.
 - [x] Run the gate's local positive and negative self-checks; validate an isolated broker/Paho GitHub Actions workflow YAML syntax and test plan.
-- [x] Observe [GitHub Actions run #43870469820](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43870469820): Ubuntu/Python 3.12, Mosquitto 2.0.18/Paho 2.2, three broker-backed base/burst/overload captures, 3/3 independent ledgers PASS, 195 received/forwarded/ACK'd publishes, 3 subscriptions.\n- [x] Retrieve and integrity-test the seven-file CI ZIP; re-run independent gate on all three raw JSONLs and version those synthetic-only ledgers in this PR with SHA-256 links in the Stage 5F report.
+- [x] Observe [GitHub Actions run #43870469820](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43870469820): Ubuntu/Python 3.12, Mosquitto 2.0.18/Paho 2.2, three broker-backed base/burst/overload captures, 3/3 independent ledgers PASS, 195 received/forwarded/ACK'd publishes, 3 subscriptions.
+- [x] Retrieve and integrity-test the seven-file CI ZIP; re-run independent gate on all three raw JSONLs and version those synthetic-only ledgers in this PR with SHA-256 links in the Stage 5F report.
 - [ ] Repeat realistic source/worker calibration, freeze D_u/epsilon/tau/gamma/K and complete Stage 4B professor novelty sign-off before Stage 6.
 
 **Stage 5F checklist outcome:** *Broker-backed Mosquitto/Paho transport and lifecycle accounting lab smoke PASS (3/3, one CI run, 60 synthetic source IDs per shape); actual application handler, real source/service calibration, statistically replicated policy comparisons and Stage 4B novelty sign-off still OPEN. [Stage 5F evidence](mqtt-measurement-pilot-stage5f.md) · [offline gate](../validation/stage5f_mqtt_gate.py).*
+
+### Stage 5G — Provisional SQLite alert handler and service-timing contract (LAB CHECKED; VALIDITY OPEN)
+- [x] Specify exact fictional device lookup → fixed rule → SQLite INSERT/transaction commit worker, one nonpreemptive application handler per event; validation, MQTT, queue wait excluded.
+- [x] Implement reference handler in Python standard library with WAL/FULL SQLite, and test duplicate/invalid/unknown device rollback and normal database close/reopen.
+- [x] Implement independent service-ledger auditor checking input digest, rule/class, duration arithmetic and nonoverlapping single-worker spans; pass hand-checked positive and 6/6 malformed negative tests.
+- [x] Execute three synthetic seeds × 120 commits (30 urgent, 90 routine per run), retain raw JSONLs and explicitly label unstable single-host timing observations as **not** field service-time calibration.
+- [x] Verify [Stage 5G CI run #43873927699](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43873927699): handler/error self-tests, 6/6 negative audit, two new 32-event traces and three retained 120-event fixture audits **PASS**. [Stage 5F MQTT regression #43873927339](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43873927339) also PASS.
+- [ ] Obtain supervisor/application owner approval of true work semantics and synthetic-only versus representative calibration scope.
+- [ ] Measure real or representative handler plus source arrival/resource constraints under controlled hardware and load; predeclare D_u/epsilon/tau/gamma/K.
+- [ ] Complete Stage 4B final novelty sign-off before Stage 6 full experiment.
+
+**Stage 5G checklist outcome:** *Mock application handler, transaction and timing accounting PASS in a reproducible laboratory; real IoT source/handler service distribution, durability under failure, operational deadlines, confidence bounds and method novelty NOT ESTABLISHED. See [Stage 5G report](application-handler-calibration-stage5g.md), [emitter](../validation/stage5g_reference_handler.py), [independent auditor](../validation/stage5g_service_audit.py).*
 
 ## Step 6 — Design the evaluation before coding
 
@@ -217,6 +230,7 @@ For **N02–N06**:
 | 2026-11-16 | Stage 5D: verified archived callback-entry mismatch; specified post-validation offer ledger; implemented independent Python JSONL audit with fictional positive/negative/unfinished cases and reproducible double run; drafted calibration/parameter evidence gates. | Capture two-class finite-K MQTT ledger with measured or explicitly synthetic handler; validate source/service and epsilon/tau/gamma/K with supervisor. |
 
 | 2026-11-16 | Stage 5E: runnable FIFO gateway with two classes, finite waiting K, post-dedup local offer and actual synthetic CPU work; 6/6 in-process smoke cases and one retained independent-audit fixture passed. | Real Mosquitto/Paho integration and representative handler/source calibration pending. |
-| 2026-11-16 | Stage 5F: PR #47 targets main after #46 feature-branch merge mismatch. Diagnosed setup-only failed Actions run, then verified successful [run #43870469820](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43870469820) with Mosquitto/Paho and 3/3 broker-backed scenario gates; downloaded inspected seven-file artifact and retained three raw JSONLs with hashes. | PR #47 review/merge; operational field/worker calibration, professor numeric/synthetic-only and Stage 4B novelty decisions; no conference result inferred. |
+| 2026-11-16 | Stage 5F: PR #47 merged into main after #46 feature-branch merge mismatch. Verified [broker-backed run #43870469820](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43870469820) with 3/3 ledger audits; retained three raw synthetic JSONLs and hash provenance. | Operational field/worker calibration, professor numerical/synthetic-only and Stage 4B novelty decisions; no conference result inferred. |
+| 2026-11-16 | Stage 5G: fictional device context/rule/SQLite WAL/FULL commit worker specified; self-tests and 6/6 negative audit pass; three 120-event seed traces retained. Verified [Stage 5G CI #43873927699](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43873927699) and [Stage 5F regression #43873927339](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43873927339) both successful. | Obtain real application semantics/arrival evidence or professor-approved synthetic-only scope, validate numerical SLA and Stage 4B originality before Stage 6. |
 
 **Rules for future updates:** Update the date and dashboard; check only completed, traceable work; add evidence links; do not report preliminary models/claims as validated findings; preserve the current RQ text unless a new reasoned team decision supersedes it.
