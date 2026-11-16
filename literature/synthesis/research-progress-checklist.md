@@ -147,7 +147,7 @@ For **N02–N06**:
 - [x] Implement independent offline JSONL lifecycle auditor under `literature/validation/`, covering two-class offered U and R(tau), finite-K admission snapshots, monotonic ordering, duplicates and uncertain rate bounds.
 - [x] Pass **1 fictional hand-checked ledger + 10 malformed-ledger negative tests + 1 incomplete-run case**; two byte-identical self-test runs and Python compile succeed.
 - [x] Draft measured-laboratory versus synthetic-only options, source/worker/burst calibration evidence gates, and an unfilled D_u/epsilon/tau/gamma/K decision sheet.
-- [ ] Actually instrument a two-class finite-K MQTT gateway and capture independently auditable real callback-to-offer/end-to-end local ledgers.
+- [x] Actually instrument a two-class finite-K MQTT gateway and capture independently auditable broker-backed callback-to-offer/local lifecycle ledgers: Stage 5F three-scenario CI PASS; **synthetic-only engineering scope**.
 - [ ] Measure a declared real worker or explicitly approve synthetic-only limits; justify and freeze numeric service targets with supervisor before Stage 6.
 - [ ] Finish independent full-theory/database/supervisor novelty sign-off (Stage 4B remains REVISE/NARROW).
 
@@ -158,18 +158,18 @@ For **N02–N06**:
 - [x] Execute six (K=0/3 × base/burst/overload) in-process smoke cases and independently audit their complete lifecycle traces with Stage 5D.
 - [x] Preserve a small auditable 36-offer in-process debug JSONL with checksum; warn that runtime-dependent figures vary even with the same source schedule.
 - [x] Implement an optional Paho MQTT 2.x integration path, with QoS1 publisher readiness and capture-completeness guard; **no MQTT run was executed in the original Stage 5E environment**.
-- [ ] Run and audit actual broker-backed MQTT input; replace synthetic CPU surrogate with a declared measured handler or obtain synthetic-only supervisor approval.
+- [x] Run and independently audit actual broker-backed MQTT input in Stage 5F (3/3 local-broker CI scenarios); retain raw JSONL.\n- [ ] Replace synthetic CPU surrogate with a declared measured application handler or obtain synthetic-only supervisor approval.
 
-**Stage 5E checklist outcome:** *Local in-process validation PASS; actual MQTT transport and field/service realism NOT established.* [Stage 5E report](mqtt-measurement-pilot-stage5e.md) · [gateway code](../validation/stage5e_gateway_pilot.py) · [debug sample](../validation/fixtures/stage5e_inproc_burst_k3_debug.jsonl).
+**Stage 5E checklist outcome:** *Original in-process validation PASS; subsequent Stage 5F verified broker-backed lab transport/accounting (not the original Stage 5E run). Field/service realism still NOT established.* [Stage 5E report](mqtt-measurement-pilot-stage5e.md) · [gateway code](../validation/stage5e_gateway_pilot.py) · [debug sample](../validation/fixtures/stage5e_inproc_burst_k3_debug.jsonl).
 
-### Stage 5F — Independent broker-backed MQTT audit gate (PREPARED; RUN PENDING)
+### Stage 5F — Independent broker-backed MQTT audit gate (BROKER LAB SMOKE PASSED; RESEARCH STILL BLOCKED)
 - [x] Make a main-targeted corrective PR containing the Stage 5E files previously merged only to a feature branch.
 - [x] Implement a strict Stage 5F offline gate requiring source-ID/callback/offer reconciliation and rejecting incomplete or in-process-only traces mislabelled as MQTT.
 - [x] Run the gate's local positive and negative self-checks; validate an isolated broker/Paho GitHub Actions workflow YAML syntax and test plan.
-- [ ] Observe GitHub Actions Mosquitto/Paho execution result and inspect actual broker logs, version details and diagnostic JSONL artifacts.
+- [x] Observe [GitHub Actions run #43870469820](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43870469820): Ubuntu/Python 3.12, Mosquitto 2.0.18/Paho 2.2, three broker-backed base/burst/overload captures, 3/3 independent ledgers PASS, 195 received/forwarded/ACK'd publishes, 3 subscriptions.\n- [x] Retrieve and integrity-test the seven-file CI ZIP; re-run independent gate on all three raw JSONLs and version those synthetic-only ledgers in this PR with SHA-256 links in the Stage 5F report.
 - [ ] Repeat realistic source/worker calibration, freeze D_u/epsilon/tau/gamma/K and complete Stage 4B professor novelty sign-off before Stage 6.
 
-**Stage 5F checklist outcome:** *Reproducible lab CI and acceptance gates authored; broker-backed execution/evidence NOT YET VERIFIED. [Stage 5F protocol](mqtt-measurement-pilot-stage5f.md) · [offline gate](../validation/stage5f_mqtt_gate.py).*
+**Stage 5F checklist outcome:** *Broker-backed Mosquitto/Paho transport and lifecycle accounting lab smoke PASS (3/3, one CI run, 60 synthetic source IDs per shape); actual application handler, real source/service calibration, statistically replicated policy comparisons and Stage 4B novelty sign-off still OPEN. [Stage 5F evidence](mqtt-measurement-pilot-stage5f.md) · [offline gate](../validation/stage5f_mqtt_gate.py).*
 
 ## Step 6 — Design the evaluation before coding
 
@@ -217,6 +217,6 @@ For **N02–N06**:
 | 2026-11-16 | Stage 5D: verified archived callback-entry mismatch; specified post-validation offer ledger; implemented independent Python JSONL audit with fictional positive/negative/unfinished cases and reproducible double run; drafted calibration/parameter evidence gates. | Capture two-class finite-K MQTT ledger with measured or explicitly synthetic handler; validate source/service and epsilon/tau/gamma/K with supervisor. |
 
 | 2026-11-16 | Stage 5E: runnable FIFO gateway with two classes, finite waiting K, post-dedup local offer and actual synthetic CPU work; 6/6 in-process smoke cases and one retained independent-audit fixture passed. | Real Mosquitto/Paho integration and representative handler/source calibration pending. |
-| 2026-11-16 | Stage 5F preparation: discovered #46 merged to a feature branch, not main; created corrective main-targeted update plus strict MQTT ledger gate and loopback-Mosquitto GitHub Actions workflow. | Verify actual CI broker runs/artifacts and require supervisor numerical/application/novelty sign-offs before full evaluation. |
+| 2026-11-16 | Stage 5F: PR #47 targets main after #46 feature-branch merge mismatch. Diagnosed setup-only failed Actions run, then verified successful [run #43870469820](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43870469820) with Mosquitto/Paho and 3/3 broker-backed scenario gates; downloaded inspected seven-file artifact and retained three raw JSONLs with hashes. | PR #47 review/merge; operational field/worker calibration, professor numeric/synthetic-only and Stage 4B novelty decisions; no conference result inferred. |
 
 **Rules for future updates:** Update the date and dashboard; check only completed, traceable work; add evidence links; do not report preliminary models/claims as validated findings; preserve the current RQ text unless a new reasoned team decision supersedes it.
