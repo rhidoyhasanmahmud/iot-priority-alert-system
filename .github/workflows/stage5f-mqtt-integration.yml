@@ -1,0 +1,76 @@
+name: Stage 5F MQTT gateway measurement smoke
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/stage5f-mqtt-integration.yml
+      - literature/validation/**
+      - literature/synthesis/mqtt-measurement-pilot-stage5f.md
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  mqtt-local-lab:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install local-only MQTT broker and client
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y mosquitto
+          python -m pip install 'paho-mqtt>=2,<3'
+          python -c 'import importlib.metadata as m; print("paho-mqtt", m.version("paho-mqtt"))'
+          dpkg-query -W mosquitto
+
+      - name: Start loopback MQTT broker
+        run: |
+          mkdir -p stage5f-results
+          sudo systemctl stop mosquitto || true
+          mosquitto -p 1883 -v > stage5f-results/mosquitto.log 2>&1 &
+          python - <<'PY'
+          import socket
+          import time
+          for _ in range(50):
+              try:
+                  with socket.create_connection(('127.0.0.1', 1883), timeout=.2):
+                      break
+              except OSError:
+                  time.sleep(.1)
+          else:
+              raise SystemExit('loopback Mosquitto broker never became reachable')
+          print('PASS loopback TCP broker readiness only; MQTT handshake tested by pilot')
+          PY
+
+      - name: Re-run broker-independent invariants
+        run: |
+          python literature/validation/stage5d_lifecycle_audit.py --self-test
+          python literature/validation/stage5e_gateway_pilot.py --self-test
+          python literature/validation/stage5f_mqtt_gate.py --self-test
+
+      - name: Three real broker-backed laboratory MQTT captures
+        run: |
+          for shape in base burst overload; do
+            python literature/validation/stage5e_gateway_pilot.py \
+              --transport mqtt --host 127.0.0.1 --port 1883 \
+              --shape "$shape" --events 60 --queue-capacity 3 --timeout-s 25 \
+              --output "stage5f-results/${shape}.jsonl"
+            python literature/validation/stage5f_mqtt_gate.py \
+              "stage5f-results/${shape}.jsonl" \
+              | tee "stage5f-results/${shape}_gate.json"
+          done
+
+      - name: Save only synthetic laboratory diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage5f-broker-mqtt-debug-ledgers
+          path: stage5f-results/
+          if-no-files-found: warn
+          retention-days: 14

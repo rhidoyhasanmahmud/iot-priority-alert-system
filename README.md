@@ -19,6 +19,8 @@ Literature-first investigation of urgent/routine service, deadlines, fairness an
 11. [Stage 5B: archived workload evidence audit and new-data acceptance gates](literature/synthesis/archived-evidence-audit-stage5b.md)
 12. [Stage 5C: two-class golden measurement oracle and synthetic smoke report](literature/synthesis/two-class-metric-validation-stage5c.md)
 13. [Stage 5D: MQTT offer-boundary ledger contract and workload-calibration evidence gate](literature/synthesis/workload-measurement-calibration-stage5d.md)
+14. [Stage 5E: instrumented two-class gateway pilot (in-process verified; MQTT pending)](literature/synthesis/mqtt-measurement-pilot-stage5e.md)
+15. [Stage 5F: broker-backed MQTT integration acceptance gate and reproducible CI plan](literature/synthesis/mqtt-measurement-pilot-stage5f.md)
 
 [Critical-review template](literature/review-template.md) · [Reference metadata](literature/references.json)
 
