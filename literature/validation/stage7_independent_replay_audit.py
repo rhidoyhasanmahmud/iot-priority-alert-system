@@ -48,6 +48,8 @@ def audit_run(rows: list[dict], sqlite_path: Path, fixture_dir: Path,
         require(transport == "mqtt", "Inproc ledger cannot establish MQTT execution")
     require(m.get("study_status") == "ENGINEERING_PILOT_UNREGISTERED_NOT_SCIENTIFIC_RESULTS",
             "Missing unregistered-synthetic warning")
+    require(m.get("trace_provenance") == "STAGE5K2_FICTIONAL_UNAPPROVED_" + data["shape"],
+            "Incorrect fictional workload provenance/shape declaration")
     require(m.get("work_model") == "PBKDF2_SHA256_ILLUSTRATIVE_CPU_PLUS_SQLITE_WAL_FULL",
             "Unexpected simulated CPU/SQLite model")
     scale = m.get("synthetic_iterations_per_work_unit")

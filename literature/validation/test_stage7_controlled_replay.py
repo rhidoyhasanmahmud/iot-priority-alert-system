@@ -103,6 +103,13 @@ class Stage7IndependentReplayTests(unittest.TestCase):
         with self.assertRaises(AuditError):
             audit_run(forged, db, self.fixture)
 
+    def test_forged_provenance_is_rejected(self) -> None:
+        rows, db = self.examples["fifo"]
+        forged = copy.deepcopy(rows)
+        forged[0]["trace_provenance"] = "TRUSTED_REAL_IOT_SLA"
+        with self.assertRaisesRegex(AuditError, "fictional workload provenance"):
+            audit_run(forged, db, self.fixture)
+
     def test_missing_offer_fails_independent_population_check(self) -> None:
         rows, db = self.examples["fifo"]
         forged = copy.deepcopy(rows)

@@ -18,7 +18,7 @@
 | Execution / audit | Observation | Meaning |
 | --- | --- | --- |
 | Local calibration probe | 36 artificial samples: 12 each at work units 1, 4, 7; SQLite reopen and independent calibration audit **PASS** | Lab host CPU+SQLite profile only, not a field service model |
-| Local policy unit / negative tests | **12/12 PASS** | Contract, decision and evidence corruption checks |
+| Local policy unit / negative tests | **13/13 PASS** | Contract, decision and evidence corruption checks |
 | Local paired source replay | **16/16 inprocess trials** (2 synthetic seeds × 4 scenarios × 2 policies at `K=3`) | Fresh SQLite+worker process per run; **not MQTT**, 2 seeds inadequate for inference |
 | Independent local batch audit | **16/16 PASS**, 8 matched baseline pairs, source/hidden file hashes matched | Engineering lifecycle and raw evidence consistency only |
 | Real loopback MQTT CI | **Pending until GitHub Actions run is independently verified** | Do not invent successful broker data |
