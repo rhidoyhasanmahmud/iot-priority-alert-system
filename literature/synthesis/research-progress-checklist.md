@@ -9,7 +9,7 @@
 | 1. Topic, review scope and research question | **Completed for current iteration** | [RQ v1.0](research-questions.md) | Domain-derived numeric service budgets still needed |
 | 2. Core literature review | **19 completed retained notes** | [Register](../README.md), [matrix](comparison.csv), [synthesis](findings.md) | More papers only when a specific gap requires them |
 | 3. Adversarial novelty screening | **Completed as a focused audit; NOT novelty-certified** | [Independent audit](novelty-assessment.md), [search log](../search-log.csv) | N01 directly challenges the broad claim |
-| 4. Closest theory and database coverage | **Pending — critical path** | Side-by-side theory-equivalence worksheet | Full-text N01/N02/N03/N05/N06, citation chasing |
+| 4. Closest theory and database coverage | **Stage 4A source crosswalk done; 4B sign-off pending** | [Model-equivalence crosswalk](closest-paper-model-crosswalk.md) | N01/N03/N06 complete authorized text, theorem reduction, citation chasing |
 | 5. Application and measurable requirements | **Pending** | Domain/trace provenance + budget memo | Epsilon, tau, gamma, K, service distribution, deadlines |
 | 6. Evaluation pre-registration | **Pending** | Signed protocol | Faithful baselines, acceptance rules, workloads and statistics |
 | 7. Implementation and result validation | **Not started in this literature-only main branch** | Reproducible code/results | Invariants, independent traces, held-out results |
@@ -51,24 +51,28 @@
 
 **Checklist outcome:** *Focused audit done. Verdict: promising testable framing, severe overlap, originality NOT established.* Evidence: [novelty-assessment.md](novelty-assessment.md).
 
-## Step 4 — Closest-paper/model equivalence (NEXT)
+## Step 4 — Closest-paper/model equivalence (IN PROGRESS)
 
 For **N01 Gonthier et al.**:
 - [ ] Obtain and read the complete publisher/authors' paper, including the algorithms and experiments.
-- [ ] Map their objective “urgent deadline completion + maximum routine flow” to ours “urgent offered failures + routine starts within tau.”
-- [ ] Map server count (including one processor), finite queue/admission assumption, known/unknown service times and rejected-job treatment.
+- [x] Map their objective “urgent deadline completion + maximum routine flow” to ours “urgent offered failures + routine starts within tau,” including a mathematical non-equivalence example.
+- [x] Map **verified** N01 processor count, service-information model and both output metrics; record finite-buffer/rejection as **unverified** rather than asserting absence.
+- [ ] Verify finite queue/admission assumptions and rejected-job treatment in the complete N01 paper.
 - [ ] Reproduce or fairly adapt their EDF+FIFO/Greedy-Slack-style baseline under matching information.
-- [ ] Write an explicit conclusion: equivalent, subsuming, partially overlapping, or incomparable; justify each mismatch.
+- [x] Write a provisional **substantially overlapping but not established equivalent** conclusion, with evidence boundaries.
+- [ ] Sign off final equivalence/subsumption conclusion after complete authorized original-paper reading.
 
 For **N02–N06**:
-- [ ] Read N02 network-calculus assumptions and derive whether a routine queue waiting bound applies.
-- [ ] Obtain complete N03 latency/fairness and N05 multiclass-buffer analyses.
+- [x] Read N02 original RTAS service-curve/arrival assumptions and real-time-job mapping.
+- [ ] Derive and validate applicability of the bound to finite-K waiting and offered-population losses.
+- [x] Inspect N05 author-hosted complete primary paper's model and Dlex algorithm, not claim proof replication.
+- [ ] Obtain N03 full text and complete N05 proof/variable-size applicability review.
 - [ ] Obtain complete N06 online hard-deadline admission analysis.
-- [ ] Check N04 if any service-time predictor is introduced; otherwise cite as a boundary/limitation.
+- [x] Keep N04 as a documented boundary/limitation; do not claim estimator-error novelty.
 - [ ] Conduct reproducible independent database searches (e.g., Scopus/IEEE/ACM) and citation chasing; log dates, strings, result counts, exclusions and full-text limits.
 - [ ] Present a 1–2 page novelty-go/no-go memo to the supervisor, with a precise **not-yet-published substantive claim** or a decision to reframe.
 
-**Checklist outcome:** *PENDING. This is a research validity gate, not a coding task.* Evidence to create: a source-specific theory/model crosswalk linked from [the audit](novelty-assessment.md).
+**Checklist outcome:** *Stage 4A COMPLETE at stated primary-source reading levels; Stage 4B PENDING for definitive theory/novelty sign-off.* See [source-specific model crosswalk](closest-paper-model-crosswalk.md). This is a research validity gate, not a coding task.
 
 ## Step 5 — Application and experimental targets
 
@@ -117,5 +121,6 @@ For **N02–N06**:
 | Date | What changed | Next blocker |
 | --- | --- | --- |
 | 2026-11-16 | Captured RQ v1.0 current main-branch decision; independently checked closer primary sources, documented overlap/novelty risks and an experimental-gate design. | Complete closest theory/model equivalence and supervisor go/no-go before selecting an algorithm. |
+| 2026-11-16 | Stage 4A: inspected Gonthier first-party slides/ACM text, Hajek–Seri author-hosted paper and RTAS original text; added formal objective counterexample, risk crosswalk and reading-level limitations. | Stage 4B: authorized full N01/N03/N06 text, theory reductions, database/citation checks, domain budgets. |
 
 **Rules for future updates:** Update the date and dashboard; check only completed, traceable work; add evidence links; do not report preliminary models/claims as validated findings; preserve the current RQ text unless a new reasoned team decision supersedes it.
