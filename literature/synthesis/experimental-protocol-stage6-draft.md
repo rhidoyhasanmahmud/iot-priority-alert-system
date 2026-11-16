@@ -40,14 +40,16 @@ Until all above are filled and reviewed, this is an **experimental design propos
 
 | Candidate | Reviewer question | Caveat before implementation |
 | --- | --- | --- |
-| FIFO | What is the class-neutral minimum complexity reference? | Implemented/tested as Stage 5J *engineering* baseline, not a paper-level matched comparison |
-| Strict urgent priority | Does urgent-first produce routine starvation/loss? | Freeze same within-class order, K and admission semantics |
+| FIFO | What is the class-neutral minimum complexity reference? | Stage 5J real-MQTT engineering pilot and Stage 5K.2 *toy* synthetic lifecycle scaffold exist; neither is a calibrated paper-level comparison |
+| Strict urgent priority | Does urgent-first produce routine starvation/loss? | Stage 5K.2 in-memory *toy* lifecycle scaffold exists; freeze same within-class order, K and admission semantics before valid study |
 | EDF or EDF+FIFO | Does deadline-aware information change feasible region? | Exact urgent deadline metadata must be available online; routine adaptation disclosed |
 | Aging or bounded routine access | Does routine protection change urgent loss budget? | No ex-post tuning of aging interval against holdout |
 | DRR/work-fair adaptation | Is consumed **past** work better than pure counts? | No unstarted-service oracle; justify work-to-queue adaptation and runtime cost |
 | Closest applicable prior-work method (N01/N05/N06 where model permits) | Does an established approach equal/dominate our claimed gain? | Verify original mathematical model and input visibility before claiming faithful replication |
 
 The actual comparator family is **subject to Stage 4B full-text checks and professor approval**. If an exact comparator is inapplicable, report why and label a faithful *adaptation* with exact changes; do not create a straw man.
+
+**Implementation note (16 Nov 2026):** The [Stage 5K.2 synthetic candidate fixture and baseline contract pilot](stage5k2_fixture_pilot.md) passed **22/22 local engineering tests** and the [fixture CI integrity workflow](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43895711109) succeeded. This validates only deterministic input pairing and hypothetical FIFO/urgent-first lifecycle invariants; it **does not** satisfy comparator fidelity, timing calibration, protocol freeze or Stage 6 outcome reporting.
 
 ## 4. Experimental units, factors and fairness
 

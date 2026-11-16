@@ -51,8 +51,9 @@ The Stage 5I [16-field readiness gate](../validation/stage5i_evidence_gate.py) r
 - [x] Separate visible arrivals, hidden ex-ante simulated work and post-hoc measured outcomes at the contract level.
 - [x] Record how Stage 5K.1 committed-only service sampling can bias conclusions about offered work.
 - [x] Specify burst-vs-intensity, mix-vs-size and capacity-vs-hardware confound controls in a draft.
+- [x] Implement and independently test an **explicitly fictional candidate** event/work fixture with cross-axis pairing checks; [pilot and limitations](stage5k2_fixture_pilot.md). This is software-contract validation, **not** study-model approval or empirical calibration.
 - [ ] Professor approves **A or B** and the exact application/generalization scope.
-- [ ] Specify and independently test the fixed fixture generator, source/work hashes, and hidden-service information firewall.
+- [ ] Approve/freeze the *scientific* fixture generator, justified source/work ranges, and an enforceable online hidden-service information firewall. The current synthetic candidate and its hashes/tests are **not** signed research specifications.
 - [ ] Select justified *numeric* factor ranges, mean and variation families; include zero-denominator, expiry and tie rules.
 - [ ] Verify source count, offered work and per-event pairing across all candidate policies before any treatment run.
 - [ ] Sign a dated protocol freeze with fixed seeds/training-versus-holdout, independent run-level replication and resource configuration.
