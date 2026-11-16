@@ -151,7 +151,7 @@ For **N02–N06**:
 - [ ] Measure a declared real worker or explicitly approve synthetic-only limits; justify and freeze numeric service targets with supervisor before Stage 6.
 - [ ] Finish independent full-theory/database/supervisor novelty sign-off (Stage 4B remains REVISE/NARROW).
 
-**Stage 5D checklist outcome:** *Boundary and offline audit tooling PASS on invented data; operational realism/calibration/requirements and real MQTT trace verification are NOT COMPLETE. See [Stage 5D evidence plan](workload-measurement-calibration-stage5d.md) and [offline ledger auditor](../validation/stage5d_lifecycle_audit.py). Next: Stage 5E measurement feasibility pilot or supervisor-approved synthetic-only scope; no full experiment yet.*
+**Stage 5D checklist outcome:** *Original Stage 5D boundary and offline audit tooling PASS on invented data; Stage 5F subsequently added and independently checked three broker-backed **synthetic laboratory** traces. Real application/source/service calibration and operational requirements remain NOT COMPLETE. See [Stage 5D evidence plan](workload-measurement-calibration-stage5d.md), [offline ledger auditor](../validation/stage5d_lifecycle_audit.py), and [Stage 5F lab evidence](mqtt-measurement-pilot-stage5f.md). No full research experiment yet.*
 
 ### Stage 5E — Two-class instrumented gateway pilot (IN-PROCESS ENGINEERING VALIDATION)
 - [x] Implement and locally run a bounded FIFO gateway with one nonpreemptive CPU-work worker, post-validation/dedup offer boundary and full offered-event accounting.
