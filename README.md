@@ -18,6 +18,7 @@ Literature-first investigation of urgent/routine service, deadlines, fairness an
 10. [Stage 5A: provisional application boundary, trace schema and evidence register](literature/synthesis/application-boundary-stage5a.md)
 11. [Stage 5B: archived workload evidence audit and new-data acceptance gates](literature/synthesis/archived-evidence-audit-stage5b.md)
 12. [Stage 5C: two-class golden measurement oracle and synthetic smoke report](literature/synthesis/two-class-metric-validation-stage5c.md)
+13. [Stage 5D: MQTT offer-boundary ledger contract and workload-calibration evidence gate](literature/synthesis/workload-measurement-calibration-stage5d.md)
 
 [Critical-review template](literature/review-template.md) · [Reference metadata](literature/references.json)
 
