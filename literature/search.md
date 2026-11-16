@@ -4,7 +4,7 @@
 
 What mechanisms balance urgent-message responsiveness, routine service and loss in IoT messaging, and under which traffic, service and information assumptions are their benefits supported?
 
-This is a working question for a **focused critical review**, not a registered systematic review. Narrow it after comparing the evidence.
+This is a working question for a **focused critical review**, not a registered systematic review. The conference study's narrower question and scope are in the [research-question note](synthesis/research-questions.md).
 
 ## Search scope
 
@@ -37,7 +37,7 @@ Read the closest 5-8 methods deeply. Stop broad collection when decisions are we
 
 ## Gate before implementation
 
-Compare 2-3 candidate research questions on importance, existing overlap, falsifiability, fair evaluation and feasibility. The current [candidate decision note](synthesis/research-questions.md) records three questions, a provisional investigation order and unresolved novelty checks. Select an idea only after the review supports that choice. Plan experiments around the question, not around proving the archived code successful.
+The [research-question note](synthesis/research-questions.md) now fixes one main question and three sub-questions within the selected routine-protection direction. Admission/outages and label robustness are parked. Resolve the closest fair-queue/deadline theory, application requirements and exact contribution before selecting a new method or evaluation protocol. Existing DRR job mappings and size-estimation research prevent simple count/work or generic prediction-error novelty claims. Plan experiments to answer the question; archived code does not establish the contribution.
 
 ## Active-set policy - 15 November 2026
 

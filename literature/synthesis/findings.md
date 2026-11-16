@@ -114,11 +114,13 @@ The small-instance ILP comparison reports roughly 80% of optimal GoS; that is an
 
 These are reading questions, not demonstrated field-wide gaps or selected contributions.
 
-## Next step
+## Selected research frame
 
-Use the [candidate research-question decision note](research-questions.md) to compare three directions: service accounting under heterogeneous bursts, admission/dispatch interaction, and label robustness. RQ-A is the provisional first investigation, with a direct fair-queue/latency-theory overlap check still pending; no gap, algorithm or final protocol is selected.
+The [conference research-question note](research-questions.md), version 1.0 of 16 November 2026, fixes **one main question and three sub-questions**: operating conditions/limits, mechanism comparison, and available information/cost. The selected direction is routine-service protection under a declared urgent deadline-failure budget at one finite-capacity, non-preemptive processing worker. Admission/outage control is parked and label robustness deferred.
 
-The active set remains 19 completed reviews. The bounded [search log](../search-log.csv) records targeted novelty/identity checks; the two primary-source leads in the decision note are not counted as full-text reviews. Prioritize those closest checks and application-backed requirements before broad collection or implementation. The 20-25-paper working target is a coverage guide, not evidence of novelty or a mandatory count before synthesis.
+The 19 retained review notes and comparison rows were cross-checked for this framing; this is not a fresh PDF review or replication of all papers. Additional primary-source screening sharpens the overlap warning: DRR theory explicitly maps packets to processing jobs, and estimated-size fairness already has prior art. The note gives verified citations, reading levels and stop rules. It does **not** establish a field-wide gap or a new algorithm.
+
+The active count remains **19 completed reviews**. New theory leads remain outside that count until full reviews are completed. Complete the closest-theory comparison and justify one application's workloads and service budgets before selecting an analytical/evaluation protocol or implementing a method. The 20-25-paper working target is a coverage guide, not proof of readiness.
 
 The [previous synthesis](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/blob/938a07f828909bb2d8f31e271a0b479dd117f562/literature/synthesis/findings.md) remains accessible for historical context. Supporting/excluded material is not part of this active synthesis.
 
