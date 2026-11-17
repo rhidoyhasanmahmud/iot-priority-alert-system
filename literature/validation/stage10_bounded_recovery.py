@@ -328,7 +328,11 @@ def run_case(*, fixture_dir: Path, policy: str, B: int, K: int,
              iterations_per_unit: int, urgent_deadline_ms: float,
              routine_tau_ms: float, sqlite_output: Path, spool_output: Path,
              transport: str = "inproc", timeout_s: float = 35.0,
+             evidence_phase: str = "development",
              host: str = "127.0.0.1", port: int = 1883):
+    if evidence_phase not in {"development", "frozen_holdout"} or (
+            evidence_phase == "frozen_holdout" and transport != "mqtt"):
+        raise ValueError("Frozen holdout must be labelled and use real MQTT")
     fixture = fixture_audit(fixture_dir)
     sources = [source_payload(x) for x in fixture["offers"]]
     offsets = [x["planned_offer_offset_ns"] for x in fixture["offers"]]
@@ -370,8 +374,13 @@ def run_case(*, fixture_dir: Path, policy: str, B: int, K: int,
         p["source"] = by_id[p["event_id"]]
     fmanifest = json.loads((fixture_dir / "manifest.json").read_text())
     rows = [{"type": "manifest", "run_id": run_id,
-             "policy_id": policy, "scenario_id": "stage10_pilot_"+transport,
-             "study_status": "STAGE10_TUNING_ONLY_NO_INFERENCE",
+             "policy_id": policy,
+             "scenario_id": ("stage10_holdout_mqtt" if evidence_phase == "frozen_holdout"
+                             else "stage10_pilot_"+transport),
+             "evidence_phase": evidence_phase,
+             "study_status": ("STAGE10_FROZEN_HELDOUT_SYNTHETIC_NOT_FIELD_CALIBRATED"
+                              if evidence_phase == "frozen_holdout" else
+                              "STAGE10_TUNING_ONLY_NO_INFERENCE"),
              "K": K, "B": B,
              "source_sha256": hashlib.sha256(canonical(sources).encode()).hexdigest(),
              "schedule_sha256": hashlib.sha256(canonical(gaps).encode()).hexdigest(),
@@ -422,6 +431,8 @@ def main() -> None:
     p.add_argument("--K", type=int, default=3)
     p.add_argument("--B", type=int, default=8)
     p.add_argument("--transport", choices=["inproc", "mqtt"], default="inproc")
+    p.add_argument("--evidence-phase", choices=["development", "frozen_holdout"],
+                   default="development")
     p.add_argument("--iterations-per-unit", type=int, default=10000)
     p.add_argument("--urgent-deadline-ms", type=float, default=50)
     p.add_argument("--routine-tau-ms", type=float, default=20)
@@ -436,7 +447,7 @@ def main() -> None:
                             urgent_deadline_ms=a.urgent_deadline_ms,
                             routine_tau_ms=a.routine_tau_ms,
                             sqlite_output=a.sqlite_output, spool_output=a.spool_output,
-                            timeout_s=a.timeout_s)
+                            timeout_s=a.timeout_s, evidence_phase=a.evidence_phase)
     with a.output.open("x", encoding="utf-8") as out:
         for row in rows:
             out.write(canonical(row)+"\n")

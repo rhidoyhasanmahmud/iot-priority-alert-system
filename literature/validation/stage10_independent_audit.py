@@ -46,18 +46,26 @@ def audit_run(records: list[dict], worker_db: Path, spool_db: Path,
             "Expected exactly one manifest")
     man = next(x for x in records if x["type"] == "manifest")
     policy, K, B, run_id = (man[x] for x in ("policy_id", "K", "B", "run_id"))
+    phase = man.get("evidence_phase", "development")  # Old reserved tuning ledgers.
     require(policy in POLICIES and type(K) is int and K >= 0
             and type(B) is int and B >= 0,
             "Unexpected policy or invalid explicit capacity")
     require((B == 0) == (policy == "pushout_slack") and
             man["additional_capacity_declared"] == (B > 0) and
-            man["study_status"] == "STAGE10_TUNING_ONLY_NO_INFERENCE" and
+            phase in {"development", "frozen_holdout"} and
+            man["study_status"] == (
+                "STAGE10_FROZEN_HELDOUT_SYNTHETIC_NOT_FIELD_CALIBRATED"
+                if phase == "frozen_holdout" else "STAGE10_TUNING_ONLY_NO_INFERENCE") and
             man["field_calibrated"] is False and
             man["algorithm_novelty_verified"] is False,
             "Invalid pilot provenance or unreported extra storage")
     require(man["transport"] in {"mqtt", "inproc"} and
             (not require_mqtt or man["transport"] == "mqtt") and
-            man["scenario_id"] == "stage10_pilot_"+man["transport"],
+            (phase != "frozen_holdout" or
+             (require_mqtt and man["transport"] == "mqtt")) and
+            man["scenario_id"] == (
+                "stage10_holdout_mqtt" if phase == "frozen_holdout"
+                else "stage10_pilot_"+man["transport"]),
             "Transport substituted")
     require(man["slack_guard_ns"] == 3_000_000 and
             man["slack_estimator"] == "PREVIOUS_COMPLETED_CLASS_SERVICE_P90_16_WINDOW_15MS_WARMUP",
