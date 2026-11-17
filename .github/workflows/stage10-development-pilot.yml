@@ -1,0 +1,80 @@
+name: Stage 10 guarded routine recovery (DEVELOPMENT PILOT ONLY)
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/stage10-development-pilot.yml
+      - literature/validation/stage10_*.py
+      - literature/validation/test_stage10_bounded_recovery.py
+
+permissions:
+  contents: read
+
+concurrency:
+  group: stage10-development-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  reserved-pilot-and-independent-evidence-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Red-team bounded admission, spool persistence and independent audit
+        run: |
+          python -m py_compile literature/validation/stage10_*.py
+          python -m unittest discover -s literature/validation -p 'test_stage10_bounded_recovery.py' -v
+      - name: Install MQTT and record testbed version
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y mosquitto
+          python -m pip install 'paho-mqtt==2.1.0'
+          python -m pip freeze > stage10-python-freeze.txt
+          uname -a > stage10-host.txt
+          lscpu >> stage10-host.txt
+      - name: Start real local MQTT broker
+        run: |
+          sudo systemctl stop mosquitto || true
+          mosquitto -p 1883 -v > stage10-mosquitto.log 2>&1 &
+          python - <<'PY'
+          import socket, time
+          for _ in range(60):
+              try:
+                  with socket.create_connection(('127.0.0.1', 1883), timeout=.2):
+                      break
+              except OSError:
+                  time.sleep(.1)
+          else:
+              raise SystemExit('Stage 10 MQTT broker unavailable')
+          PY
+      - name: Seven matched real-MQTT/SQLite reservation-seed development trials
+        run: |
+          python literature/validation/stage10_development_pilot.py \
+            --seeds 9008 --cells burst --B 8 --transport mqtt \
+            --out-dir stage10-reserved-mqtt-pilot
+          python literature/validation/stage10_reaudit_development.py \
+            --pilot-dir stage10-reserved-mqtt-pilot
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('stage10-reserved-mqtt-pilot/pilot_summary.json').read_text())
+          assert report['transport'] == 'mqtt'
+          assert report['total_independently_audited_runs'] == 7
+          assert report['status'] == 'STAGE10_RESERVED_PILOT_NO_INFERENCE'
+          print('AUDIT PASS: 7 source-matched MQTT + SQLite development trials; NO inference')
+          PY
+      - name: Retain raw MQTT and SQLite pilot artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage10-engineering-dev-only-mqtt-not-holdout
+          path: |
+            stage10-reserved-mqtt-pilot/
+            stage10-python-freeze.txt
+            stage10-host.txt
+            stage10-mosquitto.log
+          if-no-files-found: warn
+          retention-days: 90
