@@ -1,0 +1,120 @@
+name: Stage 10 FIRST FROZEN heldout (synthetic MQTT, NOT field evidence)
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/stage10-frozen-heldout.yml
+      - literature/validation/stage10_frozen_protocol.json
+      - literature/validation/stage10_frozen_study.py
+      - literature/validation/stage10_independent_analysis.py
+      - literature/validation/test_stage10_frozen_protocol.py
+  # No workflow_dispatch and no manual heldout rerun after the first completion.
+
+permissions:
+  contents: read
+
+concurrency:
+  group: stage10-frozen-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  freeze-validation-and-reserved-preflight:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify pinned preregistration hash, holdout isolation and auditor red-team
+        run: |
+          python -m py_compile literature/validation/stage10_frozen_study.py literature/validation/stage10_independent_analysis.py
+          python -m unittest discover -s literature/validation -p 'test_stage10_frozen_protocol.py' -v
+      - name: Repeat source-matched in-process reserved pilot (NEVER heldout)
+        run: |
+          python literature/validation/stage10_frozen_study.py \
+            --mode pilot --pilot-seeds 9008 --output-dir stage10-frozen-reserved-preflight
+          python literature/validation/stage10_independent_analysis.py \
+            --pilot --study-dir stage10-frozen-reserved-preflight \
+            --output stage10-frozen-reserved-preflight-audit.json
+      - name: Preserve preflight evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage10-frozen-reserved-preflight-not-science
+          path: |
+            stage10-frozen-reserved-preflight/
+            stage10-frozen-reserved-preflight-audit.json
+          if-no-files-found: warn
+          retention-days: 90
+
+  first-frozen-real-mqtt-600-source-matched-trials:
+    needs: freeze-validation-and-reserved-preflight
+    runs-on: ubuntu-24.04
+    timeout-minutes: 65
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install and record actual MQTT broker and Python dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y mosquitto
+          python -m pip install 'paho-mqtt==2.1.0'
+          mosquitto -h > stage10-broker-version.txt 2>&1 || true
+          python -m pip freeze > stage10-python-freeze.txt
+          uname -a > stage10-host.txt
+          lscpu >> stage10-host.txt
+      - name: Start dedicated loopback MQTT broker
+        run: |
+          sudo systemctl stop mosquitto || true
+          mosquitto -p 1883 -v > stage10-mosquitto.log 2>&1 &
+          python - <<'PY'
+          import socket,time
+          for _ in range(60):
+              try:
+                  with socket.create_connection(('127.0.0.1',1883),timeout=.2):
+                      break
+              except OSError:
+                  time.sleep(.1)
+          else:
+              raise SystemExit('First-frozen MQTT broker failed')
+          PY
+      - name: FIRST execution of 600 immutable holdout MQTT + SQLite trials
+        run: |
+          python literature/validation/stage10_frozen_study.py \
+            --mode holdout --git-revision '${{ github.event.pull_request.head.sha }}' \
+            --output-dir stage10-first-heldout
+      - name: Independently reread all 600 ledger, fixture, worker and spool SQLite files
+        run: |
+          python literature/validation/stage10_independent_analysis.py \
+            --study-dir stage10-first-heldout \
+            --output stage10-first-heldout-independent-result.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('stage10-first-heldout-independent-result.json').read_text())
+          assert r['status']=='PASS_STAGE10_FROZEN_SYNTHETIC_HELDOUT_FULL_INDEPENDENT_AUDIT'
+          assert r['raw_runs_reaudited']==600
+          assert r['four_policy_matched_blocks']==150
+          assert r['source_seeds']==30
+          assert r['field_calibrated'] is False
+          assert r['algorithm_novelty_verified'] is False
+          assert type(r['predeclared_primary_intersection_gate']['supported_under_artificial_model']) is bool
+          print('PASS: 600 REAL-MQTT synthetic holds independently reaudited, regardless of scientific gate sign')
+          PY
+      - name: Retain all raw experiment data, negative results and host calibration
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage10-first-frozen-synthetic-mqtt-full-evidence
+          path: |
+            stage10-first-heldout/
+            stage10-first-heldout-independent-result.json
+            stage10-broker-version.txt
+            stage10-python-freeze.txt
+            stage10-host.txt
+            stage10-mosquitto.log
+          if-no-files-found: warn
+          retention-days: 90

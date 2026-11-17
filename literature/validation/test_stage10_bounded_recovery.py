@@ -86,6 +86,14 @@ class Stage10IndependentAuditTests(unittest.TestCase):
         self.assert_refused(self.mutated(lambda x: x["type"] == "manifest",
                                         "slack_guard_ns", -1))
 
+    def test_reject_forged_frozen_holdout_phase_in_development_evidence(self):
+        rows = copy.deepcopy(self.rows)
+        man = next(x for x in rows if x["type"] == "manifest")
+        man["evidence_phase"] = "frozen_holdout"
+        man["study_status"] = "STAGE10_FROZEN_HELDOUT_SYNTHETIC_NOT_FIELD_CALIBRATED"
+        man["scenario_id"] = "stage10_holdout_mqtt"
+        self.assert_refused(rows)
+
     def test_reject_missing_offer(self):
         rows = copy.deepcopy(self.rows)
         rows.remove(next(x for x in rows if x["type"] == "offer"))
