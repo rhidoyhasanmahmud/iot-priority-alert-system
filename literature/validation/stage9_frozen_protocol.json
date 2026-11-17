@@ -1,0 +1,92 @@
+{
+  "protocol_id": "STI-2026-STAGE9-URGENT-PUSHOUT-HELDOUT-V1",
+  "version": 1,
+  "study_scope": "CONDITIONAL_ARTIFICIAL_SINGLE_WORKER_MQTT_SQLITE_NOT_FIELD_CALIBRATED",
+  "predecessor_stage8_protocol_sha256": "1fe656270ce5843af8b26a6a288f712bb4afbf25a05f7d1f2ea9221e93163c52",
+  "predecessor_stage8_primary_status": "NOT_SUPPORTED_DO_NOT_MODIFY_OR_COMBINE",
+  "candidate": "urgent_pushout_strict",
+  "candidate_novelty_verified": false,
+  "prior_art_note": "Push-out priority admission is established prior art; this is only a controlled engineering comparator.",
+  "causal_scope": "JOINT_ADMISSION_AND_DISPATCH_POLICY_NOT_SCHEDULING_ONLY_IMPROVEMENT",
+  "field_calibrated": false,
+  "investigator_slo_approved": false,
+  "policies": ["fifo", "strict_urgent_first", "routine_wait_guard", "urgent_pushout_strict"],
+  "candidate_rule": {
+    "admission": "WHEN_FULL_AND_URGENT_REPLACE_NEWEST_WAITING_ROUTINE_IF_PRESENT_ELSE_REJECT",
+    "dispatch": "STRICT_URGENT_FIRST_FIFO_WITHIN_URGENT",
+    "preemption": false,
+    "displaced_routine_counts_as_offered_failure": true,
+    "routine_service_guard": false,
+    "uses_hidden_work_or_future_arrivals": false,
+    "all_policies_same_K_and_single_worker": true,
+    "note": "Candidate has different class-aware admission; FIFO/priority/guard baselines retain first-come admission. Improvements cannot be attributed to dispatch order alone."
+  },
+  "source_count": 60,
+  "urgent_count": 15,
+  "routine_count": 45,
+  "pbkdf2_iterations_per_work_unit": 10000,
+  "work_model": "SYNTHETIC_WORK_1_4_7_UNITS_MEAN_4_PLUS_REAL_SQLITE_WAL_FULL_COMMIT",
+  "transport": "mqtt",
+  "urgent_deadline_ms": 50.0,
+  "routine_tau_ms": 20.0,
+  "timing_boundary": "LOCAL_POST_VALIDATION_OFFER_TO_SQLITE_COMMIT_URGENT_AND_SERVICE_START_ROUTINE",
+  "primary_cell": {"scenario": "burst", "K": 3},
+  "study_cells": [
+    {"scenario": "burst", "K": 3, "role": "PRIMARY_ALREADY_KNOWN_TO_BE_DIFFICULT_FROM_STAGE8"},
+    {"scenario": "smooth", "K": 3, "role": "SECONDARY_NORMAL"},
+    {"scenario": "overload", "K": 3, "role": "SECONDARY_INTENSITY"},
+    {"scenario": "variable", "K": 3, "role": "SECONDARY_WORK_DISPERSION"},
+    {"scenario": "burst", "K": 0, "role": "SECONDARY_NO_WAITING_NEGATIVE_CONTROL"}
+  ],
+  "scenarios": {
+    "burst": {"shape": "clustered", "dispersion": "flat", "horizon_ns": 1000000000},
+    "smooth": {"shape": "smooth", "dispersion": "flat", "horizon_ns": 1000000000},
+    "overload": {"shape": "smooth", "dispersion": "flat", "horizon_ns": 250000000},
+    "variable": {"shape": "smooth", "dispersion": "variable", "horizon_ns": 1000000000}
+  },
+  "pilot_only_seeds": [8001, 8002, 8003, 8004, 8005, 8006, 8007, 8008, 8009, 8010],
+  "known_prior_evaluation_seeds_excluded": [71, 101, 202, 303, 917, 7001, 7002, 7003, 7004, 7005],
+  "prior_stage8_holdout_range_excluded": [210001, 210030],
+  "holdout_seeds": [
+    220001, 220002, 220003, 220004, 220005, 220006,
+    220007, 220008, 220009, 220010, 220011, 220012,
+    220013, 220014, 220015, 220016, 220017, 220018,
+    220019, 220020, 220021, 220022, 220023, 220024,
+    220025, 220026, 220027, 220028, 220029, 220030
+  ],
+  "independent_holdout_seeds": 30,
+  "matched_policy_blocks": 150,
+  "experimental_runs": 600,
+  "block_shuffle_seed": 20261117,
+  "policy_within_block_shuffle_seed": 93417,
+  "bootstrap_seed": 819019,
+  "bootstrap_resamples": 10000,
+  "primary_decision": {
+    "metric_U": "ALL_OFFERED_URGENT_REJECTED_CANCELLED_OR_COMPLETE_AFTER_LOCAL_DEADLINE_OVER_ALL_OFFERED_URGENT",
+    "metric_R": "ALL_OFFERED_ROUTINE_START_BEFORE_OR_AT_TAU_OVER_ALL_OFFERED_ROUTINE",
+    "candidate_vs_fifo_U_improvement_min": 0.05,
+    "candidate_vs_priority_U_improvement_min": 0.05,
+    "candidate_vs_priority_R_noninferiority_margin": 0.10,
+    "three_component_intersection_gate": "LOWER_95CI_OF_U_FIFO_MINUS_CANDIDATE_GT_5PP_AND_LOWER_95CI_OF_U_PRIORITY_MINUS_CANDIDATE_GT_5PP_AND_LOWER_95CI_OF_R_CANDIDATE_MINUS_PRIORITY_GT_NEGATIVE_10PP",
+    "method": "PAIRED_30_SOURCE_SEED_PERCENTILE_BOOTSTRAP_TWO_SIDED_95CI_10000_REPLICATES",
+    "hypothetical_model_only": true,
+    "negative_null_or_incomplete_result_preserved": true
+  },
+  "conditional_joint_targets_exploratory": {"absolute_urgent_U_max": 0.10, "absolute_routine_R_min": 0.75},
+  "execution": {
+    "runner": "ONE_GITHUB_UBUNTU_24_04_PYTHON_3_12_REAL_LOCAL_MOSQUITTO",
+    "randomize_blocks_and_four_policy_order": true,
+    "each_trial": "FRESH_PYTHON_PROCESS_AND_SQLITE_DB_RAW_LEDGER",
+    "per_trial_timeout_s": 35,
+    "fail_closed": "NO_DROPPED_RUNS_SUBSTITUTED_SEEDS_OR_FAVORABLE_ONLY_ANALYSIS",
+    "separate_full_audit": true,
+    "artifact_retention_days": 90
+  },
+  "reporting": [
+    "SHOW_ALL_FOUR_POLICIES_AND_ALL_FIVE_SCENARIOS",
+    "REPORT_ROUTINE_REJECTED_AND_EVICTED_SEPARATELY",
+    "REPORT_HYPOTHESIS_FAILURE_IF_EITHER_URGENT_CI_OR_ROUTINE_CI_FAILS",
+    "NO_ALGORITHM_NOVELTY_FIELD_SLA_DEPLOYMENT_OR_PUBLICATION_CLAIM",
+    "NO_POST_HOC_RETUNING_AFTER_FIRST_HOLDOUT"
+  ]
+}
