@@ -1,0 +1,120 @@
+name: Stage 8 FROZEN synthetic MQTT holdout (conditional model; NOT field evidence)
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/stage8-frozen-holdout.yml
+      - literature/validation/stage8_*.py
+      - literature/validation/stage8_frozen_protocol.json
+      - literature/validation/stage7_controlled_replay.py
+      - literature/validation/stage7_independent_replay_audit.py
+      - literature/validation/stage7_calibration_*.py
+      - literature/validation/stage5k2_*.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  frozen-protocol-and-reserved-pilot:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reject modified protocol and test independent negative controls
+        run: |
+          python -m py_compile literature/validation/stage8_*.py
+          python literature/validation/test_stage8_frozen_protocol.py
+      - name: Reserved tuning-only preflight cannot use held-out seeds
+        run: |
+          python literature/validation/stage8_frozen_study.py \
+            --mode pilot --pilot-seeds 7001 7002 \
+            --output-dir stage8-reserved-pilot
+          python literature/validation/stage8_independent_analysis.py \
+            --study-dir stage8-reserved-pilot --pilot \
+            --output stage8-reserved-independent-audit.json
+      - name: Upload pilot evidence explicitly NOT for scientific inference
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage8-reserved-tuning-not-science
+          path: |
+            stage8-reserved-pilot/
+            stage8-reserved-independent-audit.json
+          if-no-files-found: warn
+          retention-days: 90
+
+  one-host-heldout-30-seed-real-mqtt:
+    needs: frozen-protocol-and-reserved-pilot
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install and identify real Mosquitto and pinned Paho MQTT
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y mosquitto
+          python -m pip install 'paho-mqtt==2.1.0'
+          mosquitto -h > stage8-broker-version.txt 2>&1 || true
+          python -m pip freeze > stage8-python-freeze.txt
+          uname -a > stage8-host.txt
+          lscpu >> stage8-host.txt
+      - name: Start dedicated real loopback MQTT broker
+        run: |
+          sudo systemctl stop mosquitto || true
+          mosquitto -p 1883 -v > stage8-mosquitto.log 2>&1 &
+          python - <<'PY'
+          import socket, time
+          for _ in range(60):
+              try:
+                  with socket.create_connection(('127.0.0.1', 1883), timeout=.2):
+                      break
+              except OSError:
+                  time.sleep(.1)
+          else:
+              raise SystemExit('Real MQTT broker not listening on loopback')
+          PY
+      - name: Execute all 450 PRE-FROZEN heldout source-matched trials
+        run: |
+          python literature/validation/stage8_frozen_study.py \
+            --mode holdout --git-revision '${{ github.sha }}' \
+            --output-dir stage8-heldout
+      - name: Independently reconstruct every source policy decision and SQLite result
+        run: |
+          python literature/validation/stage8_independent_analysis.py \
+            --study-dir stage8-heldout \
+            --output stage8-heldout-independent-results.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          result = json.loads(Path('stage8-heldout-independent-results.json').read_text())
+          assert result['status'] == 'PASS_SYNTHETIC_HELDOUT_FULL_INDEPENDENT_AUDIT'
+          assert result['runs_independently_reaudited'] == 450
+          assert result['three_policy_matched_blocks'] == 150
+          assert result['independent_source_seeds'] == 30
+          assert result['field_calibrated'] is False
+          assert result['algorithm_novelty_verified'] is False
+          assert type(result['primary_predeclared_gate']['supported_under_model']) is bool
+          print('PASS 450 raw heldout MQTT/SQLite trials + seed-cluster CI; ' \
+                'NO field/novelty claim; no success outcome enforced')
+          PY
+      - name: Preserve complete raw artificial evidence and frozen analysis for 90 days
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage8-frozen-artificial-heldout-data-not-field-evidence
+          path: |
+            stage8-heldout/
+            stage8-heldout-independent-results.json
+            stage8-mosquitto.log
+            stage8-broker-version.txt
+            stage8-python-freeze.txt
+            stage8-host.txt
+          if-no-files-found: warn
+          retention-days: 90
