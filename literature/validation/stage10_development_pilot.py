@@ -56,6 +56,10 @@ def main():
     if (not set(a.seeds) <= DEVELOPMENT_SEEDS or len(set(a.seeds)) != len(a.seeds)
             or len(set(a.cells)) != len(a.cells) or a.B <= 0):
         raise ValueError("Only unique reserved Stage10 9001..9010 development seeds/cells; B>0")
+    # Every subprocess runs from HERE so Python sibling imports are resolvable.
+    # Use an absolute artifact root so fixture/DB paths remain valid even when
+    # called by CI from the repository root (rather than from HERE).
+    a.out_dir = a.out_dir.resolve()
     a.out_dir.mkdir(parents=True, exist_ok=False)
     fixture_root = a.out_dir / "fixtures"
     run_root = a.out_dir / "runs"
