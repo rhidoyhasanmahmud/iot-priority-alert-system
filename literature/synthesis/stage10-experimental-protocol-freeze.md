@@ -53,7 +53,7 @@ Mandatory descriptive comparison: `C_Stage10+B8 − C_Strict+B8` and `C_Stage10+
 ## Reproduction
 
 ```bash
-python -m unittest discover -s literature/validation -p 'test_stage10_frozen_protocol.py' -v
+python -m unittest discover -s experiments -p 'test_stage10_frozen_protocol.py' -v
 python experiments/stage10_frozen_study.py --mode pilot --pilot-seeds 9008 --output-dir stage10-reserved
 python experiments/stage10_independent_analysis.py --pilot --study-dir stage10-reserved
 # The unique frozen real-MQTT heldout run is performed by the pinned GitHub Actions PR workflow.

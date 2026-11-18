@@ -26,7 +26,7 @@ jobs:
       - name: Red-team bounded admission, spool persistence and independent audit
         run: |
           python -m py_compile experiments/stage10_*.py
-          python -m unittest discover -s literature/validation -p 'test_stage10_bounded_recovery.py' -v
+          python -m unittest discover -s experiments -p 'test_stage10_bounded_recovery.py' -v
       - name: Install MQTT and record testbed version
         run: |
           sudo apt-get update -qq

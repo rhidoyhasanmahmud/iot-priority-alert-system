@@ -52,7 +52,7 @@ When B is full, an arriving urgent still displaces the youngest waiting routine 
 ## Verification and replication (no holdout)
 
 ```bash
-python -m unittest discover -s literature/validation -p 'test_stage10_bounded_recovery.py' -v
+python -m unittest discover -s experiments -p 'test_stage10_bounded_recovery.py' -v
 python experiments/stage10_development_pilot.py \
   --seeds 9001 9002 9003 9004 9005 \
   --cells burst smooth overload burst_K0 \

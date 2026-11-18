@@ -29,7 +29,7 @@ jobs:
       - name: Verify pinned preregistration hash, holdout isolation and auditor red-team
         run: |
           python -m py_compile experiments/stage10_frozen_study.py experiments/stage10_independent_analysis.py
-          python -m unittest discover -s literature/validation -p 'test_stage10_frozen_protocol.py' -v
+          python -m unittest discover -s experiments -p 'test_stage10_frozen_protocol.py' -v
       - name: Repeat source-matched in-process reserved pilot (NEVER heldout)
         run: |
           python experiments/stage10_frozen_study.py \
