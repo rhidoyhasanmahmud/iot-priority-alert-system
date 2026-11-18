@@ -7,9 +7,9 @@ external evidentiary controls are still missing. No synthetic trace can pass
 as a representative field trace merely by relabeling its metadata.
 
 Examples (from repository root):
-  python literature/validation/stage5i_evidence_gate.py --self-test
-  python literature/validation/stage5i_evidence_gate.py \
-    --packet literature/validation/fixtures/stage5i_evidence_register.json \
+  python experiments/stage5i_evidence_gate.py --self-test
+  python experiments/stage5i_evidence_gate.py \
+    --packet experiments/fixtures/stage5i_evidence_register.json \
     --ledger run.jsonl --sqlite run.sqlite --output readiness.json
 """
 

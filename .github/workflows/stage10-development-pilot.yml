@@ -4,8 +4,8 @@ on:
   pull_request:
     paths:
       - .github/workflows/stage10-development-pilot.yml
-      - literature/validation/stage10_*.py
-      - literature/validation/test_stage10_bounded_recovery.py
+      - experiments/stage10_*.py
+      - experiments/test_stage10_bounded_recovery.py
 
 permissions:
   contents: read
@@ -25,7 +25,7 @@ jobs:
           python-version: '3.12'
       - name: Red-team bounded admission, spool persistence and independent audit
         run: |
-          python -m py_compile literature/validation/stage10_*.py
+          python -m py_compile experiments/stage10_*.py
           python -m unittest discover -s literature/validation -p 'test_stage10_bounded_recovery.py' -v
       - name: Install MQTT and record testbed version
         run: |
@@ -52,10 +52,10 @@ jobs:
           PY
       - name: Seven matched real-MQTT/SQLite reservation-seed development trials
         run: |
-          python literature/validation/stage10_development_pilot.py \
+          python experiments/stage10_development_pilot.py \
             --seeds 9008 --cells burst --B 8 --transport mqtt \
             --out-dir stage10-reserved-mqtt-pilot
-          python literature/validation/stage10_reaudit_development.py \
+          python experiments/stage10_reaudit_development.py \
             --pilot-dir stage10-reserved-mqtt-pilot
           python - <<'PY'
           import json

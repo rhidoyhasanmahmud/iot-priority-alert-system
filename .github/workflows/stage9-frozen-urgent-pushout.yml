@@ -4,9 +4,9 @@ on:
   pull_request:
     paths:
       - .github/workflows/stage9-frozen-urgent-pushout.yml
-      - literature/validation/stage9_*.py
-      - literature/validation/test_stage9_frozen_protocol.py
-      - literature/validation/stage9_frozen_protocol.json
+      - experiments/stage9_*.py
+      - experiments/test_stage9_frozen_protocol.py
+      - experiments/stage9_frozen_protocol.json
   # Deliberately no workflow_dispatch: one first frozen heldout, not ad-hoc retries.
 
 permissions:
@@ -27,14 +27,14 @@ jobs:
           python-version: '3.12'
       - name: Verify protocol hash, prevent heldout seed leakage, attack independent auditor
         run: |
-          python -m py_compile literature/validation/stage9_*.py
-          python literature/validation/test_stage9_frozen_protocol.py -v
+          python -m py_compile experiments/stage9_*.py
+          python experiments/test_stage9_frozen_protocol.py -v
       - name: Reserved synthetic engineering preflight (not heldout evidence)
         run: |
-          python literature/validation/stage9_frozen_study.py \
+          python experiments/stage9_frozen_study.py \
             --mode pilot --pilot-seeds 8008 \
             --output-dir stage9-reserved-pilot
-          python literature/validation/stage9_independent_analysis.py \
+          python experiments/stage9_independent_analysis.py \
             --pilot --study-dir stage9-reserved-pilot \
             --output stage9-reserved-independent-audit.json
       - name: Preserve pilot raw evidence (not scientific inference)
@@ -49,6 +49,8 @@ jobs:
           retention-days: 90
 
   one-first-frozen-heldout-mqtt-600-trials:
+    # Historical one-time frozen study completed; never rerun heldout seeds after publication freeze.
+    if: ${{ false }}
     needs: freeze-and-reserved-engineering-pilot
     runs-on: ubuntu-24.04
     timeout-minutes: 65
@@ -83,12 +85,12 @@ jobs:
           PY
       - name: Execute all 600 first-frozen heldout source-matched MQTT/SQLite runs
         run: |
-          python literature/validation/stage9_frozen_study.py \
+          python experiments/stage9_frozen_study.py \
             --mode holdout --git-revision '${{ github.event.pull_request.head.sha }}' \
             --output-dir stage9-heldout
       - name: Independently re-open all 600 raw ledgers and SQLite databases
         run: |
-          python literature/validation/stage9_independent_analysis.py \
+          python experiments/stage9_independent_analysis.py \
             --study-dir stage9-heldout \
             --output stage9-heldout-independent-results.json
           python - <<'PY'

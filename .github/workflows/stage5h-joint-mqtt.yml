@@ -4,8 +4,8 @@ on:
   pull_request:
     paths:
       - .github/workflows/stage5h-joint-mqtt.yml
-      - literature/validation/stage5h_**
-      - literature/validation/fixtures/stage5h_**
+      - experiments/stage5h_**
+      - experiments/fixtures/stage5h_**
       - literature/synthesis/joint-mqtt-sqlite-stage5h.md
   workflow_dispatch:
 
@@ -51,25 +51,25 @@ jobs:
 
       - name: Check prior lifecycle, handler and joint negative cases
         run: |
-          python -m py_compile literature/validation/stage5h_joint_gateway.py literature/validation/stage5h_joint_audit.py
-          python literature/validation/stage5d_lifecycle_audit.py --self-test
-          python literature/validation/stage5g_reference_handler.py --self-test
-          python literature/validation/stage5h_joint_gateway.py --self-test
-          python literature/validation/stage5h_joint_audit.py --self-test
-          base64 --decode literature/validation/fixtures/stage5h_inproc_debug.sqlite.b64 \
+          python -m py_compile experiments/stage5h_joint_gateway.py experiments/stage5h_joint_audit.py
+          python experiments/stage5d_lifecycle_audit.py --self-test
+          python experiments/stage5g_reference_handler.py --self-test
+          python experiments/stage5h_joint_gateway.py --self-test
+          python experiments/stage5h_joint_audit.py --self-test
+          base64 --decode experiments/fixtures/stage5h_inproc_debug.sqlite.b64 \
             > stage5h-results/inproc-debug.sqlite
-          python literature/validation/stage5h_joint_audit.py --self-test \
-            --test-fixture literature/validation/fixtures/stage5h_inproc_debug.jsonl \
+          python experiments/stage5h_joint_audit.py --self-test \
+            --test-fixture experiments/fixtures/stage5h_inproc_debug.jsonl \
             --sqlite stage5h-results/inproc-debug.sqlite
 
       - name: Independently replay three archived broker-backed evidence sets
         run: |
           for shape in base burst overload; do
             base64 --decode \
-              "literature/validation/fixtures/stage5h_mqtt_${shape}_ci43877369913.sqlite.b64" \
+              "experiments/fixtures/stage5h_mqtt_${shape}_ci43877369913.sqlite.b64" \
               > "stage5h-results/archived_${shape}.sqlite"
-            python literature/validation/stage5h_joint_audit.py \
-              "literature/validation/fixtures/stage5h_mqtt_${shape}_ci43877369913.jsonl" \
+            python experiments/stage5h_joint_audit.py \
+              "experiments/fixtures/stage5h_mqtt_${shape}_ci43877369913.jsonl" \
               --sqlite "stage5h-results/archived_${shape}.sqlite" --require-mqtt \
               > "stage5h-results/archived_${shape}_gate.json"
           done
@@ -77,12 +77,12 @@ jobs:
       - name: Run three real broker-backed synthetic MQTT -> SQLite cases
         run: |
           for shape in base burst overload; do
-            python literature/validation/stage5h_joint_gateway.py \
+            python experiments/stage5h_joint_gateway.py \
               --transport mqtt --host 127.0.0.1 --port 1883 \
               --shape "$shape" --events 60 --seed 101 --queue-capacity 3 \
               --timeout-s 25 --output "stage5h-results/${shape}.jsonl" \
               --sqlite-output "stage5h-results/${shape}.sqlite"
-            python literature/validation/stage5h_joint_audit.py \
+            python experiments/stage5h_joint_audit.py \
               "stage5h-results/${shape}.jsonl" \
               --sqlite "stage5h-results/${shape}.sqlite" --require-mqtt \
               | tee "stage5h-results/${shape}_gate.json"

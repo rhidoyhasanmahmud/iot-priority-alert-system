@@ -4,12 +4,12 @@ on:
   pull_request:
     paths:
       - .github/workflows/stage8-frozen-holdout.yml
-      - literature/validation/stage8_*.py
-      - literature/validation/stage8_frozen_protocol.json
-      - literature/validation/stage7_controlled_replay.py
-      - literature/validation/stage7_independent_replay_audit.py
-      - literature/validation/stage7_calibration_*.py
-      - literature/validation/stage5k2_*.py
+      - experiments/stage8_*.py
+      - experiments/stage8_frozen_protocol.json
+      - experiments/stage7_controlled_replay.py
+      - experiments/stage7_independent_replay_audit.py
+      - experiments/stage7_calibration_*.py
+      - experiments/stage5k2_*.py
   workflow_dispatch:
 
 permissions:
@@ -26,14 +26,14 @@ jobs:
           python-version: '3.12'
       - name: Reject modified protocol and test independent negative controls
         run: |
-          python -m py_compile literature/validation/stage8_*.py
-          python literature/validation/test_stage8_frozen_protocol.py
+          python -m py_compile experiments/stage8_*.py
+          python experiments/test_stage8_frozen_protocol.py
       - name: Reserved tuning-only preflight cannot use held-out seeds
         run: |
-          python literature/validation/stage8_frozen_study.py \
+          python experiments/stage8_frozen_study.py \
             --mode pilot --pilot-seeds 7001 7002 \
             --output-dir stage8-reserved-pilot
-          python literature/validation/stage8_independent_analysis.py \
+          python experiments/stage8_independent_analysis.py \
             --study-dir stage8-reserved-pilot --pilot \
             --output stage8-reserved-independent-audit.json
       - name: Upload pilot evidence explicitly NOT for scientific inference
@@ -48,6 +48,8 @@ jobs:
           retention-days: 90
 
   one-host-heldout-30-seed-real-mqtt:
+    # Historical one-time frozen study completed; never rerun heldout seeds after publication freeze.
+    if: ${{ false }}
     needs: frozen-protocol-and-reserved-pilot
     runs-on: ubuntu-24.04
     timeout-minutes: 45
@@ -82,12 +84,12 @@ jobs:
           PY
       - name: Execute all 450 PRE-FROZEN heldout source-matched trials
         run: |
-          python literature/validation/stage8_frozen_study.py \
+          python experiments/stage8_frozen_study.py \
             --mode holdout --git-revision '${{ github.sha }}' \
             --output-dir stage8-heldout
       - name: Independently reconstruct every source policy decision and SQLite result
         run: |
-          python literature/validation/stage8_independent_analysis.py \
+          python experiments/stage8_independent_analysis.py \
             --study-dir stage8-heldout \
             --output stage8-heldout-independent-results.json
           python - <<'PY'

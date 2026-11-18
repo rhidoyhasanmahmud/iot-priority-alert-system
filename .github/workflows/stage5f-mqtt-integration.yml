@@ -4,7 +4,7 @@ on:
   pull_request:
     paths:
       - .github/workflows/stage5f-mqtt-integration.yml
-      - literature/validation/**
+      - experiments/**
       - literature/synthesis/mqtt-measurement-pilot-stage5f.md
   workflow_dispatch:
 
@@ -50,18 +50,18 @@ jobs:
 
       - name: Re-run broker-independent invariants
         run: |
-          python literature/validation/stage5d_lifecycle_audit.py --self-test
-          python literature/validation/stage5e_gateway_pilot.py --self-test
-          python literature/validation/stage5f_mqtt_gate.py --self-test
+          python experiments/stage5d_lifecycle_audit.py --self-test
+          python experiments/stage5e_gateway_pilot.py --self-test
+          python experiments/stage5f_mqtt_gate.py --self-test
 
       - name: Three real broker-backed laboratory MQTT captures
         run: |
           for shape in base burst overload; do
-            python literature/validation/stage5e_gateway_pilot.py \
+            python experiments/stage5e_gateway_pilot.py \
               --transport mqtt --host 127.0.0.1 --port 1883 \
               --shape "$shape" --events 60 --queue-capacity 3 --timeout-s 25 \
               --output "stage5f-results/${shape}.jsonl"
-            python literature/validation/stage5f_mqtt_gate.py \
+            python experiments/stage5f_mqtt_gate.py \
               "stage5f-results/${shape}.jsonl" \
               | tee "stage5f-results/${shape}_gate.json"
           done

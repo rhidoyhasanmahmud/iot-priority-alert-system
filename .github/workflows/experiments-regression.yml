@@ -1,0 +1,29 @@
+name: Experiment regression (no frozen heldout rerun)
+
+on:
+  pull_request:
+    paths:
+      - 'experiments/**'
+      - '.github/workflows/experiments-regression.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'experiments/**'
+      - '.github/workflows/experiments-regression.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  static-and-reserved-synthetic-regressions:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile and test all 80 reserved synthetic positive/negative cases
+        run: |
+          python -m compileall -q experiments
+          python -m unittest discover -s experiments -p 'test_*.py' -v

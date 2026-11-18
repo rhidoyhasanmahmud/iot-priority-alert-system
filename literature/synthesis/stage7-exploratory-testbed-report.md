@@ -31,9 +31,9 @@ The local higher-intensity schedule did **not** always generate saturation: shor
 ### Example commands
 
 ```bash
-python literature/validation/test_stage7_controlled_replay.py
-python literature/validation/stage7_exploratory_batch.py --output-dir /tmp/s7-artificial --transport inproc --seeds 101 202 --capacities 3
-python literature/validation/stage7_independent_batch_audit.py --batch-dir /tmp/s7-artificial
+python experiments/test_stage7_controlled_replay.py
+python experiments/stage7_exploratory_batch.py --output-dir /tmp/s7-artificial --transport inproc --seeds 101 202 --capacities 3
+python experiments/stage7_independent_batch_audit.py --batch-dir /tmp/s7-artificial
 ```
 
 For a real broker, the reproducible CI workflow starts Mosquitto locally, installs Paho and runs the *same* source/worker/SQLite code with `--transport mqtt`. CI artifacts have a 14-day retention and must be archived under the approved evidence plan if later needed for scientific replication.

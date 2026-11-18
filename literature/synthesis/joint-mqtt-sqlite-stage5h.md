@@ -7,7 +7,7 @@
 
 ## 5H.1 — Explicit joint measurement boundaries
 
-The unchanged Stage 5E MQTT publisher helper sends a seeded **fictional** Stage 5G two-class input via Eclipse Paho and a local Mosquitto broker (in MQTT mode). The new [`stage5h_joint_gateway.py`](../validation/stage5h_joint_gateway.py) builds on Stage 5E's *one worker + `K` waiting slots* `PilotGateway`, and connects its worker to Stage 5G's `process_one` SQLite lookup/rule/INSERT/commit. No priority scheduler has been introduced: the admission/worker baseline is **non-preemptive FIFO**, both classes see the same full-buffer rejection rule. A reserved not-yet-started active slot still consumes one of the `1+K` places.
+The unchanged Stage 5E MQTT publisher helper sends a seeded **fictional** Stage 5G two-class input via Eclipse Paho and a local Mosquitto broker (in MQTT mode). The new [`stage5h_joint_gateway.py`](../../experiments/stage5h_joint_gateway.py) builds on Stage 5E's *one worker + `K` waiting slots* `PilotGateway`, and connects its worker to Stage 5G's `process_one` SQLite lookup/rule/INSERT/commit. No priority scheduler has been introduced: the admission/worker baseline is **non-preemptive FIFO**, both classes see the same full-buffer rejection rule. A reserved not-yet-started active slot still consumes one of the `1+K` places.
 
 The instrumentation records **different events**, not interchangeable latency numbers:
 
@@ -33,14 +33,14 @@ The worker is the **only SQLite writer**, creates and closes its connection on i
 
 ## 5H.2 — Independent replayable accounting and persisted-row evidence
 
-[`stage5h_joint_audit.py`](../validation/stage5h_joint_audit.py) runs in **a separate process**, imports neither the Stage 5H gateway nor Stage 5G handler, and applies Stage 5D's generic lifecycle audit plus its own independent reconstruction of the seeded source fixture and three source schedules. It checks every source/offer class and deterministic SQL rule, exact service-timestamp arithmetic, `offer ≤ start ≤ db_handler_start ≤ db_commit_return ≤ complete`, all final lifecycle states, one worker, and **admitted = committed = SQL row count**. It fails on partial receiver capture or a published logical ID without one offer. A SHA-256-attested, post-run **SQLite backup file** is read directly in `mode=ro`; the auditor checks `PRAGMA integrity_check`, 16 context rows and exact saved event IDs/classes/device IDs/rule/JSON against the independently calculated offers. It does not merely trust the emitter's `db_reopen_exact` assertion.
+[`stage5h_joint_audit.py`](../../experiments/stage5h_joint_audit.py) runs in **a separate process**, imports neither the Stage 5H gateway nor Stage 5G handler, and applies Stage 5D's generic lifecycle audit plus its own independent reconstruction of the seeded source fixture and three source schedules. It checks every source/offer class and deterministic SQL rule, exact service-timestamp arithmetic, `offer ≤ start ≤ db_handler_start ≤ db_commit_return ≤ complete`, all final lifecycle states, one worker, and **admitted = committed = SQL row count**. It fails on partial receiver capture or a published logical ID without one offer. A SHA-256-attested, post-run **SQLite backup file** is read directly in `mode=ro`; the auditor checks `PRAGMA integrity_check`, 16 context rows and exact saved event IDs/classes/device IDs/rule/JSON against the independently calculated offers. It does not merely trust the emitter's `db_reopen_exact` assertion.
 
 The backup is produced with the SQLite backup API **after the worker completes**, separately from service time. It is a consistent **normal post-run snapshot** only, not a power-off/corruption/durability experiment. The recorded `source_sha256` and `schedule_sha256` identify the fictional inputs, while `sqlite_backup_sha256` binds the offline database file to the JSONL manifest. Source clock is not subtracted from receiver time. The derived p95 durations are diagnostic with no SLA threshold.
 
 An in-process deterministic-input regression fixture is preserved:
 
-- [Publisher/callback/offer ledger — `stage5h_inproc_debug.jsonl`](../validation/fixtures/stage5h_inproc_debug.jsonl)
-- [SQLite backup encoded as base64 — `stage5h_inproc_debug.sqlite.b64`](../validation/fixtures/stage5h_inproc_debug.sqlite.b64)
+- [Publisher/callback/offer ledger — `stage5h_inproc_debug.jsonl`](../../experiments/fixtures/stage5h_inproc_debug.jsonl)
+- [SQLite backup encoded as base64 — `stage5h_inproc_debug.sqlite.b64`](../../experiments/fixtures/stage5h_inproc_debug.sqlite.b64)
 
 The encoded file is purely to keep a binary SQLite snapshot in a text-only repository upload; CI decodes it and independently replays both positive and negative audits. Source fields are deterministic, but event timing and row counts under overload are **OS/host-dependent** and must never be used as a golden performance threshold.
 
@@ -85,9 +85,9 @@ For evidence beyond the artifact's 14-day lifetime, the exact MQTT JSONLs, SQLit
 
 | Shape | Saved raw ledger / DB snapshot / gate | JSONL SHA-256 | Decoded DB SHA-256 |
 | --- | --- | --- | --- |
-| `base` | [`base` records](../validation/fixtures/stage5h_mqtt_base_ci43877369913.jsonl) · [SQLite backup](../validation/fixtures/stage5h_mqtt_base_ci43877369913.sqlite.b64) · [gate result](../validation/fixtures/stage5h_mqtt_base_ci43877369913.gate.json) | `eed8279c467d8aeb6c3eceb508a646a51b74d0903d1df5f489b84d6282545456` | `f8523c9dc4a1391a8720a5d57a3dfa8132a87b920be454180f1c93b163de34df` |
-| `burst` | [`burst` records](../validation/fixtures/stage5h_mqtt_burst_ci43877369913.jsonl) · [SQLite backup](../validation/fixtures/stage5h_mqtt_burst_ci43877369913.sqlite.b64) · [gate result](../validation/fixtures/stage5h_mqtt_burst_ci43877369913.gate.json) | `722b943200938b7376e20de96e3b684c91c80b7dca15aeb9c047aafe0cdf7471` | `fde007718b84a5f9f469dedfbc6bc4e064ee2deeea134205713cecfa00f1191a` |
-| `overload` | [`overload` records](../validation/fixtures/stage5h_mqtt_overload_ci43877369913.jsonl) · [SQLite backup](../validation/fixtures/stage5h_mqtt_overload_ci43877369913.sqlite.b64) · [gate result](../validation/fixtures/stage5h_mqtt_overload_ci43877369913.gate.json) | `9cf5f2bea4453f067ec9690d8484e036a66473bcd62d4e72c24f3553ddd53fa1` | `475428efa4058c25d2a6bf85284c6fe0f9ec7b990b6b37c2b3c598d73db1bffc` |
+| `base` | [`base` records](../../experiments/fixtures/stage5h_mqtt_base_ci43877369913.jsonl) · [SQLite backup](../../experiments/fixtures/stage5h_mqtt_base_ci43877369913.sqlite.b64) · [gate result](../../experiments/fixtures/stage5h_mqtt_base_ci43877369913.gate.json) | `eed8279c467d8aeb6c3eceb508a646a51b74d0903d1df5f489b84d6282545456` | `f8523c9dc4a1391a8720a5d57a3dfa8132a87b920be454180f1c93b163de34df` |
+| `burst` | [`burst` records](../../experiments/fixtures/stage5h_mqtt_burst_ci43877369913.jsonl) · [SQLite backup](../../experiments/fixtures/stage5h_mqtt_burst_ci43877369913.sqlite.b64) · [gate result](../../experiments/fixtures/stage5h_mqtt_burst_ci43877369913.gate.json) | `722b943200938b7376e20de96e3b684c91c80b7dca15aeb9c047aafe0cdf7471` | `fde007718b84a5f9f469dedfbc6bc4e064ee2deeea134205713cecfa00f1191a` |
+| `overload` | [`overload` records](../../experiments/fixtures/stage5h_mqtt_overload_ci43877369913.jsonl) · [SQLite backup](../../experiments/fixtures/stage5h_mqtt_overload_ci43877369913.sqlite.b64) · [gate result](../../experiments/fixtures/stage5h_mqtt_overload_ci43877369913.gate.json) | `9cf5f2bea4453f067ec9690d8484e036a66473bcd62d4e72c24f3553ddd53fa1` | `475428efa4058c25d2a6bf85284c6fe0f9ec7b990b6b37c2b3c598d73db1bffc` |
 
 The workflow has been extended to **re-audit all three archived broker datasets** before producing new cases on future PR runs. This tests stable accounting, not unstable real-time duration thresholds. The original Mosquitto log SHA-256 was `a80b38a630dfe554f2f017bb35a612052e81b72fe9f3fb84c24b00a52c0fdbc4` and remains in the downloadable CI artifact. The following checks are therefore verified against **CI run #43877369913**; reruns after evidence/documentation commits are separate runs and should be inspected independently.
 
@@ -122,28 +122,28 @@ The workflow has been extended to **re-audit all three archived broker datasets*
 
 ```bash
 # From repository root; no third-party dependencies for in-process diagnostics
-python3 literature/validation/stage5h_joint_gateway.py --self-test
-python3 literature/validation/stage5h_joint_audit.py --self-test
+python3 experiments/stage5h_joint_gateway.py --self-test
+python3 experiments/stage5h_joint_audit.py --self-test
 
 # Capture a fresh in-process SQLite-backed run; choose NEW output names
-python3 literature/validation/stage5h_joint_gateway.py \
+python3 experiments/stage5h_joint_gateway.py \
   --transport inproc --shape burst --events 36 --seed 101 --queue-capacity 3 \
   --output scratch-5h.jsonl --sqlite-output scratch-5h.sqlite
-python3 literature/validation/stage5h_joint_audit.py \
+python3 experiments/stage5h_joint_audit.py \
   scratch-5h.jsonl --sqlite scratch-5h.sqlite
 
 # Requires paho-mqtt>=2,<3 and a local Mosquitto listener on 127.0.0.1:1883
-python3 literature/validation/stage5h_joint_gateway.py \
+python3 experiments/stage5h_joint_gateway.py \
   --transport mqtt --shape base --events 60 --queue-capacity 3 \
   --output scratch-5h-mqtt.jsonl --sqlite-output scratch-5h-mqtt.sqlite
-python3 literature/validation/stage5h_joint_audit.py \
+python3 experiments/stage5h_joint_audit.py \
   scratch-5h-mqtt.jsonl --sqlite scratch-5h-mqtt.sqlite --require-mqtt
 
 # Independently replay permanently archived broker records (example: base)
-base64 --decode literature/validation/fixtures/stage5h_mqtt_base_ci43877369913.sqlite.b64 \
+base64 --decode experiments/fixtures/stage5h_mqtt_base_ci43877369913.sqlite.b64 \
   > scratch-5h-archived-base.sqlite
-python3 literature/validation/stage5h_joint_audit.py \
-  literature/validation/fixtures/stage5h_mqtt_base_ci43877369913.jsonl \
+python3 experiments/stage5h_joint_audit.py \
+  experiments/fixtures/stage5h_mqtt_base_ci43877369913.jsonl \
   --sqlite scratch-5h-archived-base.sqlite --require-mqtt
 ```
 

@@ -3,7 +3,7 @@
 **Status:** Pre-registered before accessing any Stage 9 held-out source seeds. Stage 8 is permanently separate; its negative primary finding is not overturned by exploratory pilot observations.
 
 **Frozen identity:** `STI-2026-STAGE9-URGENT-PUSHOUT-HELDOUT-V1`  
-**Frozen file:** `literature/validation/stage9_frozen_protocol.json`  
+**Frozen file:** `experiments/stage9_frozen_protocol.json`  
 **SHA-256:** `ece4f64d62e668eafe5d3518219155ca76c3d017c00fb029fafa3d18b1f29b89`
 
 ## Honest research question
@@ -54,9 +54,9 @@ Bootstrap resamples **30 source seeds** rather than thousands of correlated jobs
 ## Reproduction
 
 ```bash
-python literature/validation/test_stage9_frozen_protocol.py
-python literature/validation/stage9_frozen_study.py --mode pilot --pilot-seeds 8008 --output-dir stage9-pilot
-python literature/validation/stage9_independent_analysis.py --pilot --study-dir stage9-pilot
+python experiments/test_stage9_frozen_protocol.py
+python experiments/stage9_frozen_study.py --mode pilot --pilot-seeds 8008 --output-dir stage9-pilot
+python experiments/stage9_independent_analysis.py --pilot --study-dir stage9-pilot
 # The *first* held-out execution is controlled by the Stage 9 GitHub Actions workflow,
 # with fresh pinned source revision and real Mosquitto. No opportunistic re-runs.
 ```

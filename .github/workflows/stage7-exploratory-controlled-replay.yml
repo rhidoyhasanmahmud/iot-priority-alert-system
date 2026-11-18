@@ -4,8 +4,8 @@ on:
   pull_request:
     paths:
       - .github/workflows/stage7-exploratory-controlled-replay.yml
-      - literature/validation/stage7_**
-      - literature/validation/test_stage7_controlled_replay.py
+      - experiments/stage7_**
+      - experiments/test_stage7_controlled_replay.py
       - literature/synthesis/stage7-exploratory-testbed-report.md
   workflow_dispatch:
 
@@ -23,14 +23,14 @@ jobs:
           python-version: '3.12'
       - name: Independently audited positive/negative real-SQLite unit tests
         run: |
-          python -m py_compile literature/validation/stage7_*.py
-          python literature/validation/test_stage7_controlled_replay.py
+          python -m py_compile experiments/stage7_*.py
+          python experiments/test_stage7_controlled_replay.py
       - name: Execute a paired candidate-only inprocess pilot
         run: |
-          python literature/validation/stage7_exploratory_batch.py \
+          python experiments/stage7_exploratory_batch.py \
             --output-dir stage7-inproc-artifacts --transport inproc \
             --seeds 101 202 --capacities 3 --events 60 --iterations-per-unit 10000
-          python literature/validation/stage7_independent_batch_audit.py \
+          python experiments/stage7_independent_batch_audit.py \
             --batch-dir stage7-inproc-artifacts --output stage7-inproc-audit.json
       - name: Upload synthetic inprocess evidence with 14-day expiry
         if: always()
@@ -73,13 +73,13 @@ jobs:
           PY
       - name: Execute 72 randomized artificial source-policy triples with actual MQTT/SQLite
         run: |
-          python literature/validation/stage7_exploratory_batch.py \
+          python experiments/stage7_exploratory_batch.py \
             --output-dir stage7-mqtt-artifacts --transport mqtt \
             --seeds 101 202 303 --capacities 0 3 --events 60 \
             --iterations-per-unit 10000 --timeout-s 35
       - name: Independently re-audit every raw source, decision, and SQLite row
         run: |
-          python literature/validation/stage7_independent_batch_audit.py \
+          python experiments/stage7_independent_batch_audit.py \
             --batch-dir stage7-mqtt-artifacts --require-mqtt \
             --output stage7-mqtt-independently-audited.json
           python - <<'PY'

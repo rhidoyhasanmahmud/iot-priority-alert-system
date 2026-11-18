@@ -9,7 +9,7 @@
 
 ## 5K.1 — Audited descriptive profile, not inferred service demand
 
-The [Stage 5K profile implementation](../validation/stage5k_workload_profile.py) first calls the **independent Stage 5J batch gate**. That gate reopens **every** raw JSONL, SQLite backup and child log and checks their hashes and source design; only then does the profiler compute class-wise descriptive counts and committed-service timing distributions. The profiler does **not** import or depend on the source gateway/handler for normal operation. A missing or tampered raw artifact fails the analysis rather than relying on the tiny archived manifest alone.
+The [Stage 5K profile implementation](../../experiments/stage5k_workload_profile.py) first calls the **independent Stage 5J batch gate**. That gate reopens **every** raw JSONL, SQLite backup and child log and checks their hashes and source design; only then does the profiler compute class-wise descriptive counts and committed-service timing distributions. The profiler does **not** import or depend on the source gateway/handler for normal operation. A missing or tampered raw artifact fails the analysis rather than relying on the tiny archived manifest alone.
 
 For [the original 18-case real-broker Stage 5J CI run #43882411348](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43882411348), independent re-analysis of the downloaded raw artifact returned:
 
@@ -23,7 +23,7 @@ For [the original 18-case real-broker Stage 5J CI run #43882411348](https://gith
 | overload (different intensity) | 3 | 180 | 62 | 118 |
 | **Total** | — | **1,080** | **697** | **383** |
 
-The 18 separate per-run 95th-percentile **SQLite fictional handler spans among *completed* jobs** ranged from approximately **0.621 to 2.054 ms** on the recorded CI host; see [machine-readable profile](../validation/fixtures/stage5k_stage5j_ci43882411348_profile.json) for all exact integers and each host/source/ledger hash. These figures are **not** performance targets or calibrated processing demands. The saved profile records only per-run descriptive p95s; no pooled pseudo-replication, group significance, or urgency policy improvement is inferred.
+The 18 separate per-run 95th-percentile **SQLite fictional handler spans among *completed* jobs** ranged from approximately **0.621 to 2.054 ms** on the recorded CI host; see [machine-readable profile](../../experiments/fixtures/stage5k_stage5j_ci43882411348_profile.json) for all exact integers and each host/source/ledger hash. These figures are **not** performance targets or calibrated processing demands. The saved profile records only per-run descriptive p95s; no pooled pseudo-replication, group significance, or urgency policy improvement is inferred.
 
 **Independent Stage 5K CI recheck:** [real-broker run #43890764107](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43890764107) completed **SUCCESS**, including the 12-case positive/3 negative self-test and all **18/18** fresh MQTT→SQLite cases. Its [raw artifact #14236307628](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43890764107/artifacts/14236307628) (expires **30 November 2026**) was downloaded; the standalone Stage 5K profiler was rerun against all extracted raw records/SQLite files and produced an **exact JSON-equivalent result** to the saved CI profile. This second CI captured **1,080 offered = 694 fictional SQLite commits + 386 rejections**. The 3-row difference from the original 697/383 lab run illustrates run-to-run timing/admission variability despite frozen synthetic source IDs; it is **not** an experimental treatment or statistical effect estimate.
 
@@ -31,7 +31,7 @@ The 18 separate per-run 95th-percentile **SQLite fictional handler spans among *
 
 The source is **deterministic fictional tamper/health input**: 1 urgent tamper in every 4 source events and 3 routine health in 4, with seeded device contexts/rules. `base` and `burst` have a matching **planned** 472 ms source horizon per 60 events, while `overload` has zero planned gaps and thus **higher intensity**, not a pure alternative burst shape. Actual measured local offer spans differ from planned source gaps. `K=0/3` and `D_u=τ=50 ms` are **debug settings only**.
 
-The [CI raw artifact #14233685797](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43882411348/artifacts/14233685797) has 14-day GitHub retention (expected expiry around **30 November 2026**). The [archived run manifest](../validation/fixtures/stage5j_ci43882411348_batch.json), [Stage 5J audit summary](../validation/fixtures/stage5j_ci43882411348_audit.json) and this new profile preserve summaries/hashes but **cannot independently reconstruct or re-audit missing raw SQLite files after expiry**. Save the ZIP to a durable research store before then if historical raw access is required.
+The [CI raw artifact #14233685797](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43882411348/artifacts/14233685797) has 14-day GitHub retention (expected expiry around **30 November 2026**). The [archived run manifest](../../experiments/fixtures/stage5j_ci43882411348_batch.json), [Stage 5J audit summary](../../experiments/fixtures/stage5j_ci43882411348_audit.json) and this new profile preserve summaries/hashes but **cannot independently reconstruct or re-audit missing raw SQLite files after expiry**. Save the ZIP to a durable research store before then if historical raw access is required.
 
 **5K.1 technical checklist**
 
@@ -83,8 +83,8 @@ These are study-design requirements, **not** new simulated results and **not** a
 From the repository root, with **the complete raw** `stage5j` artifact (not only archived `batch.json`):
 
 ```bash
-python3 literature/validation/stage5k_workload_profile.py --self-test
-python3 literature/validation/stage5k_workload_profile.py \
+python3 experiments/stage5k_workload_profile.py --self-test
+python3 experiments/stage5k_workload_profile.py \
   --batch path/to/downloaded/paired/batch.json \
   --output new-descriptive-profile.json
 ```
