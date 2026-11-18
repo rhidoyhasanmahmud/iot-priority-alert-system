@@ -29,17 +29,17 @@ The Stage 5J real-MQTT/SQLite batch recorded service time for committed work, **
 Run from repository root with Python 3.12 (illustrative values **only**):
 
 ```bash
-python literature/validation/stage5k2_workload_fixture.py --out-dir /tmp/stage5k2/smooth
-python literature/validation/stage5k2_workload_fixture.py --out-dir /tmp/stage5k2/burst --shape clustered
-python literature/validation/stage5k2_workload_fixture.py --out-dir /tmp/stage5k2/intense --horizon-ns 500000000
-python literature/validation/stage5k2_workload_fixture.py --out-dir /tmp/stage5k2/variable --dispersion variable
+python experiments/stage5k2_workload_fixture.py --out-dir /tmp/stage5k2/smooth
+python experiments/stage5k2_workload_fixture.py --out-dir /tmp/stage5k2/burst --shape clustered
+python experiments/stage5k2_workload_fixture.py --out-dir /tmp/stage5k2/intense --horizon-ns 500000000
+python experiments/stage5k2_workload_fixture.py --out-dir /tmp/stage5k2/variable --dispersion variable
 
-python literature/validation/stage5k2_independent_audit.py /tmp/stage5k2/smooth
-python literature/validation/stage5k2_independent_audit.py /tmp/stage5k2/smooth --pair-with /tmp/stage5k2/burst --axis burst_shape
-python literature/validation/stage5k2_independent_audit.py /tmp/stage5k2/smooth --pair-with /tmp/stage5k2/intense --axis intensity
-python literature/validation/stage5k2_independent_audit.py /tmp/stage5k2/smooth --pair-with /tmp/stage5k2/variable --axis work_dispersion
-python literature/validation/test_stage5k2_workload_fixture.py
-python literature/validation/test_stage5k2_baseline_sandbox.py
+python experiments/stage5k2_independent_audit.py /tmp/stage5k2/smooth
+python experiments/stage5k2_independent_audit.py /tmp/stage5k2/smooth --pair-with /tmp/stage5k2/burst --axis burst_shape
+python experiments/stage5k2_independent_audit.py /tmp/stage5k2/smooth --pair-with /tmp/stage5k2/intense --axis intensity
+python experiments/stage5k2_independent_audit.py /tmp/stage5k2/smooth --pair-with /tmp/stage5k2/variable --axis work_dispersion
+python experiments/test_stage5k2_workload_fixture.py
+python experiments/test_stage5k2_baseline_sandbox.py
 ```
 
 The example uses seed 1729, **60** fictitious events, **15** urgent, planned **1 second** horizon, and mean **4 artificial work units**; smooth-versus-clustered preserves first/last planned time and **identical per-ID work**. The intensity contrast halves the horizon with the same work/shape; dispersion switches from all-4 to balanced 1/7 work units with the same mean and arrival times. These are **software verification values**, **not operationally derived parameter choices**.

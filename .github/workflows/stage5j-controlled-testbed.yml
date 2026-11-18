@@ -4,7 +4,7 @@ on:
   pull_request:
     paths:
       - .github/workflows/stage5j-controlled-testbed.yml
-      - literature/validation/stage5j_**
+      - experiments/stage5j_**
       - literature/synthesis/controlled-testbed-stage5j.md
   workflow_dispatch:
 
@@ -49,19 +49,19 @@ jobs:
 
       - name: Compile and run in-process positive and negative invariants
         run: |
-          python -m py_compile literature/validation/stage5j_controlled_pilot.py \
-            literature/validation/stage5j_batch_audit.py
-          python literature/validation/stage5h_joint_audit.py --self-test
-          python literature/validation/stage5j_controlled_pilot.py --self-test
-          python literature/validation/stage5j_batch_audit.py --self-test
+          python -m py_compile experiments/stage5j_controlled_pilot.py \
+            experiments/stage5j_batch_audit.py
+          python experiments/stage5h_joint_audit.py --self-test
+          python experiments/stage5j_controlled_pilot.py --self-test
+          python experiments/stage5j_batch_audit.py --self-test
 
       - name: Run three seeds times two capacities times three broker-backed source shapes
         run: |
-          python literature/validation/stage5j_controlled_pilot.py \
+          python experiments/stage5j_controlled_pilot.py \
             --transport mqtt --seeds 101 202 303 --events 60 --queue-capacities 0 3 \
             --shuffle-seed 20261116 --timeout-s 25 \
             --output-dir stage5j-artifacts/paired
-          python literature/validation/stage5j_batch_audit.py \
+          python experiments/stage5j_batch_audit.py \
             stage5j-artifacts/paired/batch.json \
             | tee stage5j-artifacts/paired_batch_audit.json
           python - <<'PY'

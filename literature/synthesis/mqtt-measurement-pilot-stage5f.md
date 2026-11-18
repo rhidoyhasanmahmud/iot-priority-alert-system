@@ -8,7 +8,7 @@
 
 ## Step 5F.1 — Define a falsifiable MQTT gate before any broker results
 
-The independent [`stage5f_mqtt_gate.py`](../validation/stage5f_mqtt_gate.py) reuses the unmodified [Stage 5D oracle](../validation/stage5d_lifecycle_audit.py) to validate one JSONL file. Its **real-MQTT mode** requires:
+The independent [`stage5f_mqtt_gate.py`](../../experiments/stage5f_mqtt_gate.py) reuses the unmodified [Stage 5D oracle](../../experiments/stage5d_lifecycle_audit.py) to validate one JSONL file. Its **real-MQTT mode** requires:
 
 1. Manifest labels the source `stage5e_mqtt_*` and declares a complete publisher record and callback capture, with one gateway process-local monotonic clock.
 2. Each distinct intended published logical ID has a gateway callback and exactly one valid post-validation offered job. Source/offered counts match, with no unobserved source ID.
@@ -81,11 +81,11 @@ The [Actions diagnostic artifact](https://github.com/rhidoyhasanmahmud/iot-prior
 
 To retain the key raw ledgers beyond CI artifact expiry, this PR also versions these **synthetic-only** traces:
 
-| Scenario | Retained JSONL in `../validation/fixtures/` | SHA-256 |
+| Scenario | Retained JSONL in `../../experiments/fixtures/` | SHA-256 |
 | --- | --- | --- |
-| base | [`stage5f_mqtt_base_ci_run43870469820.jsonl`](../validation/fixtures/stage5f_mqtt_base_ci_run43870469820.jsonl) | `3c492beec440f44389c98d52b4c7524fab66cb5dbf9450ac9bbb238e5f6b6e05` |
-| burst | [`stage5f_mqtt_burst_ci_run43870469820.jsonl`](../validation/fixtures/stage5f_mqtt_burst_ci_run43870469820.jsonl) | `197709903917c4bd2c53c04839b92916b875239e86fedebcd4f2b126d60a4a8d` |
-| overload | [`stage5f_mqtt_overload_ci_run43870469820.jsonl`](../validation/fixtures/stage5f_mqtt_overload_ci_run43870469820.jsonl) | `833a688e4fafe084f18ddbd0b912cbe1bdd19a2ccd18fdfd9a39ddde83266ce3` |
+| base | [`stage5f_mqtt_base_ci_run43870469820.jsonl`](../../experiments/fixtures/stage5f_mqtt_base_ci_run43870469820.jsonl) | `3c492beec440f44389c98d52b4c7524fab66cb5dbf9450ac9bbb238e5f6b6e05` |
+| burst | [`stage5f_mqtt_burst_ci_run43870469820.jsonl`](../../experiments/fixtures/stage5f_mqtt_burst_ci_run43870469820.jsonl) | `197709903917c4bd2c53c04839b92916b875239e86fedebcd4f2b126d60a4a8d` |
+| overload | [`stage5f_mqtt_overload_ci_run43870469820.jsonl`](../../experiments/fixtures/stage5f_mqtt_overload_ci_run43870469820.jsonl) | `833a688e4fafe084f18ddbd0b912cbe1bdd19a2ccd18fdfd9a39ddde83266ce3` |
 
 The broker log SHA-256 is `4fa42714c8b3cce4a7fcf46491aff4a2a59f1757c9ce5d59887587c6d87167fb`. **No publish-to-callback network latency, realistic handler-service distribution, statistical superiority, validated absolute deadline, or algorithm novelty is implied.** The run uses only a single-machine synthetic two-class PBKDF2/FIFO pilot.
 

@@ -4,8 +4,8 @@ on:
   pull_request:
     paths:
       - .github/workflows/stage5g-service-contract.yml
-      - literature/validation/stage5g_**
-      - literature/validation/fixtures/stage5g_**
+      - experiments/stage5g_**
+      - experiments/fixtures/stage5g_**
       - literature/synthesis/application-handler-calibration-stage5g.md
   workflow_dispatch:
 
@@ -24,20 +24,20 @@ jobs:
 
       - name: Check independent handler and audit contracts
         run: |
-          python -m py_compile literature/validation/stage5g_reference_handler.py literature/validation/stage5g_service_audit.py
-          python literature/validation/stage5g_reference_handler.py --self-test
-          python literature/validation/stage5g_service_audit.py --self-test
+          python -m py_compile experiments/stage5g_reference_handler.py experiments/stage5g_service_audit.py
+          python experiments/stage5g_reference_handler.py --self-test
+          python experiments/stage5g_service_audit.py --self-test
 
       - name: Generate and independently audit two new ephemeral lab traces
         run: |
           mkdir -p stage5g-ci-output
-          python literature/validation/stage5g_reference_handler.py \
+          python experiments/stage5g_reference_handler.py \
             --events 32 --seeds 11 22 --output-dir stage5g-ci-output
-          python literature/validation/stage5g_service_audit.py stage5g-ci-output/*.jsonl
+          python experiments/stage5g_service_audit.py stage5g-ci-output/*.jsonl
 
       - name: Re-audit committed synthetic traces
         run: |
-          python literature/validation/stage5g_service_audit.py \
-            literature/validation/fixtures/stage5g_sqlite_seed101.jsonl \
-            literature/validation/fixtures/stage5g_sqlite_seed202.jsonl \
-            literature/validation/fixtures/stage5g_sqlite_seed303.jsonl
+          python experiments/stage5g_service_audit.py \
+            experiments/fixtures/stage5g_sqlite_seed101.jsonl \
+            experiments/fixtures/stage5g_sqlite_seed202.jsonl \
+            experiments/fixtures/stage5g_sqlite_seed303.jsonl

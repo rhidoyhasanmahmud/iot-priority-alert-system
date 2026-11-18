@@ -4,7 +4,7 @@
 **Scope:** independent tiny verifier; **no novel scheduling algorithm** and **no primary conference-result claim**.  
 **Inputs:** [RQ v1.0](research-questions.md), [Stage 5A boundary](application-boundary-stage5a.md), [Stage 5B archive suitability](archived-evidence-audit-stage5b.md), [Stage 4B novelty gate](novelty-decision-stage4b.md).
 
-**Reproducibility:** run `python3 literature/validation/stage5c_golden_oracle.py` from the repository root. The standard-library-only script is self-checking and exits nonzero if a golden case fails. It deliberately does not import the archived simulator or any candidate scheduler. Its role is an *independent specification of the metrics* against which a later implementation can be compared.
+**Reproducibility:** run `python3 experiments/stage5c_golden_oracle.py` from the repository root. The standard-library-only script is self-checking and exits nonzero if a golden case fails. It deliberately does not import the archived simulator or any candidate scheduler. Its role is an *independent specification of the metrics* against which a later implementation can be compared.
 
 ## Step 5C.1 — Freeze exact local measurement semantics
 
@@ -109,7 +109,7 @@ No effect size, confidence interval, policy ranking, universal capacity guarante
 | **Strong baseline comparability** | Only FIFO and strict priority in engineering smoke | Stage 6 preregistration needs suitable EDF+FIFO, aging, work-fair and N01-informed comparators under equal information. |
 | **Novelty** | Stage 4B **REVISE/NARROW**, proof/database/supervisor gate open | Do not claim a novel algorithm or conference readiness. |
 
-**What is allowed next:** review this metric oracle; obtain supervisor acceptance of the lab-only use case and operational/synthetic budget status; then prepare a **versioned Stage 6 baseline evaluation protocol**. The old prototype implementation remains archived. Only this **reference measurement verifier** has been introduced under `literature/validation/` for methodological reproducibility; it is **not** a restored application.
+**What is allowed next:** review this metric oracle; obtain supervisor acceptance of the lab-only use case and operational/synthetic budget status; then prepare a **versioned Stage 6 baseline evaluation protocol**. The old prototype implementation remains archived. Only this **reference measurement verifier** has been introduced under `experiments/` for methodological reproducibility; it is **not** a restored application.
 
 **Checklist — 5C.4**
 - [x] Distinguish **measurement validation** from real IoT system validation, algorithm quality or a paper finding.

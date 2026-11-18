@@ -4,8 +4,8 @@ on:
   pull_request:
     paths:
       - .github/workflows/stage5i-evidence-gate.yml
-      - literature/validation/stage5i_**
-      - literature/validation/fixtures/stage5i_**
+      - experiments/stage5i_**
+      - experiments/fixtures/stage5i_**
       - literature/synthesis/workload-evidence-calibration-stage5i.md
   workflow_dispatch:
 
@@ -23,19 +23,19 @@ jobs:
           python-version: '3.12'
       - name: Source and evidence validator regression
         run: |
-          python -m py_compile literature/validation/stage5i_evidence_gate.py
-          python literature/validation/stage5i_evidence_gate.py --self-test
+          python -m py_compile experiments/stage5i_evidence_gate.py
+          python experiments/stage5i_evidence_gate.py --self-test
 
       - name: Replay three independently auditable Stage 5H broker cases but reject field-calibration claim
         run: |
           mkdir -p stage5i-results
           for shape in base burst overload; do
             base64 --decode \
-              "literature/validation/fixtures/stage5h_mqtt_${shape}_ci43877369913.sqlite.b64" \
+              "experiments/fixtures/stage5h_mqtt_${shape}_ci43877369913.sqlite.b64" \
               > "stage5i-results/${shape}.sqlite"
-            python literature/validation/stage5i_evidence_gate.py \
-              --packet literature/validation/fixtures/stage5i_evidence_register.json \
-              --ledger "literature/validation/fixtures/stage5h_mqtt_${shape}_ci43877369913.jsonl" \
+            python experiments/stage5i_evidence_gate.py \
+              --packet experiments/fixtures/stage5i_evidence_register.json \
+              --ledger "experiments/fixtures/stage5h_mqtt_${shape}_ci43877369913.jsonl" \
               --sqlite "stage5i-results/${shape}.sqlite" \
               --output "stage5i-results/${shape}_readiness.json"
             python - "$shape" <<'PY'

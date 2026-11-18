@@ -53,7 +53,7 @@ Collect **redacted**, rights-cleared data and a separate immutable collection ma
 
 ## 5I.3 — Parameter decision worksheet (deliberately blank)
 
-The checked-in [`stage5i_evidence_register.json`](../validation/fixtures/stage5i_evidence_register.json) keeps these unknowns explicitly `null`; filling them is **not** a coding task and is **not** justified by any Stage 5F/H 50 ms demo configuration.
+The checked-in [`stage5i_evidence_register.json`](../../experiments/fixtures/stage5i_evidence_register.json) keeps these unknowns explicitly `null`; filling them is **not** a coding task and is **not** justified by any Stage 5F/H 50 ms demo configuration.
 
 | Symbol | Required semantics | Decision source | Current |
 | --- | --- | --- | --- |
@@ -74,7 +74,7 @@ Research protocol should later predeclare parameter ranges/sensitivity **before*
 
 ## 5I.4 — Executable negative evidence gate
 
-[`stage5i_evidence_gate.py`](../validation/stage5i_evidence_gate.py) has no dependency on a new scheduler. Given a declared packet, a Stage 5D-compatible ledger and (for Stage 5H) a **separately inspectable SQLite backup**, it:
+[`stage5i_evidence_gate.py`](../../experiments/stage5i_evidence_gate.py) has no dependency on a new scheduler. Given a declared packet, a Stage 5D-compatible ledger and (for Stage 5H) a **separately inspectable SQLite backup**, it:
 
 1. Re-runs the existing independent lifecycle verification and, for a Stage 5H run, the stronger independent fixture/class/rule/SQLite row-equality gate.
 2. Checks the packet has exactly the required controls and well-formed reviewer/URI/SHA/UTC evidence references **without pretending their substantive authenticity was proved**.
@@ -89,7 +89,7 @@ The built-in local Python 3.12 self-test passed one positive **technical** SQLit
 - `verdict = NOT_READY`; **23 explicit blockers**: synthetic origin, Stage 5H deterministic fixture, 16 missing external evidence controls and five unset numeric operational parameters.
 - `stage6_permission = NEVER_AUTOMATIC_HUMAN_SIGNOFF_REQUIRED`.
 
-The actual checked-in [`stage5i_synthetic_readiness.json`](../validation/fixtures/stage5i_synthetic_readiness.json) stores this **blocked diagnostic**, rather than a misleading certification. An accompanying [Stage 5I CI workflow](../../.github/workflows/stage5i-evidence-gate.yml) replays all three archived real-broker Stage 5H cases through the readiness gate and **requires** `NOT_READY`. This is a regression to catch an accidental upgrade of synthetic measurements into field evidence.
+The actual checked-in [`stage5i_synthetic_readiness.json`](../../experiments/fixtures/stage5i_synthetic_readiness.json) stores this **blocked diagnostic**, rather than a misleading certification. An accompanying [Stage 5I CI workflow](../../.github/workflows/stage5i-evidence-gate.yml) replays all three archived real-broker Stage 5H cases through the readiness gate and **requires** `NOT_READY`. This is a regression to catch an accidental upgrade of synthetic measurements into field evidence.
 
 **Verified GitHub Actions evidence:** [Stage 5I run #43880322439](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43880322439) completed **SUCCESS** on [PR #50](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/pull/50). The Ubuntu/Python 3.12 job passed all nine safety cases, independently decoded and checked each archived MQTT+SQLite pair, and explicitly asserted all three diagnoses remain `NOT_READY`: `base` 58 committed, `burst` 49 committed, `overload` 24 committed, all three with 60 source/offer records and **23 blockers each**. The complete three machine-readable diagnoses are in short-lived [Actions artifact #14232810316](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43880322439/artifacts/14232810316). The existing [Stage 5F real-broker regression #43880322206](https://github.com/rhidoyhasanmahmud/iot-priority-alert-system/actions/runs/43880322206) also completed **SUCCESS**. These checks verify methodology guardrails, **not** workload representativeness.
 
@@ -121,14 +121,14 @@ Neither route authorizes claiming novel scheduling behavior without resolving th
 
 ```bash
 # Repository root: self-tests need no broker, paho or third-party dependencies.
-python3 literature/validation/stage5i_evidence_gate.py --self-test
+python3 experiments/stage5i_evidence_gate.py --self-test
 
 # Decode one archived verified SQLite file into a NEW local path.
-base64 --decode literature/validation/fixtures/stage5h_mqtt_base_ci43877369913.sqlite.b64 \
+base64 --decode experiments/fixtures/stage5h_mqtt_base_ci43877369913.sqlite.b64 \
   > stage5i-base.sqlite
-python3 literature/validation/stage5i_evidence_gate.py \
-  --packet literature/validation/fixtures/stage5i_evidence_register.json \
-  --ledger literature/validation/fixtures/stage5h_mqtt_base_ci43877369913.jsonl \
+python3 experiments/stage5i_evidence_gate.py \
+  --packet experiments/fixtures/stage5i_evidence_register.json \
+  --ledger experiments/fixtures/stage5h_mqtt_base_ci43877369913.jsonl \
   --sqlite stage5i-base.sqlite --output stage5i-diagnostic.json
 
 # Read the blocked evidence controls; this output is NOT an SLA/performance result.

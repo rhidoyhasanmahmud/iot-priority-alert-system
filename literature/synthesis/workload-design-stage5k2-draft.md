@@ -44,7 +44,7 @@ Two transparent routes can support the chosen Controlled Testbed:
 
 **B. Explicitly artificial sensitivity study:** If empirical anchors are unavailable, state that arrivals, class labels, service demand and numeric constraints are **hypothetical**. Ask the professor/venue to approve that scope. Make the contribution a properly controlled explanation **inside the declared model**, without extrapolating to industrial/medical/emergency IoT or operator SLA guarantees.
 
-The Stage 5I [16-field readiness gate](../validation/stage5i_evidence_gate.py) remains the authority for external-evidence packets. A self-declared DOI or source link, a passed CI run, or a fabricated signed date cannot automatically upgrade a fictional workload into deployment evidence.
+The Stage 5I [16-field readiness gate](../../experiments/stage5i_evidence_gate.py) remains the authority for external-evidence packets. A self-declared DOI or source link, a passed CI run, or a fabricated signed date cannot automatically upgrade a fictional workload into deployment evidence.
 
 ## 5. Freeze checklist and rejection criteria
 

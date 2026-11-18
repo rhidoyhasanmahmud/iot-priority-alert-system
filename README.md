@@ -2,7 +2,7 @@
 
 Literature-first investigation of urgent/routine service, deadlines, fairness and burst/overload handling in IoT messaging.
 
-**Current progress: 19 core-related full-text reviews.** The working target of 20-25 relevant papers guides coverage; one main research question and three sub-questions are now framed from the reviews and targeted novelty checks. The selected direction is routine-service protection under an urgent deadline-failure budget; originality and application requirements still need evidence. Work continues through December 2026; no algorithm or simulation protocol is currently selected.
+**Current progress (November 2026):** 19 core-related full-text reviews, a frozen synthetic MQTT/SQLite Stage 10 study with 600 independently reaudited trials, and a supervisor go/no-go pending. The primary predeclared gate passed **under the artificial model only**; field validity, method novelty, resource-normalized superiority and publication suitability remain unverified. Research materials are separated into [literature and synthesis](literature/README.md) and [executable experiments](experiments/README.md).
 
 ## Read in this order
 
@@ -28,7 +28,12 @@ Literature-first investigation of urgent/routine service, deadlines, fairness an
 20. [Stage 5K: controlled workload/handler descriptive evidence profile, calibration decision card and Stage 6 blockers](literature/synthesis/workload-calibration-stage5k.md)
 21. [Stage 5K.2: synthetic workload contract candidate and calibration decisions (draft)](literature/synthesis/workload-design-stage5k2-draft.md)
 22. [Supervisor brief: synthetic-scope, novelty and threshold decision request](literature/synthesis/supervisor-decision-brief-stage4b5k.md)
-23. [Stage 6: experimental protocol draft (not preregistered)](literature/synthesis/experimental-protocol-stage6-draft.md)
+23. [Stage 6: earlier exploratory protocol draft (not the frozen Stage 10 protocol)](literature/synthesis/experimental-protocol-stage6-draft.md)
+24. [Stage 8: frozen synthetic holdout and limitations](literature/synthesis/stage8-heldout-result-record.md)
+25. [Stage 9: urgent pushout holdout and limitations](literature/synthesis/stage9-heldout-result-record.md)
+26. [Stage 10: frozen protocol](literature/synthesis/stage10-experimental-protocol-freeze.md)
+27. [Stage 10: independently audited 600-trial results and pending publication decision](literature/synthesis/stage10-heldout-result-record.md)
+28. [Experiment runner, fixtures, protocols, and validation tests](experiments/README.md)
 
 [Critical-review template](literature/review-template.md) · [Reference metadata](literature/references.json)
 

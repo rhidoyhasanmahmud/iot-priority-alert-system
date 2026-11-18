@@ -8,7 +8,7 @@
 
 ## 5J.1 — What the controlled testbed actually contains
 
-`stage5j_controlled_pilot.py` launches **a fresh child Python process for every run**, invoking unchanged [`stage5h_joint_gateway.py`](../validation/stage5h_joint_gateway.py). Each child begins with an empty dedup cache and per-run on-disk SQLite database. When `--transport mqtt` is used in CI, Stage 5H publishes the synthetic tamper/health fixture through Eclipse Paho QoS1 to a **real loopback Mosquitto broker**, waits for receiver callback capture, then one class-neutral, nonpreemptive FIFO worker performs fictional device-context lookup, deterministic rule, SQLite row insertion and `Connection.commit()`; post-run SQLite is backed up for a second independent reader.
+`stage5j_controlled_pilot.py` launches **a fresh child Python process for every run**, invoking unchanged [`stage5h_joint_gateway.py`](../../experiments/stage5h_joint_gateway.py). Each child begins with an empty dedup cache and per-run on-disk SQLite database. When `--transport mqtt` is used in CI, Stage 5H publishes the synthetic tamper/health fixture through Eclipse Paho QoS1 to a **real loopback Mosquitto broker**, waits for receiver callback capture, then one class-neutral, nonpreemptive FIFO worker performs fictional device-context lookup, deterministic rule, SQLite row insertion and `Connection.commit()`; post-run SQLite is backed up for a second independent reader.
 
 The gateway lifecycle remains the **same 2-class offered-population** research boundary, with `K` waiting slots **plus one active/reserved slot**. No priority policy has been substituted; there is no FIFO-vs-priority comparative performance claim. The actual SQLite API work is executed, but the database schema/rules and source mix are synthetic. The code and backend are therefore **working laboratory components**, not a validated production handler.
 
@@ -21,7 +21,7 @@ The gateway lifecycle remains the **same 2-class offered-population** research b
 
 ## 5J.2 — Predeclared *engineering* run matrix (NOT a preregistered paper experiment)
 
-The [controlled runner](../validation/stage5j_controlled_pilot.py) uses three *distinct seeded input fixtures*, three *planned source pacing shapes*, and two *illustrative* waiting capacities:
+The [controlled runner](../../experiments/stage5j_controlled_pilot.py) uses three *distinct seeded input fixtures*, three *planned source pacing shapes*, and two *illustrative* waiting capacities:
 
 | Factor | Values in the broker laboratory CI | Reason / limitation |
 | --- | --- | --- |
@@ -48,7 +48,7 @@ This design avoids **calling an intensified overload condition a pure burst-shap
 
 Each run writes a **complete Stage 5H JSONL callback/offer/SQL timing ledger**, a separate **post-run SQLite database backup** and a per-process output log. The parent records SHA-256 of all three artifacts, OS/Python/SQLite/Paho/version metadata, elapsed child-process wall time, differences in child `user`/`system` CPU time, and samples Linux `/proc/<pid>/status` `VmRSS` about every **10 ms**. Sampled resident memory is *not* a guaranteed true peak, stable benchmark, CPU quota or proof of resource capacity. Child process wall time also includes interpreter startup, publishing, queue drain and teardown, so it is **not** handler service time.
 
-[`stage5j_batch_audit.py`](../validation/stage5j_batch_audit.py) is a separate verification entry point. It does **not** import the Stage 5J runner for production auditing. It independently:
+[`stage5j_batch_audit.py`](../../experiments/stage5j_batch_audit.py) is a separate verification entry point. It does **not** import the Stage 5J runner for production auditing. It independently:
 
 1. Recomputes randomized run order and complete factorial coverage; rejects renamed, missing or extra cases.
 2. Verifies exact source SHA-256 **across source shapes and capacities** for each seed, frozen synthetic input count and planned-horizon base/burst equality; overload is zero-gap.
@@ -91,7 +91,7 @@ Descriptive *accounting*, grouped across three synthetic seeds (**not** a statis
 
 The tabulation demonstrates ledger conservation **inside this one small controlled run**; it does **not** show a new algorithm's advantage, policy superiority, valid application loss rates, urgent-deadline compliance or transferability to a different host. In particular, overload has zero planned source gaps, unlike base/burst at 472 ms planned source horizon. No statistical hypothesis or confidence interval is asserted.
 
-The CI artifact contains raw JSONLs and SQLite files for each of 18 runs, child logs, `batch.json`, independently computed `paired_batch_audit.json`, and Mosquitto log. A repository snapshot of [the CI batch manifest](../validation/fixtures/stage5j_ci43882411348_batch.json) and [the audit result](../validation/fixtures/stage5j_ci43882411348_audit.json) preserves small metadata after artifact expiry, **but those two JSON files alone cannot re-verify the raw databases/ledgers**. Re-running the source-controlled workflow can regenerate the experiment with **different measured timing** despite identical deterministic fixtures.
+The CI artifact contains raw JSONLs and SQLite files for each of 18 runs, child logs, `batch.json`, independently computed `paired_batch_audit.json`, and Mosquitto log. A repository snapshot of [the CI batch manifest](../../experiments/fixtures/stage5j_ci43882411348_batch.json) and [the audit result](../../experiments/fixtures/stage5j_ci43882411348_audit.json) preserves small metadata after artifact expiry, **but those two JSON files alone cannot re-verify the raw databases/ledgers**. Re-running the source-controlled workflow can regenerate the experiment with **different measured timing** despite identical deterministic fixtures.
 
 **Checklist — 5J.4**
 - [x] Commit a repeatable real-broker CI integration plan with full raw-evidence artifact and 18-run independent acceptance gate.
@@ -123,12 +123,12 @@ This controlled testbed choice is compatible with a **synthetic-input, real-MQTT
 
 ```bash
 # From repository root; create NEW output path for each run.
-python3 literature/validation/stage5j_controlled_pilot.py --self-test
-python3 literature/validation/stage5j_batch_audit.py --self-test
-python3 literature/validation/stage5j_controlled_pilot.py \
+python3 experiments/stage5j_controlled_pilot.py --self-test
+python3 experiments/stage5j_batch_audit.py --self-test
+python3 experiments/stage5j_controlled_pilot.py \
   --transport inproc --seeds 11 22 --events 12 \
   --queue-capacities 0 1 --output-dir stage5j-local-diagnostics
-python3 literature/validation/stage5j_batch_audit.py \
+python3 experiments/stage5j_batch_audit.py \
   stage5j-local-diagnostics/batch.json
 ```
 

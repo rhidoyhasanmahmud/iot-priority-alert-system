@@ -4,8 +4,8 @@ on:
   pull_request:
     paths:
       - .github/workflows/stage5k-workload-calibration.yml
-      - literature/validation/stage5k_workload_profile.py
-      - literature/validation/stage5j_**
+      - experiments/stage5k_workload_profile.py
+      - experiments/stage5j_**
       - literature/synthesis/workload-calibration-stage5k.md
   workflow_dispatch:
 
@@ -31,8 +31,8 @@ jobs:
 
       - name: Run fail-closed positive and malformed-lab tests
         run: |
-          python -m py_compile literature/validation/stage5k_workload_profile.py
-          python literature/validation/stage5k_workload_profile.py --self-test
+          python -m py_compile experiments/stage5k_workload_profile.py
+          python experiments/stage5k_workload_profile.py --self-test
 
       - name: Start local Mosquitto (real Paho transport)
         run: |
@@ -53,11 +53,11 @@ jobs:
 
       - name: Capture and independently re-audit controlled MQTT-to-SQLite raw batch
         run: |
-          python literature/validation/stage5j_controlled_pilot.py \
+          python experiments/stage5j_controlled_pilot.py \
             --transport mqtt --seeds 101 202 303 --events 60 --queue-capacities 0 3 \
             --shuffle-seed 20261116 --timeout-s 25 \
             --output-dir stage5k-artifacts/paired
-          python literature/validation/stage5k_workload_profile.py \
+          python experiments/stage5k_workload_profile.py \
             --batch stage5k-artifacts/paired/batch.json \
             --output stage5k-artifacts/descriptive_profile.json
           python - <<'PY'

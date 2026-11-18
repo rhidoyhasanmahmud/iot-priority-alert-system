@@ -5,7 +5,7 @@
 **Scope:** two trusted classes, one non-preemptive local application worker, `K` waiting slots plus one currently executing job. This is a measurement/evidence gate, not an algorithm, performance result, authenticated field trace or novelty claim.
 
 **Upstream:** [Stage 5A application boundary](application-boundary-stage5a.md) · [Stage 5B archived-evidence audit](archived-evidence-audit-stage5b.md) · [Stage 5C metric oracle](two-class-metric-validation-stage5c.md) · [Stage 4B REVISE/NARROW verdict](novelty-decision-stage4b.md).  
-**Auditor:** [`literature/validation/stage5d_lifecycle_audit.py`](../validation/stage5d_lifecycle_audit.py) — Python standard library only. Run `python3 literature/validation/stage5d_lifecycle_audit.py --self-test`; later use `python3 literature/validation/stage5d_lifecycle_audit.py path/to/records.jsonl` on a genuinely captured ledger.
+**Auditor:** [`experiments/stage5d_lifecycle_audit.py`](../../experiments/stage5d_lifecycle_audit.py) — Python standard library only. Run `python3 experiments/stage5d_lifecycle_audit.py --self-test`; later use `python3 experiments/stage5d_lifecycle_audit.py path/to/records.jsonl` on a genuinely captured ledger.
 
 ## Step 5D.1 — Verify and repair the conceptual timestamp boundary
 

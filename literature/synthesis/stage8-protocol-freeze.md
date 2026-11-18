@@ -2,7 +2,7 @@
 
 **Research line:** STI 2026, *Routine-Service Protection Under Bursty IoT Alerts: Deadline Trade-offs and Practical Limits*. This is **separate** from the earlier QPAIN 2027 `adaptive_guarded` protocol and neither modifies nor supersedes that plan.
 
-**Locked configuration:** [`stage8_frozen_protocol.json`](../validation/stage8_frozen_protocol.json). Exact byte-level SHA-256:
+**Locked configuration:** [`stage8_frozen_protocol.json`](../../experiments/stage8_frozen_protocol.json). Exact byte-level SHA-256:
 
 `1fe656270ce5843af8b26a6a288f712bb4afbf25a05f7d1f2ea9221e93163c52`
 
@@ -52,19 +52,19 @@ This design is **a reproducible, conditional synthetic model evaluation**, not p
 
 ## Auditable execution
 
-On a machine with Python 3.12 and importable scripts in `literature/validation/`:
+On a machine with Python 3.12 and importable scripts in `experiments/`:
 
 ```bash
 # Preflight uses only reserved tuning seeds, not scientific outcomes.
-python literature/validation/stage8_frozen_study.py \
+python experiments/stage8_frozen_study.py \
   --mode pilot --pilot-seeds 7001 7002 --output-dir /tmp/stage8-pilot
-python literature/validation/stage8_independent_analysis.py \
+python experiments/stage8_independent_analysis.py \
   --study-dir /tmp/stage8-pilot --pilot
 
 # Holdout requires the committed revision and an actual loopback Mosquitto broker.
-python literature/validation/stage8_frozen_study.py \
+python experiments/stage8_frozen_study.py \
   --mode holdout --git-revision COMMITTED_SHA --output-dir /tmp/stage8-heldout
-python literature/validation/stage8_independent_analysis.py \
+python experiments/stage8_independent_analysis.py \
   --study-dir /tmp/stage8-heldout --output /tmp/stage8-independent-results.json
 ```
 

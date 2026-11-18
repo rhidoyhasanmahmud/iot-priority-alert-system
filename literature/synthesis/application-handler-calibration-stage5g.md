@@ -9,7 +9,7 @@
 
 Our historical building/industrial-site scenario is a fictional gateway-side security-event enrichment service. The local *post-validation and post-dedup* worker receives two trusted classes: `tamper` (URGENT) and `health` (ROUTINE). The upstream trusted-class assignment is **outside** this single-worker measurement and is not a claim of authenticated device identity.
 
-**New reference application code:** [`stage5g_reference_handler.py`](../validation/stage5g_reference_handler.py) uses only the Python standard library. For each **synthetic** alert, one non-preemptive worker:
+**New reference application code:** [`stage5g_reference_handler.py`](../../experiments/stage5g_reference_handler.py) uses only the Python standard library. For each **synthetic** alert, one non-preemptive worker:
 
 1. Looks up a device's zone and tamper-alert enablement in a 16-row fictional SQLite `device_context` table.
 2. Evaluates a fixed rule: `TAMPER_REVIEW`/`TAMPER_DISABLED` for tamper events; `LOW_BATTERY`/`HEALTHY` for routine health events.
@@ -26,7 +26,7 @@ Database uses file-backed SQLite in a per-run temporary directory with `PRAGMA j
 
 ## Step 5G.2 — Build and independently check the provisional handler
 
-The source generator uses per-run seeded `random.Random` fixture fields and **one urgent every four events**, a test convenience rather than an observed workload mix. The SQLite reference handler rejects duplicate primary keys, invalid battery percent (including Boolean-as-integer), inconsistent class flags, and unknown device IDs; failed transactions roll back. A separate [`stage5g_service_audit.py`](../validation/stage5g_service_audit.py) uses **no emitter imports** and independently recomputes event IDs/order, source SHA-256, class, context/rule outcome, row count and exact `service = commit_return - work_start` arithmetic; it rejects overlapping worker intervals. It checks manifest declarations but **cannot independently prove** that the emitted host really used the declared SQLite journal/sync settings or actually committed the recorded rows: corroboration still requires the executable/runner and a controlled DB test.
+The source generator uses per-run seeded `random.Random` fixture fields and **one urgent every four events**, a test convenience rather than an observed workload mix. The SQLite reference handler rejects duplicate primary keys, invalid battery percent (including Boolean-as-integer), inconsistent class flags, and unknown device IDs; failed transactions roll back. A separate [`stage5g_service_audit.py`](../../experiments/stage5g_service_audit.py) uses **no emitter imports** and independently recomputes event IDs/order, source SHA-256, class, context/rule outcome, row count and exact `service = commit_return - work_start` arithmetic; it rejects overlapping worker intervals. It checks manifest declarations but **cannot independently prove** that the emitted host really used the declared SQLite journal/sync settings or actually committed the recorded rows: corroboration still requires the executable/runner and a controlled DB test.
 
 **Executed in Python 3.12.14:**
 
@@ -55,9 +55,9 @@ Ran **3 separate synthetic seeds × 120 completed jobs**, with exactly **30 urge
 
 The three synthetic raw JSONL ledgers are retained as reproducible fixtures:
 
-- [`stage5g_sqlite_seed101.jsonl`](../validation/fixtures/stage5g_sqlite_seed101.jsonl)
-- [`stage5g_sqlite_seed202.jsonl`](../validation/fixtures/stage5g_sqlite_seed202.jsonl)
-- [`stage5g_sqlite_seed303.jsonl`](../validation/fixtures/stage5g_sqlite_seed303.jsonl)
+- [`stage5g_sqlite_seed101.jsonl`](../../experiments/fixtures/stage5g_sqlite_seed101.jsonl)
+- [`stage5g_sqlite_seed202.jsonl`](../../experiments/fixtures/stage5g_sqlite_seed202.jsonl)
+- [`stage5g_sqlite_seed303.jsonl`](../../experiments/fixtures/stage5g_sqlite_seed303.jsonl)
 
 **Checklist — 5G.3**
 - [x] Execute 3 seed-level, 120-record reference-handler lab probes (360 commits; no queue/MQTT).
@@ -105,11 +105,11 @@ The existing [Stage 5F MQTT regression run #43873927339](https://github.com/rhid
 From the repository root:
 
 ```bash
-python3 literature/validation/stage5g_reference_handler.py --self-test
-python3 literature/validation/stage5g_service_audit.py --self-test
-python3 literature/validation/stage5g_reference_handler.py \
+python3 experiments/stage5g_reference_handler.py --self-test
+python3 experiments/stage5g_service_audit.py --self-test
+python3 experiments/stage5g_reference_handler.py \
   --events 120 --seeds 101 202 303 --output-dir stage5g-local-output
-python3 literature/validation/stage5g_service_audit.py stage5g-local-output/*.jsonl
+python3 experiments/stage5g_service_audit.py stage5g-local-output/*.jsonl
 ```
 
 Output paths are exclusive-create: use a new `--output-dir` when repeating. A rerun has the *same synthetic source fields and SHA-256*, **not** identical service durations or fixture file SHA-256. **Do not submit these prototype timings as experimental results.**
